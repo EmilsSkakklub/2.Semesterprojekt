@@ -14,6 +14,8 @@ public class MouseMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+    
+        playerBody = GameObject.Find("NEW Main Character").GetComponent<Transform>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -24,7 +26,7 @@ public class MouseMovement : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
         xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        xRotation = Mathf.Clamp(xRotation, 20f, 20f);
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
