@@ -54,15 +54,20 @@ public class CharacterAnimation : MonoBehaviour
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
         isJumpingHash = Animator.StringToHash("isJump");
+        isBackwardsHash = Animator.StringToHash("isBackwards");
         isAttack1Hash = Animator.StringToHash("isAttack1");
         isAttack2Hash = Animator.StringToHash("isAttack2");
         isAttack3Hash = Animator.StringToHash("isAttack3");
+        isLeftHash = Animator.StringToHash("isLeft");
+        isRightHash = Animator.StringToHash("isRight");
     }
 
     private void inputManager() {
         forwardPressed = Input.GetKey(KeyCode.W);
         runPressed = Input.GetKey(KeyCode.LeftShift);
         backwardPressed = Input.GetKey(KeyCode.S);
+        leftPressed = Input.GetKey(KeyCode.A);
+        rightPressed = Input.GetKey(KeyCode.D);
         jumpPressed = Input.GetKeyDown(KeyCode.Space);
         attackPressed = Input.GetMouseButtonDown(0);
     }
@@ -85,7 +90,13 @@ public class CharacterAnimation : MonoBehaviour
             animator.SetBool(isRunningHash, false);
         }
 
-
+        //walk backwards animation
+        if(backwardPressed) {
+            animator.SetBool(isBackwardsHash, true);
+        }
+        else if (!backwardPressed) {
+            animator.SetBool(isBackwardsHash, false);
+        }
 
         
         //attack animation
@@ -112,14 +123,35 @@ public class CharacterAnimation : MonoBehaviour
             animator.SetBool(isAttack3Hash, false);
         }
 
+        //jump attack animation
+        if(animator.GetCurrentAnimatorStateInfo(0).IsTag("4")) {
+            animator.SetBool(isAttack1Hash, false);
+        }
 
 
         //jump animation
-        if (jumpPressed && !isWalking) {
+        if (jumpPressed) {
             animator.SetBool(isJumpingHash, true);
         }
         else {
             animator.SetBool(isJumpingHash, false);
+        }
+
+
+        //strafe animation
+        if (leftPressed && !rightPressed) {
+            animator.SetBool(isLeftHash, true);
+        }
+        if(rightPressed && !leftPressed) {
+            animator.SetBool(isRightHash, true);
+        }
+        if (!rightPressed && !leftPressed) {
+            animator.SetBool(isLeftHash, false);
+            animator.SetBool(isRightHash, false);
+        }
+        if (rightPressed && leftPressed) {
+            animator.SetBool(isLeftHash, false);
+            animator.SetBool(isRightHash, false);
         }
 
 
