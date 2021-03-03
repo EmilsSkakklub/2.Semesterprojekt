@@ -12,7 +12,7 @@ public class MouseMovement : MonoBehaviour
 
     void Start()
     {   
-        playerBody = GameObject.Find("NEW Main Character").GetComponent<Transform>();
+        playerBody = GameObject.Find("Player").GetComponent<Transform>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 

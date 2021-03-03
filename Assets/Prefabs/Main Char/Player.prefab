@@ -352,8 +352,8 @@ GameObject:
   - component: {fileID: 2693857264682868236}
   - component: {fileID: 2693857264682868233}
   m_Layer: 0
-  m_Name: NEW Main Character
-  m_TagString: Untagged
+  m_Name: Player
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -439,6 +439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff810bf154f61984d85d407c05d89acc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   forwardPressed: 0
   runPressed: 0
   backwardPressed: 0
@@ -446,12 +447,15 @@ MonoBehaviour:
   rightPressed: 0
   jumpPressed: 0
   attackPressed: 0
+  crouchPressed: 0
   isWalking: 0
   isRunning: 0
   isjumping: 0
   isAttacking1: 0
   isAttacking2: 0
   isAttacking3: 0
+  isHit: 0
+  isDead: 0
   groundMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -459,6 +463,7 @@ MonoBehaviour:
   groundDistance: 0.4
   jumpHeight: 3
   isGrounded: 0
+  jumpNotReady: 0
 --- !u!1 &3055552108599367835
 GameObject:
   m_ObjectHideFlags: 0

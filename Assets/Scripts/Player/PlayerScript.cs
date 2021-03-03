@@ -254,16 +254,6 @@ public class PlayerScript : MonoBehaviour
         }
 
 
-
-        //jump animation
-        /*if (jumpPressed && isGrounded) {
-            animator.SetBool(isJumpingHash, true);
-        }
-        else {
-            animator.SetBool(isJumpingHash, false);
-        }*/
-
-
         //strafe animation
         if (leftPressed && !rightPressed) {
             animator.SetBool(isLeftHash, true);
@@ -279,6 +269,14 @@ public class PlayerScript : MonoBehaviour
             animator.SetBool(isLeftHash, false);
             animator.SetBool(isRightHash, false);
         }
+    }
 
+
+
+
+
+    //getters and setters
+    public Animator getAnimator() {
+        return animator;
     }
 }
