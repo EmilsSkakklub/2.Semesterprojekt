@@ -55,6 +55,7 @@ public class PlayerScript : MonoBehaviour
     public float jumpHeight = 3f;
 
     public bool isGrounded;
+    public bool jumpNotReady;
 
     // Start is called before the first frame update
     void Start()
@@ -69,6 +70,7 @@ public class PlayerScript : MonoBehaviour
     
     private void Update()
     {
+        
         inputManager();
         animateCharacter();
         Movement();
@@ -120,6 +122,7 @@ public class PlayerScript : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
+        // Reduced backwards walking speed
         if (backwardPressed) {
             speed = 0.6f;
         } else {
@@ -138,10 +141,11 @@ public class PlayerScript : MonoBehaviour
             controller.Move(move * speed * Time.deltaTime);
 
             //jump
-            if (Input.GetButtonDown("Jump") && isGrounded) {
-                Invoke("Jump", 0.305f);
-                isGrounded = false;
+            if (Input.GetButtonDown("Jump") && isGrounded && !jumpNotReady) {
+                jumpNotReady = true;
+                StartCoroutine(Jump());
             }
+
             //crouch
             if (crouchPressed) {
                 controller.Move(move * speed * -0.5f * Time.deltaTime);
@@ -155,7 +159,7 @@ public class PlayerScript : MonoBehaviour
 
 
         //REMOVE LATER!!!!!!! 
-        //press e to get hit
+        //press f to get hit
         if (Input.GetKeyDown(KeyCode.F)) {
             animator.SetBool(isHitHash, true);
         }
@@ -173,8 +177,13 @@ public class PlayerScript : MonoBehaviour
     }
 
     //jump method
-    void Jump() {
+    IEnumerator Jump() {
+        animator.SetBool(isJumpingHash, true);
+        yield return new WaitForSeconds(0.305f);
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        animator.SetBool(isJumpingHash, false);
+        yield return new WaitForSeconds(0.195f);
+        jumpNotReady = false;
     }
 
 
@@ -187,10 +196,6 @@ public class PlayerScript : MonoBehaviour
             isGrounded = false;
         }
     }
-
-    
-
-    
 
     //Method to do the animations of the character
     private void animateCharacter() {
@@ -251,12 +256,12 @@ public class PlayerScript : MonoBehaviour
 
 
         //jump animation
-        if (jumpPressed && isGrounded) {
+        /*if (jumpPressed && isGrounded) {
             animator.SetBool(isJumpingHash, true);
         }
         else {
             animator.SetBool(isJumpingHash, false);
-        }
+        }*/
 
 
         //strafe animation
