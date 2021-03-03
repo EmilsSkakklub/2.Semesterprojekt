@@ -39,7 +39,6 @@ public class PlayerScript : MonoBehaviour
     int isAttack3Hash;
 
 
-
     private CharacterController controller;
     public LayerMask groundMask;
 
@@ -55,8 +54,7 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        init();
-        
+        init(); 
     }
 
     // Update is called once per frame
@@ -111,7 +109,7 @@ public class PlayerScript : MonoBehaviour
     void GroundCheck() {
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.07f + 0.1f)) {
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.07f + 0.02f)) {
             isGrounded = true;
         } else {
             isGrounded = false;
@@ -205,7 +203,7 @@ public class PlayerScript : MonoBehaviour
 
 
         //jump animation
-        if (jumpPressed) {
+        if (jumpPressed && isGrounded) {
             animator.SetBool(isJumpingHash, true);
         }
         else {
