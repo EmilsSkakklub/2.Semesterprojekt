@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2138677392}
-  m_IndirectSpecularColor: {r: 0.2850269, g: 0.3713935, b: 0.49601045, a: 1}
+  m_IndirectSpecularColor: {r: 0.28502586, g: 0.37139237, b: 0.4960093, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7369,6 +7369,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1978123312}
     m_Modifications:
+    - target: {fileID: 3385068546817970193, guid: a1a79522059388147a085c85f97640f8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3c5ccd4fdf77f914f9c43df201fc60dd, type: 2}
     - target: {fileID: 3385068546817970206, guid: a1a79522059388147a085c85f97640f8, type: 3}
       propertyPath: m_Name
       value: Sword (prototype)

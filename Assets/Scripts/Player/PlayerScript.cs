@@ -27,6 +27,8 @@ public class PlayerScript : MonoBehaviour
     bool isBackwards;
     bool isTurningRight;
     bool isTurningLeft;
+    public bool isHit;
+    public bool isDead;
 
     //hash codes for  the animator 
     int isWalkingHash;
@@ -38,6 +40,8 @@ public class PlayerScript : MonoBehaviour
     int isAttack1Hash;
     int isAttack2Hash;
     int isAttack3Hash;
+    int isHitHash;
+    int isDeadHash;
 
 
     private CharacterController controller;
@@ -87,6 +91,8 @@ public class PlayerScript : MonoBehaviour
         isAttack3Hash = Animator.StringToHash("isAttack3");
         isLeftHash = Animator.StringToHash("isLeft");
         isRightHash = Animator.StringToHash("isRight");
+        isHitHash = Animator.StringToHash("isHit");
+        isDeadHash = Animator.StringToHash("isDead");
     }
 
     //method to check the players input
@@ -99,6 +105,7 @@ public class PlayerScript : MonoBehaviour
         jumpPressed = Input.GetKeyDown(KeyCode.Space);
         attackPressed = Input.GetMouseButtonDown(0);
         crouchPressed = Input.GetKeyDown(KeyCode.C);
+        
     }
 
     //movement method
@@ -113,11 +120,13 @@ public class PlayerScript : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
-        //can't move while attacking
+        //can't move while attacking or being hit
         if (!(animator.GetCurrentAnimatorStateInfo(0).IsTag("1") || 
             animator.GetCurrentAnimatorStateInfo(0).IsTag("2") || 
             animator.GetCurrentAnimatorStateInfo(0).IsTag("3") || 
-            animator.GetCurrentAnimatorStateInfo(0).IsTag("4"))) {
+            animator.GetCurrentAnimatorStateInfo(0).IsTag("4") ||
+            animator.GetCurrentAnimatorStateInfo(0).IsTag("Hit") ||
+            animator.GetCurrentAnimatorStateInfo(0).IsTag("Dead"))) {
 
 
             controller.Move(move * speed * Time.deltaTime);
@@ -137,9 +146,24 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
-        if (forwardPressed && attackPressed) {
-            
+
+
+        //REMOVE LATER!!!!!!! 
+        //press e to get hit
+        if (Input.GetKeyDown(KeyCode.E)) {
+            animator.SetBool(isHitHash, true);
         }
+        else {
+            animator.SetBool(isHitHash, false);
+        }
+        //press g to die
+        if (Input.GetKeyDown(KeyCode.G)) {
+            animator.SetBool(isDeadHash, true);
+        }
+        else {
+            animator.SetBool(isDeadHash, false);
+        }
+
     }
 
     //jump method
