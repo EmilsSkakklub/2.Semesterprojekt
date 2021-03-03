@@ -120,11 +120,17 @@ public class PlayerScript : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
+        if (backwardPressed) {
+            speed = 0.6f;
+        } else {
+            speed = 1f;
+        }
+
         //can't move while attacking or being hit
         if (!(animator.GetCurrentAnimatorStateInfo(0).IsTag("1") || 
             animator.GetCurrentAnimatorStateInfo(0).IsTag("2") || 
             animator.GetCurrentAnimatorStateInfo(0).IsTag("3") || 
-            animator.GetCurrentAnimatorStateInfo(0).IsTag("4") ||
+            /*animator.GetCurrentAnimatorStateInfo(0).IsTag("4") ||*/       //So it wont stop the mid air attack
             animator.GetCurrentAnimatorStateInfo(0).IsTag("Hit") ||
             animator.GetCurrentAnimatorStateInfo(0).IsTag("Dead"))) {
 
@@ -150,7 +156,7 @@ public class PlayerScript : MonoBehaviour
 
         //REMOVE LATER!!!!!!! 
         //press e to get hit
-        if (Input.GetKeyDown(KeyCode.E)) {
+        if (Input.GetKeyDown(KeyCode.F)) {
             animator.SetBool(isHitHash, true);
         }
         else {
