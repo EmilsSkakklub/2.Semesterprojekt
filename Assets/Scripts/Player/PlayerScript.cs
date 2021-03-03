@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     Animator animator;
+    public Rigidbody rb;
 
     //input booleans
     public bool forwardPressed;
@@ -70,55 +71,10 @@ public class PlayerScript : MonoBehaviour
         
     }
 
-
-    //movement method
-    private void Movement() {
-        if (isGrounded && velocity.y < 0) {
-            velocity.y = -2f;
-        }
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-        Vector3 move = transform.right * x + transform.forward * z;
-        controller.Move(move * speed * Time.deltaTime);
-
-        //jump
-        if (Input.GetButtonDown("Jump") && isGrounded) {
-            Invoke("Jump", 0.305f);
-            isGrounded = false;
-        }
-
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
-
-        //crouch
-        if (crouchPressed) {
-            controller.Move(move * speed * -0.5f * Time.deltaTime);
-        }
-        //sprint
-        if (runPressed) {
-            controller.Move(move * speed * 1.5f * Time.deltaTime);
-        }
-    }
-
-    //jump method
-    void Jump() {
-        velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-    }
-
-    //method for checking if the player is grounded
-    void GroundCheck() {
-
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.07f + 0.02f)) {
-            isGrounded = true;
-        } else {
-            isGrounded = false;
-        }
-    }
-
     //method for initialisation
     private void init() {
         controller = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
 
         animator = GetComponent<Animator>();
 
@@ -144,6 +100,67 @@ public class PlayerScript : MonoBehaviour
         attackPressed = Input.GetMouseButtonDown(0);
         crouchPressed = Input.GetKeyDown(KeyCode.C);
     }
+
+    //movement method
+    private void Movement() {
+        if (isGrounded && velocity.y < 0) {
+            velocity.y = -2f;
+        }
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+        Vector3 move = transform.right * x + transform.forward * z;
+
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+
+        //can't move while attacking
+        if (!(animator.GetCurrentAnimatorStateInfo(0).IsTag("1") || 
+            animator.GetCurrentAnimatorStateInfo(0).IsTag("2") || 
+            animator.GetCurrentAnimatorStateInfo(0).IsTag("3") || 
+            animator.GetCurrentAnimatorStateInfo(0).IsTag("4"))) {
+
+
+            controller.Move(move * speed * Time.deltaTime);
+
+            //jump
+            if (Input.GetButtonDown("Jump") && isGrounded) {
+                Invoke("Jump", 0.305f);
+                isGrounded = false;
+            }
+            //crouch
+            if (crouchPressed) {
+                controller.Move(move * speed * -0.5f * Time.deltaTime);
+            }
+            //sprint
+            if (runPressed && !backwardPressed) {
+                controller.Move(move * speed * 1.5f * Time.deltaTime);
+            }
+        }
+
+        if (forwardPressed && attackPressed) {
+            
+        }
+    }
+
+    //jump method
+    void Jump() {
+        velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+    }
+
+
+    //method for checking if the player is grounded
+    void GroundCheck() {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.07f + 0.02f)) {
+            isGrounded = true;
+        } else {
+            isGrounded = false;
+        }
+    }
+
+    
+
+    
 
     //Method to do the animations of the character
     private void animateCharacter() {
@@ -200,6 +217,7 @@ public class PlayerScript : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsTag("4")) {
             animator.SetBool(isAttack1Hash, false);
         }
+
 
 
         //jump animation
