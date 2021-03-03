@@ -1,13 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerScript : MonoBehaviour
+public class TESTPLAYERSCP : MonoBehaviour
 {
     Animator animator;
     public Rigidbody rb;
-    private CharacterController controller;
-    public LayerMask groundMask;
 
     //input booleans
     public bool forwardPressed;
@@ -46,7 +44,8 @@ public class PlayerScript : MonoBehaviour
     int isDeadHash;
 
 
-    
+    public CharacterController controller;
+    public LayerMask groundMask;
 
     Vector3 velocity;
 
@@ -55,31 +54,37 @@ public class PlayerScript : MonoBehaviour
     public float groundDistance = 0.4f;
     public float jumpHeight = 3f;
 
+    float TurnSmoothVelocity;
+    public float SmoothTurn = 0.1f;
+    public Transform Camera;
+
     public bool isGrounded;
     public bool jumpNotReady;
 
     // Start is called before the first frame update
     void Start()
     {
-        init(); 
+        init();
     }
 
     // Update is called once per frame
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
         GroundCheck();
     }
-    
+
     private void Update()
     {
-        
+
         inputManager();
         animateCharacter();
         Movement();
-        
+
     }
 
     //method for initialisation
-    private void init() {
+    private void init()
+    {
         controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
 
@@ -99,7 +104,8 @@ public class PlayerScript : MonoBehaviour
     }
 
     //method to check the players input
-    private void inputManager() {
+    private void inputManager()
+    {
         forwardPressed = Input.GetKey(KeyCode.W);
         runPressed = Input.GetKey(KeyCode.LeftShift);
         backwardPressed = Input.GetKey(KeyCode.S);
@@ -108,52 +114,72 @@ public class PlayerScript : MonoBehaviour
         jumpPressed = Input.GetKeyDown(KeyCode.Space);
         attackPressed = Input.GetMouseButtonDown(0);
         crouchPressed = Input.GetKeyDown(KeyCode.C);
-        
+
     }
 
     //movement method
-    private void Movement() {
-        if (isGrounded && velocity.y < 0) {
-            velocity.y = -2f;
-        }
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-        Vector3 move = transform.right * x + transform.forward * z;
+    private void Movement()
+    {
 
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
+        
+        
+
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+
+        
+        
+
+        if (direction.magnitude >= 0.1f)
+        {
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + Camera.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref TurnSmoothVelocity, SmoothTurn);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+            Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            controller.Move(moveDirection.normalized * speed * Time.deltaTime);
+        }
+
 
         // Reduced backwards walking speed
-        if (backwardPressed) {
+        if (backwardPressed)
+        {
             speed = 0.6f;
-        } else {
+        }
+        else
+        {
             speed = 1f;
         }
 
         //can't move while attacking or being hit
-        if (!(animator.GetCurrentAnimatorStateInfo(0).IsTag("1") || 
-            animator.GetCurrentAnimatorStateInfo(0).IsTag("2") || 
-            animator.GetCurrentAnimatorStateInfo(0).IsTag("3") || 
+        if (!(animator.GetCurrentAnimatorStateInfo(0).IsTag("1") ||
+            animator.GetCurrentAnimatorStateInfo(0).IsTag("2") ||
+            animator.GetCurrentAnimatorStateInfo(0).IsTag("3") ||
             /*animator.GetCurrentAnimatorStateInfo(0).IsTag("4") ||*/       //So it wont stop the mid air attack
             animator.GetCurrentAnimatorStateInfo(0).IsTag("Hit") ||
-            animator.GetCurrentAnimatorStateInfo(0).IsTag("Dead"))) {
+            animator.GetCurrentAnimatorStateInfo(0).IsTag("Dead")))
+        {
 
 
-            controller.Move(move * speed * Time.deltaTime);
+            controller.Move(direction * speed * Time.deltaTime);
 
             //jump
-            if (Input.GetButtonDown("Jump") && isGrounded && !jumpNotReady) {
+            if (Input.GetButtonDown("Jump") && isGrounded && !jumpNotReady)
+            {
                 jumpNotReady = true;
                 StartCoroutine(Jump());
             }
 
             //crouch
-            if (crouchPressed) {
-                controller.Move(move * speed * -0.5f * Time.deltaTime);
+            if (crouchPressed)
+            {
+                controller.Move(direction * speed * -0.5f * Time.deltaTime);
             }
             //sprint
-            if (runPressed && !backwardPressed) {
-                controller.Move(move * speed * 1.5f * Time.deltaTime);
+            if (runPressed && !backwardPressed)
+            {
+                controller.Move(direction * speed * 1.5f * Time.deltaTime);
             }
         }
 
@@ -161,24 +187,29 @@ public class PlayerScript : MonoBehaviour
 
         //REMOVE LATER!!!!!!! 
         //press f to get hit
-        if (Input.GetKeyDown(KeyCode.F)) {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
             animator.SetBool(isHitHash, true);
         }
-        else {
+        else
+        {
             animator.SetBool(isHitHash, false);
         }
         //press g to die
-        if (Input.GetKeyDown(KeyCode.G)) {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
             animator.SetBool(isDeadHash, true);
         }
-        else {
+        else
+        {
             animator.SetBool(isDeadHash, false);
         }
 
     }
 
     //jump method
-    IEnumerator Jump() {
+    IEnumerator Jump()
+    {
         animator.SetBool(isJumpingHash, true);
         yield return new WaitForSeconds(0.305f);
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
@@ -189,38 +220,49 @@ public class PlayerScript : MonoBehaviour
 
 
     //method for checking if the player is grounded
-    void GroundCheck() {
+    void GroundCheck()
+    {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.07f + 0.02f)) {
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.07f + 0.02f))
+        {
             isGrounded = true;
-        } else {
+        }
+        else
+        {
             isGrounded = false;
         }
     }
 
     //Method to do the animations of the character
-    private void animateCharacter() {
+    private void animateCharacter()
+    {
         //walk animation
-        if (forwardPressed && !isWalking) {
+        if (forwardPressed && !isWalking)
+        {
             animator.SetBool(isWalkingHash, true);
         }
-        else if (!forwardPressed) {
+        else if (!forwardPressed)
+        {
             animator.SetBool(isWalkingHash, false);
         }
 
         //run animation
-        if ((runPressed && forwardPressed) && !isRunning) {
+        if ((runPressed && forwardPressed) && !isRunning)
+        {
             animator.SetBool(isRunningHash, true);
         }
-        else if ((!runPressed || !forwardPressed)) {
+        else if ((!runPressed || !forwardPressed))
+        {
             animator.SetBool(isRunningHash, false);
         }
 
         //walk backwards animation
-        if (backwardPressed) {
+        if (backwardPressed)
+        {
             animator.SetBool(isBackwardsHash, true);
         }
-        else if (!backwardPressed) {
+        else if (!backwardPressed)
+        {
             animator.SetBool(isBackwardsHash, false);
         }
 
@@ -228,56 +270,69 @@ public class PlayerScript : MonoBehaviour
         //attack animation
         if (attackPressed && !animator.GetCurrentAnimatorStateInfo(0).IsTag("1")
             && !animator.GetCurrentAnimatorStateInfo(0).IsTag("2")
-            && !animator.GetCurrentAnimatorStateInfo(0).IsTag("3")) {
+            && !animator.GetCurrentAnimatorStateInfo(0).IsTag("3"))
+        {
             animator.SetBool(isAttack1Hash, true);
         }
-        if (attackPressed && animator.GetCurrentAnimatorStateInfo(0).IsTag("1")) {
+        if (attackPressed && animator.GetCurrentAnimatorStateInfo(0).IsTag("1"))
+        {
             animator.SetBool(isAttack2Hash, true);
         }
-        if (attackPressed && animator.GetCurrentAnimatorStateInfo(0).IsTag("2")) {
+        if (attackPressed && animator.GetCurrentAnimatorStateInfo(0).IsTag("2"))
+        {
             animator.SetBool(isAttack3Hash, true);
         }
 
 
-        if (!attackPressed && animator.GetCurrentAnimatorStateInfo(0).IsTag("1")) {
+        if (!attackPressed && animator.GetCurrentAnimatorStateInfo(0).IsTag("1"))
+        {
             animator.SetBool(isAttack1Hash, false);
         }
-        if (!attackPressed && animator.GetCurrentAnimatorStateInfo(0).IsTag("2")) {
+        if (!attackPressed && animator.GetCurrentAnimatorStateInfo(0).IsTag("2"))
+        {
             animator.SetBool(isAttack2Hash, false);
         }
-        if (!attackPressed && animator.GetCurrentAnimatorStateInfo(0).IsTag("3")) {
+        if (!attackPressed && animator.GetCurrentAnimatorStateInfo(0).IsTag("3"))
+        {
             animator.SetBool(isAttack3Hash, false);
         }
 
         //jump attack animation
-        if (animator.GetCurrentAnimatorStateInfo(0).IsTag("4")) {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsTag("4"))
+        {
             animator.SetBool(isAttack1Hash, false);
         }
 
 
+
+        //jump animation
+        /*if (jumpPressed && isGrounded) {
+            animator.SetBool(isJumpingHash, true);
+        }
+        else {
+            animator.SetBool(isJumpingHash, false);
+        }*/
+
+
         //strafe animation
-        if (leftPressed && !rightPressed) {
+        if (leftPressed && !rightPressed)
+        {
             animator.SetBool(isLeftHash, true);
         }
-        if (rightPressed && !leftPressed) {
+        if (rightPressed && !leftPressed)
+        {
             animator.SetBool(isRightHash, true);
         }
-        if (!rightPressed && !leftPressed) {
+        if (!rightPressed && !leftPressed)
+        {
             animator.SetBool(isLeftHash, false);
             animator.SetBool(isRightHash, false);
         }
-        if (rightPressed && leftPressed) {
+        if (rightPressed && leftPressed)
+        {
             animator.SetBool(isLeftHash, false);
             animator.SetBool(isRightHash, false);
         }
-    }
 
-
-
-
-
-    //getters and setters
-    public Animator getAnimator() {
-        return animator;
     }
 }
