@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2138677392}
-  m_IndirectSpecularColor: {r: 0.28502586, g: 0.37139237, b: 0.4960093, a: 1}
+  m_IndirectSpecularColor: {r: 0.2850269, g: 0.3713935, b: 0.49601045, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2349,41 +2349,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 298429207428673779, guid: 51168967b47b4394bbeb82b2a75874f4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.28
-      objectReference: {fileID: 0}
-    - target: {fileID: 298429207428673779, guid: 51168967b47b4394bbeb82b2a75874f4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.69
-      objectReference: {fileID: 0}
-    - target: {fileID: 590922636182168393, guid: 51168967b47b4394bbeb82b2a75874f4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.1200006
-      objectReference: {fileID: 0}
-    - target: {fileID: 590922636182168393, guid: 51168967b47b4394bbeb82b2a75874f4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -2.7282455
-      objectReference: {fileID: 0}
     - target: {fileID: 1746142411674508225, guid: 51168967b47b4394bbeb82b2a75874f4, type: 3}
       propertyPath: m_Name
       value: House
-      objectReference: {fileID: 0}
-    - target: {fileID: 5816683401701774488, guid: 51168967b47b4394bbeb82b2a75874f4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.2800004
-      objectReference: {fileID: 0}
-    - target: {fileID: 5816683401701774488, guid: 51168967b47b4394bbeb82b2a75874f4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.6923454
-      objectReference: {fileID: 0}
-    - target: {fileID: 7049484401871462941, guid: 51168967b47b4394bbeb82b2a75874f4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.2800004
-      objectReference: {fileID: 0}
-    - target: {fileID: 7049484401871462941, guid: 51168967b47b4394bbeb82b2a75874f4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -2.8583457
       objectReference: {fileID: 0}
     - target: {fileID: 7554464831123698984, guid: 51168967b47b4394bbeb82b2a75874f4, type: 3}
       propertyPath: m_RootOrder
