@@ -49,12 +49,21 @@ public class PlayerScript : MonoBehaviour
     float jumpHeight = .75f;
     float gravity = -9.81f;
 
+    public bool dash1Ready;
+    public bool dash2Ready;
+    public bool dash3Ready;
+    public float dashSpeed = 10f;
+    public float dashTime = .1f;
+
+
+
+
 
 
 
     private void Start() {
         initiate();
-        Cursor.lockState = CursorLockMode.Locked;
+       
     }
     private void FixedUpdate() {
         GroundCheck();
@@ -65,6 +74,11 @@ public class PlayerScript : MonoBehaviour
         animatePlayer();
         inputManager();
 
+
+        /*
+        StartCoroutine("Dash1");
+        StartCoroutine("Dash2");
+        StartCoroutine("Dash3");
         //TESTKODE - FJERN SENERE
         if (Input.GetKeyDown(KeyCode.F)) {
             animator.SetBool(isHitHash, true);
@@ -75,7 +89,7 @@ public class PlayerScript : MonoBehaviour
         else {
             animator.SetBool(isHitHash, false);
             animator.SetBool(isDeadHash, false);
-        }
+        }*/
     }
 
 
@@ -97,6 +111,8 @@ public class PlayerScript : MonoBehaviour
         isHitHash = Animator.StringToHash("isHit");
         isDeadHash = Animator.StringToHash("isDead");
         isCrouchingHash = Animator.StringToHash("isCrouching");
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void inputManager() {
@@ -131,8 +147,6 @@ public class PlayerScript : MonoBehaviour
         // jump
         if (Input.GetButtonDown("Jump") && isGrounded) {
             StartCoroutine("Jump");
-            
-            //StartCoroutine(Jump());
         }
 
         //gravity
@@ -167,6 +181,15 @@ public class PlayerScript : MonoBehaviour
     }
 
     private void animatePlayer() {
+
+        //checks if idle / runnig / walking
+        if (animator.GetCurrentAnimatorStateInfo(0).IsTag("idle")) {
+
+            dash1Ready = true;
+            dash2Ready = true;
+            dash3Ready = true;
+        }
+
         //walking animation
         if((forwardPressed || backwardPressed || leftPressed || rightPressed)) {
             animator.SetBool(isWalkingHash, true);
@@ -193,37 +216,70 @@ public class PlayerScript : MonoBehaviour
 
         if (crouchingToggle) {
             animator.SetBool(isCrouchingHash, true);
+
+            //Corrects hitbox and speed
+            controller.height = 0.1f;
+            controller.center = new Vector3(0f, 0.05f, 0f);
             speed = 1;
         }
         else if (!crouchingToggle) {
             animator.SetBool(isCrouchingHash, false);
+
+            //Corrects hitbox and speed
+            controller.height = 0.14f;
+            controller.center = new Vector3(0f, 0.075f, 0f);
         }
 
 
         //attack animation
+        //attack 1
         if (attackPressed && !animator.GetCurrentAnimatorStateInfo(0).IsTag("1")
-            && !animator.GetCurrentAnimatorStateInfo(0).IsTag("2")
-            && !animator.GetCurrentAnimatorStateInfo(0).IsTag("3")) {
+                          && !animator.GetCurrentAnimatorStateInfo(0).IsTag("2")
+                          && !animator.GetCurrentAnimatorStateInfo(0).IsTag("3")) {
             animator.SetBool(isAttack1Hash, true);
             crouchingToggle = false;
+            /*
+            if (dash1Ready && !animator.IsInTransition(0)) {
+                StartCoroutine("Dash1");
+                dash1Ready = false;
+            }*/
+
         }
+
+
+        //attack 2
         if (attackPressed && animator.GetCurrentAnimatorStateInfo(0).IsTag("1")) {
             animator.SetBool(isAttack2Hash, true);
 
+            /*if (dash2Ready && !animator.IsInTransition(0)) {
+                StartCoroutine("Dash2");
+                dash2Ready = false;
+            }*/
         }
+        
+
+
+        //attack 3
         if (attackPressed && animator.GetCurrentAnimatorStateInfo(0).IsTag("2")) {
             animator.SetBool(isAttack3Hash, true);
+            /*if (dash3Ready && !animator.IsInTransition(0)) {
+                StartCoroutine("Dash3");
+                dash3Ready = false;
+            }*/
         }
 
 
         if (!attackPressed && animator.GetCurrentAnimatorStateInfo(0).IsTag("1")) {
             animator.SetBool(isAttack1Hash, false);
+
         }
         if (!attackPressed && animator.GetCurrentAnimatorStateInfo(0).IsTag("2")) {
             animator.SetBool(isAttack2Hash, false);
+
         }
         if (!attackPressed && animator.GetCurrentAnimatorStateInfo(0).IsTag("3")) {
             animator.SetBool(isAttack3Hash, false);
+
         }
 
         //jump attack animation
@@ -232,13 +288,49 @@ public class PlayerScript : MonoBehaviour
         }
 
     }
+    /*IEnumerator Dash1() {
+        bool attack1playing = animator.GetCurrentAnimatorStateInfo(0).IsTag("1");
+        yield return new WaitUntil(() => attack1playing);
 
+        yield return new WaitForSeconds(0.20f);
 
+        float startTime = Time.time; // need to remember this to know how long to dash
+        while (Time.time < startTime + dashTime) {
+            controller.Move(transform.forward * dashSpeed * Time.deltaTime);
+            yield return null; // this will make Unity stop here and continue next frame
+            }
+        
+        
+    }
+    IEnumerator Dash2() {
+        bool attack2playing = animator.GetCurrentAnimatorStateInfo(0).IsTag("2");
+        yield return new WaitUntil(() => attack2playing);
+        yield return new WaitForSeconds(0.50f);
+        float startTime = Time.deltaTime; // need to remember this to know how long to dash
+        while (Time.time < startTime + dashTime) {
+            controller.Move(transform.forward * dashSpeed * Time.deltaTime);
+            yield return null; // this will make Unity stop here and continue next frame
+        }
+    }
+    IEnumerator Dash3() {
+        bool attack3playing = animator.GetCurrentAnimatorStateInfo(0).IsTag("3");
+        yield return new WaitUntil(() => attack3playing);
 
+        yield return new WaitForSeconds(0.50f);
+        float startTime = Time.time; // need to remember this to know how long to dash
+        while (Time.time < startTime + dashTime) {
+            controller.Move(transform.forward * dashSpeed * Time.deltaTime);
+            yield return null; // this will make Unity stop here and continue next frame
+        }
+    }*/
 
     //getters and setters
     public Animator getAnimator() {
         return animator;
     }
-
 }
+
+
+
+
+
