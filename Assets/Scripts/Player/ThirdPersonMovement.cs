@@ -85,7 +85,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
-        isJumpingHash = Animator.StringToHash("isJump");
+        isJumpingHash = Animator.StringToHash("isJumping");
         isBackwardsHash = Animator.StringToHash("isBackwards");
         isAttack1Hash = Animator.StringToHash("isAttack1");
         isAttack2Hash = Animator.StringToHash("isAttack2");
@@ -115,16 +115,19 @@ public class ThirdPersonMovement : MonoBehaviour
         //prevents from using y-axis (Normalized so you wont move faster when pressing W && D/A)
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
+
+
+
         if (direction.magnitude >= 0.1f) {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref TurnSmoothVelocity, SmoothTurn);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f)* Vector3.forward;
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
         }
 
-        // jump
+            // jump
         if (Input.GetButtonDown("Jump") && isGrounded) {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             //StartCoroutine(Jump());
@@ -149,13 +152,14 @@ public class ThirdPersonMovement : MonoBehaviour
         }
     }
 
+    
+
+
+
     //jump method
     /*IEnumerator Jump() {
-        animator.SetBool(isJumpingHash, true);
         yield return new WaitForSeconds(0.305f);
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        animator.SetBool(isJumpingHash, false);
-        yield return new WaitForSeconds(0.195f);
     }*/
 
     private void animatePlayer() {
@@ -177,6 +181,13 @@ public class ThirdPersonMovement : MonoBehaviour
             speed = 2;
         }
 
+        //jumping animation
+        if (jumpPressed) {
+            animator.SetBool(isJumpingHash, true);
+        }
+        else if (!jumpPressed){
+            animator.SetBool(isJumpingHash, false);
+        }
 
         //attack animation
         if (attackPressed && !animator.GetCurrentAnimatorStateInfo(0).IsTag("1")
@@ -201,6 +212,12 @@ public class ThirdPersonMovement : MonoBehaviour
         if (!attackPressed && animator.GetCurrentAnimatorStateInfo(0).IsTag("3")) {
             animator.SetBool(isAttack3Hash, false);
         }
+
+        //jump attack animation
+        if (animator.GetCurrentAnimatorStateInfo(0).IsTag("4")) {
+            animator.SetBool(isAttack1Hash, false);
+        }
+
 
     }
 }
