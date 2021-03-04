@@ -29,7 +29,7 @@ public class ThirdPersonMovement : MonoBehaviour
     //bool to check if what the player is doing
     public bool isWalking;
     public bool isRunning;
-    public bool isjumping;
+    public bool isJumping;
     public bool isAttacking1;
     public bool isAttacking2;
     public bool isAttacking3;
@@ -56,7 +56,7 @@ public class ThirdPersonMovement : MonoBehaviour
     Vector3 velocity;
     public bool isGrounded;
     public bool jumpNotReady;
-    float jumpHeight = 1f;
+    float jumpHeight = .75f;
     float gravity = -9.81f;
 
 
@@ -94,6 +94,7 @@ public class ThirdPersonMovement : MonoBehaviour
         isRightHash = Animator.StringToHash("isRight");
         isHitHash = Animator.StringToHash("isHit");
         isDeadHash = Animator.StringToHash("isDead");
+
     }
 
     private void inputManager() {
@@ -116,8 +117,6 @@ public class ThirdPersonMovement : MonoBehaviour
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
 
-
-
         if (direction.magnitude >= 0.1f) {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref TurnSmoothVelocity, SmoothTurn);
@@ -127,9 +126,10 @@ public class ThirdPersonMovement : MonoBehaviour
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
         }
 
-            // jump
+        // jump
         if (Input.GetButtonDown("Jump") && isGrounded) {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            StartCoroutine("Jump");
+            
             //StartCoroutine(Jump());
         }
 
@@ -152,15 +152,14 @@ public class ThirdPersonMovement : MonoBehaviour
         }
     }
 
-    
-
-
-
     //jump method
-    /*IEnumerator Jump() {
-        yield return new WaitForSeconds(0.305f);
+    IEnumerator Jump() {
+        animator.SetBool(isJumpingHash, true);
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-    }*/
+
+        yield return new WaitForSeconds(0.2f);
+        animator.SetBool(isJumpingHash, false);
+    }
 
     private void animatePlayer() {
         //walking animation
@@ -182,12 +181,13 @@ public class ThirdPersonMovement : MonoBehaviour
         }
 
         //jumping animation
-        if (jumpPressed) {
+        /*if (jumpPressed) {
             animator.SetBool(isJumpingHash, true);
         }
         else if (!jumpPressed){
             animator.SetBool(isJumpingHash, false);
-        }
+        }*/
+
 
         //attack animation
         if (attackPressed && !animator.GetCurrentAnimatorStateInfo(0).IsTag("1")
