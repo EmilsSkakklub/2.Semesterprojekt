@@ -15,6 +15,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
     private float TurnSmoothVelocity;
 
+    private bool crouchingToggle = false;
 
     //input booleans
     public bool forwardPressed;
@@ -26,18 +27,6 @@ public class ThirdPersonMovement : MonoBehaviour
     public bool attackPressed;
     public bool crouchPressed;
 
-    //bool to check if what the player is doing
-    public bool isWalking;
-    public bool isRunning;
-    public bool isJumping;
-    public bool isAttacking1;
-    public bool isAttacking2;
-    public bool isAttacking3;
-    bool isBackwards;
-    bool isTurningRight;
-    bool isTurningLeft;
-    public bool isHit;
-    public bool isDead;
 
     //hash codes for  the animator 
     int isWalkingHash;
@@ -49,6 +38,7 @@ public class ThirdPersonMovement : MonoBehaviour
     int isAttack1Hash;
     int isAttack2Hash;
     int isAttack3Hash;
+    int isCrouchingHash;
     int isHitHash;
     int isDeadHash;
 
@@ -94,7 +84,7 @@ public class ThirdPersonMovement : MonoBehaviour
         isRightHash = Animator.StringToHash("isRight");
         isHitHash = Animator.StringToHash("isHit");
         isDeadHash = Animator.StringToHash("isDead");
-
+        isCrouchingHash = Animator.StringToHash("isCrouching");
     }
 
     private void inputManager() {
@@ -159,11 +149,12 @@ public class ThirdPersonMovement : MonoBehaviour
 
         yield return new WaitForSeconds(0.2f);
         animator.SetBool(isJumpingHash, false);
+        crouchingToggle = false;
     }
 
     private void animatePlayer() {
         //walking animation
-        if(forwardPressed || backwardPressed || leftPressed || rightPressed) {
+        if((forwardPressed || backwardPressed || leftPressed || rightPressed)) {
             animator.SetBool(isWalkingHash, true);
         }
         else {
@@ -171,22 +162,28 @@ public class ThirdPersonMovement : MonoBehaviour
         }
 
         //running animation
-        if (runPressed) {
+        if ((forwardPressed || backwardPressed || leftPressed || rightPressed) && runPressed) {
             animator.SetBool(isRunningHash, true);
+            crouchingToggle = false;
             speed = 4;
         }
-        else {
+        else{
             animator.SetBool(isRunningHash, false);
             speed = 2;
         }
 
-        //jumping animation
-        /*if (jumpPressed) {
-            animator.SetBool(isJumpingHash, true);
+        //crouching animation
+        if (crouchPressed) {
+            crouchingToggle = !crouchingToggle;
         }
-        else if (!jumpPressed){
-            animator.SetBool(isJumpingHash, false);
-        }*/
+
+        if (crouchingToggle) {
+            animator.SetBool(isCrouchingHash, true);
+            speed = 1;
+        }
+        else if (!crouchingToggle) {
+            animator.SetBool(isCrouchingHash, false);
+        }
 
 
         //attack animation
@@ -194,6 +191,7 @@ public class ThirdPersonMovement : MonoBehaviour
             && !animator.GetCurrentAnimatorStateInfo(0).IsTag("2")
             && !animator.GetCurrentAnimatorStateInfo(0).IsTag("3")) {
             animator.SetBool(isAttack1Hash, true);
+            crouchingToggle = false;
         }
         if (attackPressed && animator.GetCurrentAnimatorStateInfo(0).IsTag("1")) {
             animator.SetBool(isAttack2Hash, true);
@@ -217,6 +215,8 @@ public class ThirdPersonMovement : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsTag("4")) {
             animator.SetBool(isAttack1Hash, false);
         }
+
+
 
 
     }
