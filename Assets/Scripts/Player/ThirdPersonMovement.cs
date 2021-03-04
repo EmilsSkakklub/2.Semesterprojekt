@@ -163,7 +163,7 @@ public class ThirdPersonMovement : MonoBehaviour
     }*/
 
     private void animatePlayer() {
-        //walkinf animation
+        //walking animation
         if(forwardPressed || backwardPressed || leftPressed || rightPressed) {
             animator.SetBool(isWalkingHash, true);
         }
