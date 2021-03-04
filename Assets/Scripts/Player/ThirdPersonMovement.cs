@@ -5,8 +5,8 @@ using UnityEngine;
 public class ThirdPersonMovement : MonoBehaviour
 {
     private CharacterController controller;
-    private Transform Camera;
     private Animator animator;
+    Transform cam;
 
     public LayerMask groundMask;
 
@@ -52,12 +52,23 @@ public class ThirdPersonMovement : MonoBehaviour
     int isHitHash;
     int isDeadHash;
 
+    //movement
+    Vector3 velocity;
+    public bool isGrounded;
+    public bool jumpNotReady;
+    float jumpHeight = 1f;
+    float gravity = -9.81f;
+
+
 
 
     private void Start() {
         initiate();
+        Cursor.lockState = CursorLockMode.Locked;
     }
-
+    private void FixedUpdate() {
+        GroundCheck();
+    }
     void Update()
     {
         movement();
@@ -70,7 +81,7 @@ public class ThirdPersonMovement : MonoBehaviour
     private void initiate() {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-        Camera = GameObject.Find("Main Camera").GetComponent<Transform>();
+        cam = GameObject.Find("Main Camera").GetComponent<Transform>();
 
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
@@ -96,24 +107,56 @@ public class ThirdPersonMovement : MonoBehaviour
         crouchPressed = Input.GetKeyDown(KeyCode.C);
     }
 
+
     private void movement() {
+        //Gets Axis from Input Manager
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
+        //prevents from using y-axis (Normalized so you wont move faster when pressing W && D/A)
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
         if (direction.magnitude >= 0.1f) {
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + Camera.eulerAngles.y;
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref TurnSmoothVelocity, SmoothTurn);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-            Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-           
-                controller.Move(moveDirection.normalized * speed * Time.deltaTime);
-            
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f)* Vector3.forward;
+            controller.Move(moveDir.normalized * speed * Time.deltaTime);
         }
 
-        
+        // jump
+        if (Input.GetButtonDown("Jump") && isGrounded) {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            //StartCoroutine(Jump());
+        }
+
+        //gravity
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+
+        if(isGrounded && velocity.y < 0) {
+            velocity.y = -2f;
+        }
     }
+
+    //method for checking if the player is grounded
+    void GroundCheck() {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.07f + 0.02f)) {
+            isGrounded = true;
+        } else {
+            isGrounded = false;
+        }
+    }
+
+    //jump method
+    /*IEnumerator Jump() {
+        animator.SetBool(isJumpingHash, true);
+        yield return new WaitForSeconds(0.305f);
+        velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        animator.SetBool(isJumpingHash, false);
+        yield return new WaitForSeconds(0.195f);
+    }*/
 
     private void animatePlayer() {
         //walkinf animation
