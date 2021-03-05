@@ -334,16 +334,16 @@ public class PlayerScript : MonoBehaviour
     }*/
     private void UpdateHealth() {
         //First [i] = 4. i.e. the array goes from 4 - 3 - 2 - 1 - 0.
-
-        if (Input.GetKeyDown(KeyCode.R)) {
+        
+        if (Input.GetKeyDown(KeyCode.R) && HP > 0) {
             HP--;
         }
 
-        if (Input.GetKeyDown(KeyCode.T)) {
+        if (Input.GetKeyDown(KeyCode.T) && HP < 8) {
             HP++;
         }
 
-
+        
         //First
         if (HP == 7) {
             FullHearts[3].gameObject.SetActive(false);
