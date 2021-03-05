@@ -4939,11 +4939,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4291471185652902136, guid: 123ef4029abdba34ebff320adb54a833, type: 3}
   m_PrefabInstance: {fileID: 1124084678}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &258419165 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3462988701405581374, guid: 8b1cd5c3cc0dfd246aef7e80b4ae2d15, type: 3}
-  m_PrefabInstance: {fileID: 6423574530546142064}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &259761774
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22478,7 +22473,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1158880992}
-  m_LocalRotation: {x: 0.114682645, y: 0.000000038220783, z: -0.0000000044123727, w: 0.9934022}
+  m_LocalRotation: {x: 0.114682645, y: -0.000000038220787, z: 0.000000004412373, w: 0.9934022}
   m_LocalPosition: {x: 7.673504, y: 0.73500085, z: -2.9060216}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -26681,7 +26676,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383305218}
-  m_LocalRotation: {x: 0.11468264, y: 0.00000001911039, z: -0.0000000022061861, w: 0.9934022}
+  m_LocalRotation: {x: 0.11468264, y: -0.000000019110399, z: 0.0000000022061868, w: 0.9934022}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -28227,33 +28222,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3000498209754921920, guid: 886bbafb707b4384fb5faa3e8e2157f9, type: 3}
   m_PrefabInstance: {fileID: 549311378}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1442566066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1442566063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a34a26f34264434c93b206137b3af84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FullHearts:
-  - {fileID: 1204208034}
-  - {fileID: 1297689491}
-  - {fileID: 925161318}
-  - {fileID: 317466588}
-  HalfHearts:
-  - {fileID: 1324715324}
-  - {fileID: 804220481}
-  - {fileID: 1281039142}
-  - {fileID: 1299569228}
-  EmptyHearts:
-  - {fileID: 1441614439}
-  - {fileID: 248115139}
-  - {fileID: 258419165}
-  - {fileID: 2126284704}
 --- !u!114 &1442566068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28269,6 +28237,22 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+  FullHearts:
+  - {fileID: 1204208034}
+  - {fileID: 1297689491}
+  - {fileID: 925161318}
+  - {fileID: 317466588}
+  HalfHearts:
+  - {fileID: 1324715324}
+  - {fileID: 804220481}
+  - {fileID: 1281039142}
+  - {fileID: 1299569228}
+  EmptyHearts:
+  - {fileID: 1441614439}
+  - {fileID: 248115139}
+  - {fileID: 2126284704}
+  - {fileID: 2126284704}
+  HP: 8
   forwardPressed: 0
   runPressed: 0
   backwardPressed: 0
