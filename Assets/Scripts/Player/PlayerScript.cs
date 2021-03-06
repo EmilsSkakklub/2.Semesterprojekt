@@ -44,6 +44,7 @@ public class PlayerScript : MonoBehaviour
     private bool jumpPressed;
     private bool attackPressed;
     private bool crouchPressed;
+    private bool rollPressed;
 
     //bools to see what animation is currently playing
     private bool idleAnimation;
@@ -53,6 +54,7 @@ public class PlayerScript : MonoBehaviour
     private bool attackAnimation4;
     private bool deathAnimation;
     private bool hitAnimation;
+    private bool rollAnimation;
 
     //hash codes for  the animator 
     private int isWalkingHash;
@@ -64,6 +66,7 @@ public class PlayerScript : MonoBehaviour
     private int isCrouchingHash;
     private int isHitHash;
     private int isDeadHash;
+    private int isRollingHash;
 
 
 
@@ -131,6 +134,7 @@ public class PlayerScript : MonoBehaviour
         isHitHash = Animator.StringToHash("isHit");
         isDeadHash = Animator.StringToHash("isDead");
         isCrouchingHash = Animator.StringToHash("isCrouching");
+        isRollingHash = Animator.StringToHash("isRolling");
 
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -145,6 +149,7 @@ public class PlayerScript : MonoBehaviour
         jumpPressed = Input.GetKeyDown(KeyCode.Space);
         attackPressed = Input.GetMouseButtonDown(0);
         crouchPressed = Input.GetKeyDown(KeyCode.C);
+        rollPressed = Input.GetMouseButtonDown(1);
     }
 
     //checks which animation is running 
@@ -156,6 +161,7 @@ public class PlayerScript : MonoBehaviour
         attackAnimation2 = animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack2");
         attackAnimation3 = animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack3");
         attackAnimation4 = animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack4");
+        rollAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Rolling");
     }
 
     //ability for player to move around in the world
@@ -175,11 +181,18 @@ public class PlayerScript : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
                 Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-                controller.Move(moveDir.normalized * speed * Time.deltaTime);
+
+                //mopve a little faster while rolling
+                if (rollAnimation) {
+                    controller.Move(moveDir.normalized * speed* 1.5f * Time.deltaTime);
+                }
+                else {
+                    controller.Move(moveDir.normalized * speed * Time.deltaTime);
+                }
             }
 
             // jump
-            if (Input.GetButtonDown("Jump") && isGrounded) {
+            if (Input.GetButtonDown("Jump") && isGrounded && !rollAnimation) {
                 StartCoroutine("Jump");
             }
         }
@@ -310,6 +323,15 @@ public class PlayerScript : MonoBehaviour
                 if (deathAnimation) {
                     animator.SetBool(isDeadHash, false);
                 }
+            }
+
+            //roll animation
+            if (rollPressed) {
+                animator.SetBool(isRollingHash, true);
+                crouchingToggle = false;
+            }
+            else {
+                animator.SetBool(isRollingHash, false);
             }
         }
         
