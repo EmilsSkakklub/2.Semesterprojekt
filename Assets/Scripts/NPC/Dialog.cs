@@ -25,21 +25,19 @@ public abstract class Dialog : MonoBehaviour
         playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
 
         setDialogNumber(0);
-
-        newDialogLine("Hello There, how are you");
-        newDialogLine("Hello There, how are you there");
     }
 
     protected void dialog() {
         
         maxNumber = dialogLines.Count;
-        if(dialogNumber <= maxNumber) {
+        if(dialogNumber < maxNumber) {
             dialogText.text = dialogLines[dialogNumber];
         }
-        else if(dialogNumber > maxNumber) {
+        else if(dialogNumber == maxNumber) {
             textBubble.SetActive(false);
             interaction.setStartInteraction(false);
             playerScript.setInDialog(false);
+            setDialogNumber(0);
         }
         
 

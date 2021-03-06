@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Interaction : MonoBehaviour
 {
-    private bool StartInteraction;
+    public bool StartInteraction;
 
     private void Start() {
         gameObject.tag = "Interactable";
