@@ -8,7 +8,9 @@ public class PlayerScript : MonoBehaviour
     private CharacterController controller;
     private Animator animator;
     private Transform cam;
+    private GameManager gm;
     public LayerMask groundMask;
+    
 
     //movement
     Vector3 velocity;
@@ -20,6 +22,11 @@ public class PlayerScript : MonoBehaviour
     private float SmoothTurn = 0.1f;
     private float TurnSmoothVelocity;
     private bool crouchingToggle = false;
+
+    //interact
+    Interaction ClosestTarget;
+    GameObject InteractText;
+    
 
     //HPSystem
     public int HP = 8;
@@ -85,6 +92,7 @@ public class PlayerScript : MonoBehaviour
         animatePlayer();
         inputManager();
         updateHealth();
+        Interact();
 
 
         /*
@@ -110,6 +118,8 @@ public class PlayerScript : MonoBehaviour
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         cam = GameObject.Find("Main Camera").GetComponent<Transform>();
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        InteractText = GameObject.Find("InteractText");
 
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
@@ -412,11 +422,43 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    //interaction
+    private void Interact() {
+        ClosestTarget = GetClosestEnemy().GetComponent<Interaction>();
 
+        if (DistanceToClosestTarget() <= 1.5f && !ClosestTarget.StartInteraction) {
+            InteractText.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.E)) {
+                ClosestTarget.StartInteraction = true;
+            }
+            
+        } else {
+            InteractText.SetActive(false);
+        }
+    }
+    //finds the distance to the closest interactable target
+    public float DistanceToClosestTarget() {
+        float dist;
+        dist = Vector3.Distance(GetClosestEnemy().transform.position, transform.position);
 
+        return dist;
+    }
+    //finds the closest interactable target
+    public GameObject GetClosestEnemy() {
+        GameObject ClosestTarget = null;
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
 
-
-
+        foreach (GameObject potentialTarget in gm.ListOfInteractables) {
+            Vector3 directionToTarget = potentialTarget.transform.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if (dSqrToTarget < closestDistanceSqr) {
+                closestDistanceSqr = dSqrToTarget;
+                ClosestTarget = potentialTarget;
+            }
+        }
+        return ClosestTarget;
+    }
     //getters and setters
     public Animator getAnimator() {
         return animator;
