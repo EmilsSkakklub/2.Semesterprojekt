@@ -40,9 +40,6 @@ public abstract class Dialog : MonoBehaviour
             setDialogNumber(0);
         }
         
-
-
-
         if (interaction.getStartInteraction()) {
             spriteRenderer.sprite = sprites[1];
             textBubble.SetActive(true);
@@ -52,7 +49,6 @@ public abstract class Dialog : MonoBehaviour
                 incrementDialogNumber();
             }
         }
-
     }
 
     protected void newDialogLine(string line) {

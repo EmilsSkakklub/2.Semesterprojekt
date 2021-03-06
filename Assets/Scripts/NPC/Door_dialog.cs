@@ -5,7 +5,7 @@ using UnityEngine;
 public class Door_dialog : Dialog
 {
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         initStart();
         newDialogLine("Hello Door, how are you doing?");
