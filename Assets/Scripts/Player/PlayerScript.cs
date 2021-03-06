@@ -26,7 +26,7 @@ public class PlayerScript : MonoBehaviour
     //interact
     Interaction ClosestTarget;
     GameObject InteractText;
-    public bool inDialog;
+    private bool inDialog;
 
 
     //HPSystem
@@ -432,10 +432,10 @@ public class PlayerScript : MonoBehaviour
     private void Interact() {
         ClosestTarget = GetClosestEnemy().GetComponent<Interaction>();
 
-        if (DistanceToClosestTarget() <= 1.5f && !ClosestTarget.StartInteraction) {
+        if (DistanceToClosestTarget() <= 1.5f && !ClosestTarget.getStartInteraction()) {
             InteractText.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E)) {
-                ClosestTarget.StartInteraction = true;
+                ClosestTarget.setStartInteraction(true);
             }
             
         } else {
@@ -468,6 +468,13 @@ public class PlayerScript : MonoBehaviour
     //getters and setters
     public Animator getAnimator() {
         return animator;
+    }
+
+    public bool getInDialog() {
+        return inDialog;
+    }
+    public void setInDialog(bool inDialog) {
+        this.inDialog = inDialog;
     }
 }
 

@@ -65,8 +65,8 @@ public class LB_dialog : MonoBehaviour
                 break;
             case 5:
                 textBubble.SetActive(false);
-                interaction.StartInteraction = false;
-                ps.inDialog = false;
+                interaction.setStartInteraction(false);
+                ps.setInDialog(false);
                 dialogNumber = 1;
                 readyForSequence2 = true;
                 break;
@@ -87,8 +87,8 @@ public class LB_dialog : MonoBehaviour
                 break;
             case 4:
                 textBubble.SetActive(false);
-                interaction.StartInteraction = false;
-                ps.inDialog = false;
+                interaction.setStartInteraction(false);
+                ps.setInDialog(false);
                 dialogNumber = 1;
                 break;
             }
@@ -97,9 +97,9 @@ public class LB_dialog : MonoBehaviour
         }
         
 
-        if (interaction.StartInteraction) {
+        if (interaction.getStartInteraction()) {
             textBubble.SetActive(true);
-            ps.inDialog = true;
+            ps.setInDialog(true);
 
             if (Input.GetKeyDown(KeyCode.E)) {
                     dialogNumber++;

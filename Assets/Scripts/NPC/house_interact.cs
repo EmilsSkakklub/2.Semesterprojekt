@@ -18,7 +18,7 @@ public class house_interact : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (interaction.StartInteraction && LB_dialog.readyForSequence2) {
+        if (interaction.getStartInteraction() && LB_dialog.readyForSequence2) {
             LB_dialog.dialogSequence++;
             LB_dialog.readyForSequence2 = false; 
         }
