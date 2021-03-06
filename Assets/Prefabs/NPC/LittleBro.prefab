@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1087868796}
   - component: {fileID: 1087868797}
-  - component: {fileID: 1087868798}
   m_Layer: 0
   m_Name: LB_Interact
   m_TagString: Interactable
@@ -45,21 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartInteraction: 0
---- !u!114 &1087868798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1087868795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 949ccac2f8e53da449c6100e4248834f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LB_sprites:
-  - {fileID: 21300000, guid: 66df629de82242f44a0ed6e6849d08db, type: 3}
-  - {fileID: 21300000, guid: aea619f23d31f2641a9a021aba5cf789, type: 3}
 --- !u!95 &1849665676913180249
 Animator:
   serializedVersion: 3

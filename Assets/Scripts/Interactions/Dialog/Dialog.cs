@@ -5,18 +5,18 @@ using UnityEngine.UI;
 
 public abstract class Dialog : MonoBehaviour
 {
-    public Interaction interaction;
-    public SpriteRenderer spriteRenderer;
-    public GameObject textBubble;
-    public Text dialogText;
-    public PlayerScript playerScript;
+    private Interaction interaction;
+    private SpriteRenderer spriteRenderer;
+    private GameObject textBubble;
+    private Text dialogText;
+    private PlayerScript playerScript;
 
     public Sprite[] sprites;
-    public List<string> dialogLines = new List<string>();
+    private List<string> dialogLines = new List<string>();
     public List<int> moodSprites = new List<int>();
 
-    public int dialogNumber;
-    public int maxNumber;
+    private int dialogNumber;
+    private int maxNumber;
 
     protected void initStart() {
         interaction = GetComponent<Interaction>();
@@ -55,7 +55,6 @@ public abstract class Dialog : MonoBehaviour
 
     protected void newDialogLine(string line) {
         dialogLines.Add(line);
-
     }
     protected void moodSprite(int mood) {
         moodSprites.Add(mood);
