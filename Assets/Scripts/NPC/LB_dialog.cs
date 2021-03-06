@@ -9,16 +9,24 @@ public class LB_dialog : MonoBehaviour
     SpriteRenderer sr;
     GameObject textBubble;
     Text dialogtext;
+    PlayerScript ps;
 
     public Sprite[] LB_sprites;
-    int i = 1;
-    int k = 0;
+    public int dialogSequence = 1;
+    public int dialogNumber = 1;
+    int moodNumber = 0;
+
+    public bool readyForSequence2;
 
 
     string Dialog1 = "It is hot to play out in the sun. Mom said we need sunscreen!";
-    string Dialog2 = "You can change my mood by pressing 'm' on your keyboard";
-    string Dialog3 = "I'm a gnome and you've been gnomed";
-    string Dialog4 = "Never gonna give you up, never gonna let you down";
+    string Dialog2 = "You can change my mood by pressing 'm' on your keyboard.";
+    string Dialog3 = "If you go and interact with the door, I will say some new stuff when...";
+    string Dialog4 = "you get back to me... Rasmus er klog";
+
+    string Dialog5 = "Never gonna give you up";
+    string Dialog6 = "Never gonna let you down";
+    string Dialog7 = "Never gonna run around and desert you";
 
     void Awake()
     {
@@ -26,49 +34,82 @@ public class LB_dialog : MonoBehaviour
         sr = GameObject.Find("TextBubble").GetComponent<SpriteRenderer>();
         textBubble = GameObject.Find("TextBubble");
         dialogtext = GameObject.Find("DialogText").GetComponent<Text>();
+        ps = GameObject.Find("Player").GetComponent<PlayerScript>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        ChangeSprite(k);
+        ChangeSprite(moodNumber);
         Dialog();
 
     }
     void Dialog() {
-        switch (i) {
+        switch (dialogSequence) {
+
+        //First Dialog
         case 1:
-            dialogtext.text = Dialog1;
+            switch (dialogNumber) {
+            case 1:
+                dialogtext.text = Dialog1;
+                break;
+            case 2:
+                dialogtext.text = Dialog2;
+                break;
+            case 3:
+                dialogtext.text = Dialog3;
+                break;
+            case 4:
+                dialogtext.text = Dialog4;
+                break;
+            case 5:
+                textBubble.SetActive(false);
+                interaction.StartInteraction = false;
+                ps.inDialog = false;
+                dialogNumber = 1;
+                readyForSequence2 = true;
+                break;
+            }
             break;
+        
+        //Second Dialog
         case 2:
-            dialogtext.text = Dialog2;
+            switch (dialogNumber) {
+            case 1:
+                dialogtext.text = Dialog5;
+                break;
+            case 2:
+                dialogtext.text = Dialog6;
+                break;
+            case 3:
+                dialogtext.text = Dialog7;
+                break;
+            case 4:
+                textBubble.SetActive(false);
+                interaction.StartInteraction = false;
+                ps.inDialog = false;
+                dialogNumber = 1;
+                break;
+            }
             break;
-        case 3:
-            dialogtext.text = Dialog3;
-            break;
-        case 4:
-            dialogtext.text = Dialog4;
-            break;
-        case 5:
-            textBubble.SetActive(false);
-            interaction.StartInteraction = false;
-            i = 1;
-            break;
+
         }
+        
 
         if (interaction.StartInteraction) {
             textBubble.SetActive(true);
+            ps.inDialog = true;
 
             if (Input.GetKeyDown(KeyCode.E)) {
-                if (i < 6) {
-                    i++;
+                if (dialogNumber < 6) {
+                    dialogNumber++;
                 }
             }
             if (Input.GetKeyDown(KeyCode.M)) {
-                if (k == 0) {
-                    k = 1;
-                } else if (k == 1) {
-                    k = 0;
+                if (moodNumber == 0) {
+                    moodNumber = 1;
+                } else if (moodNumber == 1) {
+                    moodNumber = 0;
                 }
             }
         }

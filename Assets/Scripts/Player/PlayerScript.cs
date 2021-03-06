@@ -26,7 +26,8 @@ public class PlayerScript : MonoBehaviour
     //interact
     Interaction ClosestTarget;
     GameObject InteractText;
-    
+    public bool inDialog;
+
 
     //HPSystem
     public int HP = 8;
@@ -166,7 +167,7 @@ public class PlayerScript : MonoBehaviour
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
         //player can't move while hit or death animation is playing
-        if (!hitAnimation && !deathAnimation) {
+        if (!hitAnimation && !deathAnimation && !inDialog) {
             //move
             if (direction.magnitude >= 0.1f) {
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
@@ -213,100 +214,100 @@ public class PlayerScript : MonoBehaviour
     }
 
     private void animatePlayer() {
-        //checks if idle / runnig / walking
-        if (idleAnimation) {
-            dash1Ready = true;
-            dash2Ready = true;
-            dash3Ready = true;
-        }
+        if (!inDialog) {
+            //checks if idle / runnig / walking
+            if (idleAnimation) {
+                dash1Ready = true;
+                dash2Ready = true;
+                dash3Ready = true;
+            }
 
-        //walking animation
-        if((forwardPressed || backwardPressed || leftPressed || rightPressed)) {
-            animator.SetBool(isWalkingHash, true);
-        }
-        else {
-            animator.SetBool(isWalkingHash, false);
-        }
+            //walking animation
+            if ((forwardPressed || backwardPressed || leftPressed || rightPressed)) {
+                animator.SetBool(isWalkingHash, true);
+            } else {
+                animator.SetBool(isWalkingHash, false);
+            }
 
-        //running animation
-        if ((forwardPressed || backwardPressed || leftPressed || rightPressed) && runPressed) {
-            animator.SetBool(isRunningHash, true);
-            crouchingToggle = false;
-            speed = 4;
-        }
-        else{
-            animator.SetBool(isRunningHash, false);
-            speed = 2;
-        }
+            //running animation
+            if ((forwardPressed || backwardPressed || leftPressed || rightPressed) && runPressed) {
+                animator.SetBool(isRunningHash, true);
+                crouchingToggle = false;
+                speed = 4;
+            } else {
+                animator.SetBool(isRunningHash, false);
+                speed = 2;
+            }
 
-        //crouching animation
-        if (crouchPressed) {
-            crouchingToggle = !crouchingToggle;
-        }
+            //crouching animation
+            if (crouchPressed) {
+                crouchingToggle = !crouchingToggle;
+            }
 
-        if (crouchingToggle) {
-            animator.SetBool(isCrouchingHash, true);
+            if (crouchingToggle) {
+                animator.SetBool(isCrouchingHash, true);
 
-            //Corrects hitbox and speed
-            controller.height = 0.1f;
-            controller.center = new Vector3(0f, 0.05f, 0f);
-            speed = 1;
-        }
-        else if (!crouchingToggle) {
-            animator.SetBool(isCrouchingHash, false);
+                //Corrects hitbox and speed
+                controller.height = 0.1f;
+                controller.center = new Vector3(0f, 0.05f, 0f);
+                speed = 1;
+            } else if (!crouchingToggle) {
+                animator.SetBool(isCrouchingHash, false);
 
-            //Corrects hitbox and speed
-            controller.height = 0.14f;
-            controller.center = new Vector3(0f, 0.075f, 0f);
-        }
+                //Corrects hitbox and speed
+                controller.height = 0.14f;
+                controller.center = new Vector3(0f, 0.075f, 0f);
+            }
 
 
-        //attack animation
-        //attack 1
-        if (attackPressed && !attackAnimation1 && !attackAnimation2 && !attackAnimation3) {
-            animator.SetBool(isAttack1Hash, true);
-            crouchingToggle = false;
-        }
+            //attack animation
+            //attack 1
+            if (attackPressed && !attackAnimation1 && !attackAnimation2 && !attackAnimation3) {
+                animator.SetBool(isAttack1Hash, true);
+                crouchingToggle = false;
+            }
 
 
-        //attack 2
-        if (attackPressed && attackAnimation1) {
-            animator.SetBool(isAttack2Hash, true);
-        }
-        
+            //attack 2
+            if (attackPressed && attackAnimation1) {
+                animator.SetBool(isAttack2Hash, true);
+            }
 
 
-        //attack 3
-        if (attackPressed && attackAnimation2) {
-            animator.SetBool(isAttack3Hash, true);
-        }
+
+            //attack 3
+            if (attackPressed && attackAnimation2) {
+                animator.SetBool(isAttack3Hash, true);
+            }
 
 
-        if (!attackPressed && attackAnimation1) {
-            animator.SetBool(isAttack1Hash, false);
+            if (!attackPressed && attackAnimation1) {
+                animator.SetBool(isAttack1Hash, false);
 
-        }
-        if (!attackPressed && attackAnimation2) {
-            animator.SetBool(isAttack2Hash, false);
+            }
+            if (!attackPressed && attackAnimation2) {
+                animator.SetBool(isAttack2Hash, false);
 
-        }
-        if (!attackPressed && attackAnimation3) {
-            animator.SetBool(isAttack3Hash, false);
+            }
+            if (!attackPressed && attackAnimation3) {
+                animator.SetBool(isAttack3Hash, false);
 
-        }
+            }
 
-        //jump attack animation
-        if (attackAnimation4) {
-            animator.SetBool(isAttack1Hash, false);
-        }
+            //jump attack animation
+            if (attackAnimation4) {
+                animator.SetBool(isAttack1Hash, false);
+            }
 
-        //die animation
-        if (HP <= 0 && !hitAnimation) {
-            animator.SetBool(isDeadHash, true);
-            if (deathAnimation) {
-                animator.SetBool(isDeadHash, false);
+            //die animation
+            if (HP <= 0 && !hitAnimation) {
+                animator.SetBool(isDeadHash, true);
+                if (deathAnimation) {
+                    animator.SetBool(isDeadHash, false);
+                }
             }
         }
+        
 
     }
     /*IEnumerator Dash1() {
