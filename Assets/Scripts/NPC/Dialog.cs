@@ -30,25 +30,26 @@ public abstract class Dialog : MonoBehaviour
     protected void dialog() {
         
         maxNumber = dialogLines.Count;
-        if(dialogNumber < maxNumber) {
-            dialogText.text = dialogLines[dialogNumber];
-        }
-        else if(dialogNumber == maxNumber) {
+
+        if (dialogNumber == maxNumber) {
             textBubble.SetActive(false);
             interaction.setStartInteraction(false);
             playerScript.setInDialog(false);
             setDialogNumber(0);
         }
-        
         if (interaction.getStartInteraction()) {
-            spriteRenderer.sprite = sprites[1];
+            spriteRenderer.sprite = sprites[0];
             textBubble.SetActive(true);
             playerScript.setInDialog(true);
 
             if (Input.GetKeyDown(KeyCode.E)) {
                 incrementDialogNumber();
             }
+            if (dialogNumber < maxNumber) {
+                dialogText.text = dialogLines[dialogNumber];
+            } 
         }
+        
     }
 
     protected void newDialogLine(string line) {

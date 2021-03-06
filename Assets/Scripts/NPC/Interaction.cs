@@ -6,7 +6,7 @@ public class Interaction : MonoBehaviour
 {
     public bool StartInteraction;
 
-    private void Start() {
+    private void Awake() {
         gameObject.tag = "Interactable";
     }
 

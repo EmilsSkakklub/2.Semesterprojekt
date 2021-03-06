@@ -17,6 +17,7 @@ public class Door_dialog : Dialog
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(getDialogNumber());
         dialog();
     }
 
