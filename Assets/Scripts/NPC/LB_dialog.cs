@@ -20,7 +20,7 @@ public class LB_dialog : MonoBehaviour
     string Dialog3 = "I'm a gnome and you've been gnomed";
     string Dialog4 = "Never gonna give you up, never gonna let you down";
 
-    void Start()
+    void Awake()
     {
         interaction = GetComponent<Interaction>();
         sr = GameObject.Find("TextBubble").GetComponent<SpriteRenderer>();
