@@ -1693,7 +1693,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 80000800}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.468, y: 1.204, z: 4.786}
+  m_LocalPosition: {x: -0.468, y: 1.204, z: 5.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 181568198}
@@ -26251,6 +26251,7 @@ MonoBehaviour:
   sprites:
   - {fileID: 21300000, guid: 66df629de82242f44a0ed6e6849d08db, type: 3}
   - {fileID: 21300000, guid: aea619f23d31f2641a9a021aba5cf789, type: 3}
+  - {fileID: 21300000, guid: aea619f23d31f2641a9a021aba5cf789, type: 3}
   moodSprites: 
 --- !u!4 &1356514508 stripped
 Transform:
@@ -30151,6 +30152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1528365424}
   - component: {fileID: 1528365425}
+  - component: {fileID: 1528365426}
   m_Layer: 0
   m_Name: Thee_dialog
   m_TagString: Untagged
@@ -30166,7 +30168,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1528365423}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.38, y: 0, z: 0.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 467246501}
@@ -30185,6 +30187,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartInteraction: 0
+--- !u!114 &1528365426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528365423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571436f318205354c83fde0b0bf465a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 8e26e0933c9bacf41a9b5543a6e49eba, type: 3}
+  - {fileID: 21300000, guid: cc195629778e8564a8fff589ba9afcdb, type: 3}
+  - {fileID: 21300000, guid: 23809883c513da34eb40219f31fc2c47, type: 3}
+  moodSprites: 
 --- !u!1001 &1529172297
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41106,10 +41125,6 @@ PrefabInstance:
     - target: {fileID: 1087868795, guid: 937ca21a9c0d76a4bada9beaa75f7bbf, type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1087868798, guid: 937ca21a9c0d76a4bada9beaa75f7bbf, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1849665676707432844, guid: 937ca21a9c0d76a4bada9beaa75f7bbf, type: 3}
       propertyPath: m_RootOrder
