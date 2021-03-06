@@ -214,6 +214,11 @@ public class PlayerScript : MonoBehaviour
     }
 
     private void animatePlayer() {
+        if (inDialog) {
+            animator.SetBool(isWalkingHash, false);
+            animator.SetBool(isRunningHash, false);
+            animator.SetBool(isCrouchingHash, false);
+        }
         if (!inDialog) {
             //checks if idle / runnig / walking
             if (idleAnimation) {

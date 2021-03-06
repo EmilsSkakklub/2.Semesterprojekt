@@ -12,6 +12,7 @@ public class LB_dialog : MonoBehaviour
     PlayerScript ps;
 
     public Sprite[] LB_sprites;
+
     public int dialogSequence = 1;
     public int dialogNumber = 1;
     int moodNumber = 0;
@@ -101,9 +102,8 @@ public class LB_dialog : MonoBehaviour
             ps.inDialog = true;
 
             if (Input.GetKeyDown(KeyCode.E)) {
-                if (dialogNumber < 6) {
                     dialogNumber++;
-                }
+
             }
             if (Input.GetKeyDown(KeyCode.M)) {
                 if (moodNumber == 0) {
