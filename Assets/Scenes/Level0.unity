@@ -1730,8 +1730,11 @@ MonoBehaviour:
   dialogText: {fileID: 0}
   playerScript: {fileID: 0}
   sprites:
+  - {fileID: 21300000, guid: 8e26e0933c9bacf41a9b5543a6e49eba, type: 3}
   - {fileID: 21300000, guid: cc195629778e8564a8fff589ba9afcdb, type: 3}
+  - {fileID: 21300000, guid: 23809883c513da34eb40219f31fc2c47, type: 3}
   dialogLines: []
+  moodSprites: 
   dialogNumber: 0
   maxNumber: 0
 --- !u!4 &80632259 stripped
@@ -12934,8 +12937,11 @@ MonoBehaviour:
   dialogText: {fileID: 0}
   playerScript: {fileID: 0}
   sprites:
+  - {fileID: 21300000, guid: 8e26e0933c9bacf41a9b5543a6e49eba, type: 3}
   - {fileID: 21300000, guid: cc195629778e8564a8fff589ba9afcdb, type: 3}
+  - {fileID: 21300000, guid: 23809883c513da34eb40219f31fc2c47, type: 3}
   dialogLines: []
+  moodSprites: 
   dialogNumber: 0
   maxNumber: 0
 --- !u!1001 &601660608
@@ -13949,6 +13955,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cc195629778e8564a8fff589ba9afcdb, type: 3}
   - {fileID: 21300000, guid: 23809883c513da34eb40219f31fc2c47, type: 3}
   dialogLines: []
+  moodSprites: 
   dialogNumber: 0
   maxNumber: 0
 --- !u!1001 &651344293
@@ -22425,8 +22432,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1141076489}
-  m_LocalRotation: {x: 0.13273315, y: -1.9098099e-22, z: -6.885764e-24, w: 0.99115187}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.27238187, y: 0.00000002867547, z: -0.0000000081176115, w: 0.96218926}
+  m_LocalPosition: {x: 0, y: 1.3805752, z: 0.8199072}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1449855015}
@@ -22633,7 +22640,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1158880992}
-  m_LocalRotation: {x: 0.114682645, y: 0.000000038239882, z: -0.0000000044145776, w: 0.9934022}
+  m_LocalRotation: {x: 0.11468264, y: -0.000000031126746, z: 0.000000003593406, w: 0.9934022}
   m_LocalPosition: {x: 7.673504, y: 0.73500085, z: -2.9060216}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -24049,7 +24056,10 @@ MonoBehaviour:
   playerScript: {fileID: 0}
   sprites:
   - {fileID: 21300000, guid: 8e26e0933c9bacf41a9b5543a6e49eba, type: 3}
+  - {fileID: 21300000, guid: cc195629778e8564a8fff589ba9afcdb, type: 3}
+  - {fileID: 21300000, guid: 23809883c513da34eb40219f31fc2c47, type: 3}
   dialogLines: []
+  moodSprites: 
   dialogNumber: 0
   maxNumber: 0
 --- !u!114 &1231862546
@@ -26260,6 +26270,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 66df629de82242f44a0ed6e6849d08db, type: 3}
   - {fileID: 21300000, guid: aea619f23d31f2641a9a021aba5cf789, type: 3}
   dialogLines: []
+  moodSprites: 
   dialogNumber: 0
   maxNumber: 0
 --- !u!4 &1356514508 stripped
@@ -26898,7 +26909,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383305218}
-  m_LocalRotation: {x: 0.11468264, y: 0.00000001914855, z: -0.0000000022105913, w: 0.9934022}
+  m_LocalRotation: {x: 0.11468263, y: -0.00000000613154, z: 7.078516e-10, w: 0.9934022}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -37475,7 +37486,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1954233898}
-  m_LocalRotation: {x: 0.09664201, y: -0, z: -0, w: 0.99531925}
+  m_LocalRotation: {x: 0.09664198, y: -0.000000019983032, z: 0.0000000019402815, w: 0.99531925}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

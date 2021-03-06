@@ -6,7 +6,7 @@ public class hedgehole_dialog : Dialog {
     // Start is called before the first frame update
     void Awake() {
         initStart();
-        newDialogLine("I'm too scared to go in there...");
+        newDialogLine("I'm too scared to go in there..."); moodSprite(1); //0=normal 1=sad 2=angry
     }
 
     // Update is called once per frame

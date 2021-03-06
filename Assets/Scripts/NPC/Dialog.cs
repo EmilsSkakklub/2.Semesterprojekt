@@ -13,6 +13,7 @@ public abstract class Dialog : MonoBehaviour
 
     public Sprite[] sprites;
     public List<string> dialogLines = new List<string>();
+    public List<int> moodSprites = new List<int>();
 
     public int dialogNumber;
     public int maxNumber;
@@ -38,7 +39,6 @@ public abstract class Dialog : MonoBehaviour
             setDialogNumber(0);
         }
         if (interaction.getStartInteraction()) {
-            spriteRenderer.sprite = sprites[0];
             textBubble.SetActive(true);
             playerScript.setInDialog(true);
 
@@ -47,6 +47,7 @@ public abstract class Dialog : MonoBehaviour
             }
             if (dialogNumber < maxNumber) {
                 dialogText.text = dialogLines[dialogNumber];
+                spriteRenderer.sprite = sprites[moodSprites[dialogNumber]];
             } 
         }
         
@@ -54,6 +55,11 @@ public abstract class Dialog : MonoBehaviour
 
     protected void newDialogLine(string line) {
         dialogLines.Add(line);
+
+    }
+    protected void moodSprite(int mood) {
+        moodSprites.Add(mood);
+
     }
 
 

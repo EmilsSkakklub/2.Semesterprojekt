@@ -6,7 +6,7 @@ public class grill_dialog : Dialog {
     // Start is called before the first frame update
     void Awake() {
         initStart();
-        newDialogLine("I can still smell the burgers from yesterday!");
+        newDialogLine("I can still smell the burgers from yesterday!"); moodSprite(0); //0=normal 1=sad 2=angry
 
     }
 
