@@ -465,6 +465,19 @@ public class PlayerScript : MonoBehaviour
         }
         return ClosestTarget;
     }
+
+
+    public void lookAtTarget(Transform target) {
+        Vector3 lookPos = target.position - transform.position;
+        lookPos.y = 0;
+        Quaternion rotate = Quaternion.LookRotation(lookPos);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotate, Time.deltaTime * 2);
+    }
+
+
+
+
+
     //getters and setters
     public Animator getAnimator() {
         return animator;

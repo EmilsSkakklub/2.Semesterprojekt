@@ -41,7 +41,7 @@ public abstract class Dialog : MonoBehaviour
         if (interaction.getStartInteraction()) {
             textBubble.SetActive(true);
             playerScript.setInDialog(true);
-
+            playerScript.lookAtTarget(this.transform);
             if (Input.GetKeyDown(KeyCode.E)) {
                 incrementDialogNumber();
             }

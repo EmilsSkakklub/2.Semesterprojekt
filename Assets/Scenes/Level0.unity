@@ -1693,7 +1693,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 80000800}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.468, y: 1.204, z: 4.786}
+  m_LocalPosition: {x: -0.468, y: 1.204, z: 5.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 181568198}
@@ -1724,19 +1724,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a25f072446efdd446acece83aae04917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interaction: {fileID: 0}
-  spriteRenderer: {fileID: 0}
-  textBubble: {fileID: 0}
-  dialogText: {fileID: 0}
-  playerScript: {fileID: 0}
   sprites:
   - {fileID: 21300000, guid: 8e26e0933c9bacf41a9b5543a6e49eba, type: 3}
   - {fileID: 21300000, guid: cc195629778e8564a8fff589ba9afcdb, type: 3}
   - {fileID: 21300000, guid: 23809883c513da34eb40219f31fc2c47, type: 3}
-  dialogLines: []
   moodSprites: 
-  dialogNumber: 0
-  maxNumber: 0
 --- !u!4 &80632259 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 90914eab280bebd449de30def31f331f, type: 3}
@@ -12931,19 +12923,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a49d9bd9f7f594540ad060accec5510e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interaction: {fileID: 0}
-  spriteRenderer: {fileID: 0}
-  textBubble: {fileID: 0}
-  dialogText: {fileID: 0}
-  playerScript: {fileID: 0}
   sprites:
   - {fileID: 21300000, guid: 8e26e0933c9bacf41a9b5543a6e49eba, type: 3}
   - {fileID: 21300000, guid: cc195629778e8564a8fff589ba9afcdb, type: 3}
   - {fileID: 21300000, guid: 23809883c513da34eb40219f31fc2c47, type: 3}
-  dialogLines: []
   moodSprites: 
-  dialogNumber: 0
-  maxNumber: 0
 --- !u!1001 &601660608
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13945,19 +13929,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd3307ffaac19544fb68bb7ad0a6f60d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interaction: {fileID: 647888072}
-  spriteRenderer: {fileID: 1894000919}
-  textBubble: {fileID: 1207621736}
-  dialogText: {fileID: 1207621738}
-  playerScript: {fileID: 1442566068}
   sprites:
   - {fileID: 21300000, guid: 8e26e0933c9bacf41a9b5543a6e49eba, type: 3}
   - {fileID: 21300000, guid: cc195629778e8564a8fff589ba9afcdb, type: 3}
   - {fileID: 21300000, guid: 23809883c513da34eb40219f31fc2c47, type: 3}
-  dialogLines: []
   moodSprites: 
-  dialogNumber: 0
-  maxNumber: 0
 --- !u!1001 &651344293
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23569,22 +23545,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7810056450794552175, guid: 8b1cd5c3cc0dfd246aef7e80b4ae2d15, type: 3}
   m_PrefabInstance: {fileID: 6423574530546142064}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1207621736 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1028700926, guid: 8b1cd5c3cc0dfd246aef7e80b4ae2d15, type: 3}
-  m_PrefabInstance: {fileID: 6423574530546142064}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1207621738 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1028700928, guid: 8b1cd5c3cc0dfd246aef7e80b4ae2d15, type: 3}
-  m_PrefabInstance: {fileID: 6423574530546142064}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1207621736}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1212827003 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4291471185652902136, guid: 123ef4029abdba34ebff320adb54a833, type: 3}
@@ -24049,19 +24009,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96f410703015fd940b74785426b4a41b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interaction: {fileID: 0}
-  spriteRenderer: {fileID: 0}
-  textBubble: {fileID: 0}
-  dialogText: {fileID: 0}
-  playerScript: {fileID: 0}
   sprites:
   - {fileID: 21300000, guid: 8e26e0933c9bacf41a9b5543a6e49eba, type: 3}
   - {fileID: 21300000, guid: cc195629778e8564a8fff589ba9afcdb, type: 3}
   - {fileID: 21300000, guid: 23809883c513da34eb40219f31fc2c47, type: 3}
-  dialogLines: []
   moodSprites: 
-  dialogNumber: 0
-  maxNumber: 0
 --- !u!114 &1231862546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26261,18 +26213,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e84623ec59d0948478ce961e2df2acfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interaction: {fileID: 0}
-  spriteRenderer: {fileID: 0}
-  textBubble: {fileID: 0}
-  dialogText: {fileID: 0}
-  playerScript: {fileID: 0}
   sprites:
   - {fileID: 21300000, guid: 66df629de82242f44a0ed6e6849d08db, type: 3}
   - {fileID: 21300000, guid: aea619f23d31f2641a9a021aba5cf789, type: 3}
-  dialogLines: []
+  - {fileID: 21300000, guid: aea619f23d31f2641a9a021aba5cf789, type: 3}
   moodSprites: 
-  dialogNumber: 0
-  maxNumber: 0
 --- !u!4 &1356514508 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4291471185652902136, guid: 123ef4029abdba34ebff320adb54a833, type: 3}
@@ -30115,6 +30060,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1528365424}
   - component: {fileID: 1528365425}
+  - component: {fileID: 1528365426}
   m_Layer: 0
   m_Name: Thee_dialog
   m_TagString: Untagged
@@ -30130,7 +30076,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1528365423}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.38, y: 0, z: 0.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 467246501}
@@ -30149,6 +30095,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartInteraction: 0
+--- !u!114 &1528365426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528365423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571436f318205354c83fde0b0bf465a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 8e26e0933c9bacf41a9b5543a6e49eba, type: 3}
+  - {fileID: 21300000, guid: cc195629778e8564a8fff589ba9afcdb, type: 3}
+  - {fileID: 21300000, guid: 23809883c513da34eb40219f31fc2c47, type: 3}
+  moodSprites: 
 --- !u!1001 &1529172297
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36150,11 +36113,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 123ef4029abdba34ebff320adb54a833, type: 3}
---- !u!212 &1894000919 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 1582924729, guid: 8b1cd5c3cc0dfd246aef7e80b4ae2d15, type: 3}
-  m_PrefabInstance: {fileID: 6423574530546142064}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1895373084 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4291471185652902136, guid: 123ef4029abdba34ebff320adb54a833, type: 3}
@@ -40946,10 +40904,6 @@ PrefabInstance:
     - target: {fileID: 1087868795, guid: 937ca21a9c0d76a4bada9beaa75f7bbf, type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1087868798, guid: 937ca21a9c0d76a4bada9beaa75f7bbf, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1849665676707432844, guid: 937ca21a9c0d76a4bada9beaa75f7bbf, type: 3}
       propertyPath: m_RootOrder
