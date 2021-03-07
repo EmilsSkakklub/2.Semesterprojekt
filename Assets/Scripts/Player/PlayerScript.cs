@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -38,11 +39,12 @@ public class PlayerScript : MonoBehaviour
     //stamina System
     public float Stamina = 10f;
     public float maxStamina = 10f;
-    public float recoveryTimer = 2f;
+    public float recoveryTimer = 1f;
     public bool animationHasStarted = false;
     public bool animationAttStarted1 = false;
     public bool animationAttStarted2 = false;
     public bool animationAttStarted3 = false;
+    public Slider staminaSlider;
 
     //input booleans
     private bool forwardPressed;
@@ -108,11 +110,14 @@ public class PlayerScript : MonoBehaviour
         checkCurrentAnimationPlaying();
         animatePlayer();
         inputManager();
+        
         updateHealth();
-        Interact();
-        recoverStamina();
+        
         updateStamina();
+        recoverStamina(3);
+        setStaminaSlider(Stamina);
 
+        Interact();
 
         /*
         StartCoroutine("Dash1");
@@ -139,6 +144,7 @@ public class PlayerScript : MonoBehaviour
         cam = GameObject.Find("Main Camera").GetComponent<Transform>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         InteractText = GameObject.Find("InteractText");
+        staminaSlider = GameObject.Find("StaminaBar").GetComponent<Slider>();
 
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
@@ -152,6 +158,8 @@ public class PlayerScript : MonoBehaviour
         isRollingHash = Animator.StringToHash("isRolling");
 
         Cursor.lockState = CursorLockMode.Locked;
+
+        setMaxStamina(10);
     }
 
     //checks the current input of the player
@@ -535,9 +543,9 @@ private void movement() {
     }
 
     //recover stamina passively when not doing any major action
-    private void recoverStamina() {
+    private void recoverStamina(float staminaRecoveryRate) {
         if (runningAnimation || rollAnimation || jumpAnimation || attackAnimation1 || attackAnimation2 || attackAnimation3 || attackAnimation4) {
-            recoveryTimer = 2f;
+            recoveryTimer = 1f;
         }
         if(recoveryTimer < 0) {
             recoveryTimer = 0;
@@ -545,7 +553,7 @@ private void movement() {
         if(!runningAnimation && Stamina < maxStamina) {
             recoveryTimer -= Time.deltaTime;
             if(recoveryTimer <= 0) {
-                Stamina += Time.deltaTime;
+                Stamina += staminaRecoveryRate * Time.deltaTime;
             }
         }
         if(Stamina > maxStamina) {
@@ -592,6 +600,16 @@ private void movement() {
 
     }
 
+    public void setStaminaSlider(float Stamina) {
+        staminaSlider.value = Stamina;
+    }
+
+    public void setMaxStaminaSlider(float maxStamina) {
+        staminaSlider.maxValue = maxStamina;
+        staminaSlider.value = maxStamina;
+    }
+
+
 
 
 
@@ -606,6 +624,13 @@ private void movement() {
     }
     public void setStamina(float Stamina) {
         this.Stamina = Stamina;
+    }
+
+    public float getMaStamina() {
+        return maxStamina;
+    }
+    public void setMaxStamina(float maxStamina) {
+        this.maxStamina = maxStamina;
     }
 
     public bool getInDialog() {
