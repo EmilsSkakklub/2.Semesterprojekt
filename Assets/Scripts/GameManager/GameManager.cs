@@ -7,8 +7,7 @@ public class GameManager : MonoBehaviour
 
     private PlayerScript playerScript;
     private Inventory inventory;
-    public List<GameObject> ListOfInteractables;
-    private GameObject textBubble;
+
 
 
 
@@ -35,14 +34,6 @@ public class GameManager : MonoBehaviour
     private void InitStart() {
         playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
         inventory = GameObject.Find("Player").GetComponent<Inventory>();
-        textBubble = GameObject.Find("TextBubble");
-
-
-        //interact
-        foreach (GameObject interactable in GameObject.FindGameObjectsWithTag("Interactable")) {
-            ListOfInteractables.Add(interactable);
-        }
-        textBubble.SetActive(false);
     }
 
 

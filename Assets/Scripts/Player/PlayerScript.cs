@@ -27,8 +27,9 @@ public class PlayerScript : MonoBehaviour
     //interact
     Interaction ClosestTarget;
     GameObject InteractText;
+    GameObject textBubble;
+    public List<GameObject> ListOfInteractables;
     private bool inDialog;
-
 
     //HP System
     public int HP = 8;
@@ -116,8 +117,9 @@ public class PlayerScript : MonoBehaviour
         updateStamina();
         recoverStamina(3);
         setStaminaSlider(Stamina);
-
-        Interact();
+        StartCoroutine(Interact());
+        
+        
 
         /*
         StartCoroutine("Dash1");
@@ -144,6 +146,7 @@ public class PlayerScript : MonoBehaviour
         cam = GameObject.Find("Main Camera").GetComponent<Transform>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         InteractText = GameObject.Find("InteractText");
+        textBubble = GameObject.Find("TextBubble");
         staminaSlider = GameObject.Find("StaminaBar").GetComponent<Slider>();
 
         isWalkingHash = Animator.StringToHash("isWalking");
@@ -160,6 +163,10 @@ public class PlayerScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         setMaxStamina(10);
+
+        foreach (GameObject interactable in GameObject.FindGameObjectsWithTag("Interactable")) {
+            ListOfInteractables.Add(interactable);
+        }
     }
 
     //checks the current input of the player
@@ -476,18 +483,28 @@ private void movement() {
     }
 
     //interaction
-    private void Interact() {
-        ClosestTarget = GetClosestEnemy().GetComponent<Interaction>();
+    private IEnumerator Interact() {
+        if(ListOfInteractables.Count != 0) {
+            ClosestTarget = GetClosestEnemy().GetComponent<Interaction>();
 
-        if (DistanceToClosestTarget() <= 1.5f && !ClosestTarget.getStartInteraction()) {
-            InteractText.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.E)) {
-                ClosestTarget.setStartInteraction(true);
+            if (DistanceToClosestTarget() <= 1.5f && !ClosestTarget.getStartInteraction() && ListOfInteractables.Count != 0) {
+                InteractText.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.E)) {
+                    yield return new WaitForSeconds(0.01f);
+                    ClosestTarget.setStartInteraction(true);
+                }
+
+            } else {
+                InteractText.SetActive(false);
+                textBubble.SetActive(false);
             }
-            
-        } else {
-            InteractText.SetActive(false);
         }
+        else {
+            InteractText.SetActive(false);
+            textBubble.SetActive(false);
+        }
+        
+        yield return null;
     }
     //finds the distance to the closest interactable target
     public float DistanceToClosestTarget() {
@@ -502,7 +519,7 @@ private void movement() {
         float closestDistanceSqr = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
 
-        foreach (GameObject potentialTarget in gm.ListOfInteractables) {
+        foreach (GameObject potentialTarget in ListOfInteractables) {
             Vector3 directionToTarget = potentialTarget.transform.position - currentPosition;
             float dSqrToTarget = directionToTarget.sqrMagnitude;
             if (dSqrToTarget < closestDistanceSqr) {
