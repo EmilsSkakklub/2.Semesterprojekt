@@ -29,11 +29,20 @@ public class PlayerScript : MonoBehaviour
     private bool inDialog;
 
 
-    //HPSystem
+    //HP System
     public int HP = 8;
     public GameObject[] FullHearts;
     public GameObject[] HalfHearts;
     public GameObject[] EmptyHearts;
+
+    //stamina System
+    public float Stamina = 10f;
+    public float maxStamina = 10f;
+    public float recoveryTimer = 2f;
+    public bool animationHasStarted = false;
+    public bool animationAttStarted1 = false;
+    public bool animationAttStarted2 = false;
+    public bool animationAttStarted3 = false;
 
     //input booleans
     private bool forwardPressed;
@@ -48,6 +57,8 @@ public class PlayerScript : MonoBehaviour
 
     //bools to see what animation is currently playing
     private bool idleAnimation;
+    private bool walkAnimation;
+    private bool runningAnimation;
     private bool attackAnimation1;
     private bool attackAnimation2;
     private bool attackAnimation3;
@@ -55,6 +66,8 @@ public class PlayerScript : MonoBehaviour
     private bool deathAnimation;
     private bool hitAnimation;
     private bool rollAnimation;
+    private bool jumpAnimation;
+
 
     //hash codes for  the animator 
     private int isWalkingHash;
@@ -97,6 +110,8 @@ public class PlayerScript : MonoBehaviour
         inputManager();
         updateHealth();
         Interact();
+        recoverStamina();
+        updateStamina();
 
 
         /*
@@ -155,6 +170,8 @@ public class PlayerScript : MonoBehaviour
     //checks which animation is running 
     private void checkCurrentAnimationPlaying() {
         idleAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Idle");
+        walkAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Walk");
+        runningAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Run");
         deathAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Death");
         hitAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Hit");
         attackAnimation1 = animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack1");
@@ -162,10 +179,12 @@ public class PlayerScript : MonoBehaviour
         attackAnimation3 = animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack3");
         attackAnimation4 = animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack4");
         rollAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Rolling");
+        jumpAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Jump");
+
     }
 
-    //ability for player to move around in the world
-    private void movement() {
+//ability for player to move around in the world
+private void movement() {
         //Gets Axis from Input Manager
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
@@ -192,7 +211,7 @@ public class PlayerScript : MonoBehaviour
             }
 
             // jump
-            if (Input.GetButtonDown("Jump") && isGrounded && !rollAnimation) {
+            if (Input.GetButtonDown("Jump") && isGrounded && !rollAnimation && getStamina() > 0) {
                 StartCoroutine("Jump");
             }
         }
@@ -226,7 +245,7 @@ public class PlayerScript : MonoBehaviour
         crouchingToggle = false;
     }
 
-    private void animatePlayer() {
+    private void animatePlayer(){
         if (inDialog) {
             animator.SetBool(isWalkingHash, false);
             animator.SetBool(isRunningHash, false);
@@ -248,7 +267,7 @@ public class PlayerScript : MonoBehaviour
             }
 
             //running animation
-            if ((forwardPressed || backwardPressed || leftPressed || rightPressed) && runPressed) {
+            if ((forwardPressed || backwardPressed || leftPressed || rightPressed) && runPressed && getStamina() > 0) {
                 animator.SetBool(isRunningHash, true);
                 crouchingToggle = false;
                 speed = 4;
@@ -280,21 +299,21 @@ public class PlayerScript : MonoBehaviour
 
             //attack animation
             //attack 1
-            if (attackPressed && !attackAnimation1 && !attackAnimation2 && !attackAnimation3) {
+            if (attackPressed && !attackAnimation1 && !attackAnimation2 && !attackAnimation3 && Stamina > 0) {
                 animator.SetBool(isAttack1Hash, true);
                 crouchingToggle = false;
             }
 
 
             //attack 2
-            if (attackPressed && attackAnimation1) {
+            if (attackPressed && attackAnimation1 && Stamina > 0) {
                 animator.SetBool(isAttack2Hash, true);
             }
 
 
 
             //attack 3
-            if (attackPressed && attackAnimation2) {
+            if (attackPressed && attackAnimation2 && Stamina > 0) {
                 animator.SetBool(isAttack3Hash, true);
             }
 
@@ -313,7 +332,7 @@ public class PlayerScript : MonoBehaviour
             }
 
             //jump attack animation
-            if (attackAnimation4) {
+            if (attackAnimation4 && Stamina > 0) {
                 animator.SetBool(isAttack1Hash, false);
             }
 
@@ -326,7 +345,7 @@ public class PlayerScript : MonoBehaviour
             }
 
             //roll animation
-            if (rollPressed) {
+            if (rollPressed && Stamina > 0) {
                 animator.SetBool(isRollingHash, true);
                 crouchingToggle = false;
             }
@@ -334,8 +353,6 @@ public class PlayerScript : MonoBehaviour
                 animator.SetBool(isRollingHash, false);
             }
         }
-        
-
     }
     /*IEnumerator Dash1() {
         bool attack1playing = animator.GetCurrentAnimatorStateInfo(0).IsTag("1");
@@ -497,12 +514,98 @@ public class PlayerScript : MonoBehaviour
     }
 
 
+    public void loseStaminaPeriodically() {
+        if(Stamina > 0) {
+            Stamina -= 2 * Time.deltaTime;
+        }
+        if(Stamina < 0) {
+            setStamina(0);
+        }
+       
+    }
+
+    public void loseStaminaInstantly(int staminaCost) {
+        float staminaLeft = Stamina - staminaCost;
+        if(staminaLeft <= 0) {
+            setStamina(0);
+        }
+        else if(staminaLeft > 0){
+            Stamina -= staminaCost;
+        }
+    }
+
+    //recover stamina passively when not doing any major action
+    private void recoverStamina() {
+        if (runningAnimation || rollAnimation || jumpAnimation || attackAnimation1 || attackAnimation2 || attackAnimation3 || attackAnimation4) {
+            recoveryTimer = 2f;
+        }
+        if(recoveryTimer < 0) {
+            recoveryTimer = 0;
+        }
+        if(!runningAnimation && Stamina < maxStamina) {
+            recoveryTimer -= Time.deltaTime;
+            if(recoveryTimer <= 0) {
+                Stamina += Time.deltaTime;
+            }
+        }
+        if(Stamina > maxStamina) {
+            Stamina = maxStamina;
+        } 
+    }
+
+    
+    private void updateStamina() {
+        if(walkAnimation || idleAnimation) {
+            animationHasStarted = false;
+            animationAttStarted1 = false;
+            animationAttStarted2 = false;
+            animationAttStarted3 = false;
+        }
+
+        if (runningAnimation) {
+            loseStaminaPeriodically();
+        }
+        if (jumpAnimation && !animationHasStarted) {
+            animationHasStarted = true;
+            loseStaminaInstantly(1);
+        }
+        if (attackAnimation1 && !animationAttStarted1) {
+            animationAttStarted1 = true;
+            loseStaminaInstantly(1);
+        }
+        if (attackAnimation2 && !animationAttStarted2) {
+            animationAttStarted2 = true;
+            loseStaminaInstantly(1);
+        }
+        if (attackAnimation3 && !animationAttStarted3) {
+            animationAttStarted3 = true;
+            loseStaminaInstantly(2);
+        }
+        if (attackAnimation4 && !animationAttStarted1) {
+            animationAttStarted1 = true;
+            loseStaminaInstantly(1);
+        }
+        if (rollAnimation && !animationHasStarted) {
+            animationHasStarted = true;
+            loseStaminaInstantly(1);
+        }
+
+    }
+
 
 
 
     //getters and setters
     public Animator getAnimator() {
         return animator;
+    }
+
+
+    public float getStamina() {
+        return Stamina;
+    }
+    public void setStamina(float Stamina) {
+        this.Stamina = Stamina;
     }
 
     public bool getInDialog() {
