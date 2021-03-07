@@ -6,9 +6,9 @@ public class lb_dialog : Dialog {
     // Start is called before the first frame update
     void Awake() {
         initStart();
-        newDialogLine("Righ now I'm a normal boi"); moodSprite(0); //0=normal 1=sad 2=angry
-        newDialogLine("But sometimes I get sad..."); moodSprite(1); //0=normal 1=sad 2=angry
-        newDialogLine("And in some cases, I become normal again!"); moodSprite(0); //0=normal 1=sad 2=angry
+        newDialogLine("Righ now I'm a normal boi",0);  //0=normal 1=sad 2=angry
+        newDialogLine("But sometimes I get sad...",1);  //0=normal 1=sad 2=angry
+        newDialogLine("And in some cases, I become normal again!",0);  //0=normal 1=sad 2=angry
 
     }
 

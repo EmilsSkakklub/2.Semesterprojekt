@@ -53,12 +53,9 @@ public abstract class Dialog : MonoBehaviour
         
     }
 
-    protected void newDialogLine(string line) {
+    protected void newDialogLine(string line, int mood) {
         dialogLines.Add(line);
-    }
-    protected void moodSprite(int mood) {
         moodSprites.Add(mood);
-
     }
 
 
