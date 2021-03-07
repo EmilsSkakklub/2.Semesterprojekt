@@ -487,7 +487,7 @@ private void movement() {
         if(ListOfInteractables.Count != 0) {
             ClosestTarget = GetClosestEnemy().GetComponent<Interaction>();
 
-            if (DistanceToClosestTarget() <= 1.5f && !ClosestTarget.getStartInteraction() && ListOfInteractables.Count != 0) {
+            if (DistanceToClosestTarget() <= 1.5f && !ClosestTarget.getStartInteraction()) {
                 InteractText.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.E)) {
                     yield return new WaitForSeconds(0.01f);
