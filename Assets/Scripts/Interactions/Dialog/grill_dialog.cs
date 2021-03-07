@@ -5,7 +5,7 @@ using UnityEngine;
 public class grill_dialog : Dialog {
     // Start is called before the first frame update
     void Awake() {
-        initStart();
+        initStart(false);
         newDialogLine("I can still smell the burgers from yesterday!",0); //MOOD: 0=normal 1=sad 2=angry
 
     }

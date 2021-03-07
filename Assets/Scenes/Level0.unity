@@ -1728,6 +1728,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8e26e0933c9bacf41a9b5543a6e49eba, type: 3}
   - {fileID: 21300000, guid: cc195629778e8564a8fff589ba9afcdb, type: 3}
   - {fileID: 21300000, guid: 23809883c513da34eb40219f31fc2c47, type: 3}
+  dialogLines: []
   moodSprites: 
 --- !u!4 &80632259 stripped
 Transform:
@@ -12928,6 +12929,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8e26e0933c9bacf41a9b5543a6e49eba, type: 3}
   - {fileID: 21300000, guid: cc195629778e8564a8fff589ba9afcdb, type: 3}
   - {fileID: 21300000, guid: 23809883c513da34eb40219f31fc2c47, type: 3}
+  dialogLines: []
   moodSprites: 
 --- !u!1001 &601660608
 PrefabInstance:
@@ -13934,6 +13936,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8e26e0933c9bacf41a9b5543a6e49eba, type: 3}
   - {fileID: 21300000, guid: cc195629778e8564a8fff589ba9afcdb, type: 3}
   - {fileID: 21300000, guid: 23809883c513da34eb40219f31fc2c47, type: 3}
+  dialogLines: []
   moodSprites: 
 --- !u!1001 &651344293
 PrefabInstance:
@@ -21007,6 +21010,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8e26e0933c9bacf41a9b5543a6e49eba, type: 3}
   - {fileID: 21300000, guid: cc195629778e8564a8fff589ba9afcdb, type: 3}
   - {fileID: 21300000, guid: 23809883c513da34eb40219f31fc2c47, type: 3}
+  dialogLines: []
   moodSprites: 
 --- !u!114 &1069478039
 MonoBehaviour:
@@ -22510,8 +22514,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1141076489}
-  m_LocalRotation: {x: 0.27541462, y: -1e-45, z: -0, w: 0.9613256}
-  m_LocalPosition: {x: 0, y: 1.4039149, z: 0.8479681}
+  m_LocalRotation: {x: 0.13273315, y: -1e-45, z: -0, w: 0.99115187}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1449855015}
@@ -22718,7 +22722,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1158880992}
-  m_LocalRotation: {x: 0.11468265, y: -0.00000004277746, z: 0.0000000049384155, w: 0.9934022}
+  m_LocalRotation: {x: 0.114682645, y: -0.000000038220783, z: 0.0000000044123727, w: 0.9934022}
   m_LocalPosition: {x: 7.673504, y: 0.73500085, z: -2.9060216}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -24115,6 +24119,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8e26e0933c9bacf41a9b5543a6e49eba, type: 3}
   - {fileID: 21300000, guid: cc195629778e8564a8fff589ba9afcdb, type: 3}
   - {fileID: 21300000, guid: 23809883c513da34eb40219f31fc2c47, type: 3}
+  dialogLines: []
   moodSprites: 
 --- !u!114 &1231862546
 MonoBehaviour:
@@ -26319,6 +26324,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 66df629de82242f44a0ed6e6849d08db, type: 3}
   - {fileID: 21300000, guid: aea619f23d31f2641a9a021aba5cf789, type: 3}
   - {fileID: 21300000, guid: aea619f23d31f2641a9a021aba5cf789, type: 3}
+  dialogLines: []
   moodSprites: 
 --- !u!4 &1356514508 stripped
 Transform:
@@ -27018,7 +27024,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383305218}
-  m_LocalRotation: {x: 0.114682645, y: -0.000000021456572, z: 0.0000000024770397, w: 0.9934022}
+  m_LocalRotation: {x: 0.11468264, y: -0.00000001911039, z: 0.0000000022061861, w: 0.9934022}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -37593,7 +37599,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1954233898}
-  m_LocalRotation: {x: 0.09664202, y: -0.000000026367516, z: 0.0000000025601936, w: 0.99531925}
+  m_LocalRotation: {x: 0.09664201, y: -1e-45, z: -0, w: 0.99531925}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -41186,6 +41192,10 @@ PrefabInstance:
     - target: {fileID: 1849665676707432845, guid: 937ca21a9c0d76a4bada9beaa75f7bbf, type: 3}
       propertyPath: m_Name
       value: LittleBro
+      objectReference: {fileID: 0}
+    - target: {fileID: 1849665676707432845, guid: 937ca21a9c0d76a4bada9beaa75f7bbf, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 937ca21a9c0d76a4bada9beaa75f7bbf, type: 3}

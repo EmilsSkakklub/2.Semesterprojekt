@@ -5,7 +5,7 @@ using UnityEngine;
 public class hedgehole_dialog : Dialog {
     // Start is called before the first frame update
     void Awake() {
-        initStart();
+        initStart(false);
         newDialogLine("I'm too scared to go in there...",1); //0=normal 1=sad 2=angry
     }
 
