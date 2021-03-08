@@ -4,17 +4,31 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
-    private int health;
-    private string enemyName;
+    public int health;
+    public string enemyName;
 
-    protected void Init(string enemyName, int health) {
+    protected void initStart(string enemyName, int health) {
+        gameObject.layer = LayerMask.NameToLayer("Enemy");
         setEnemyName(enemyName);
         setHealth(health);
     }
 
+    protected void initUpdate() {
+        die();
+    }
+
+
     public void takeDamage(int damage) {
        health -= damage;
     }
+
+    public void die() {
+        if(health <= 0) {
+            Destroy(gameObject);
+        }
+    }
+
+
 
 
 
