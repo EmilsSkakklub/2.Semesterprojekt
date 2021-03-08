@@ -439,11 +439,13 @@ private void movement() {
                 }
 
             } else {
+                Debug.Log("Be false1");
                 InteractText.SetActive(false);
                 textBubble.SetActive(false);
             }
         }
         else {
+            Debug.Log("Be false2");
             InteractText.SetActive(false);
             textBubble.SetActive(false);
         }
