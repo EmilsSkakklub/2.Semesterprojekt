@@ -488,15 +488,12 @@ private void movement() {
                     yield return new WaitForSeconds(0.01f);
                     ClosestTarget.setStartInteraction(true);
                 }
-
             } else {
-                Debug.Log("Be false1");
                 InteractText.SetActive(false);
                 textBubble.SetActive(false);
             }
         }
         else {
-            Debug.Log("Be false2");
             InteractText.SetActive(false);
             textBubble.SetActive(false);
         }
