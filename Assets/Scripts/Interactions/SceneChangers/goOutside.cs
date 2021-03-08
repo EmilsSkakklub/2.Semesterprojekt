@@ -13,6 +13,6 @@ public class goOutside : SceneChange
 
     void Update()
     {
-        SceneChanger();
+        StartCoroutine(SceneChanger());
     }
 }

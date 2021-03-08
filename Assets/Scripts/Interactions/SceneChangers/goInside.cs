@@ -11,6 +11,6 @@ public class goInside : SceneChange
 
 
     void Update() {
-        SceneChanger();
+        StartCoroutine(SceneChanger());
     }
 }
