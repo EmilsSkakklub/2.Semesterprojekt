@@ -62,10 +62,10 @@ public class PlayerScript : MonoBehaviour
     private bool idleAnimation;
     private bool walkAnimation;
     private bool runningAnimation;
-    private bool attackAnimation1;
-    private bool attackAnimation2;
-    private bool attackAnimation3;
-    private bool attackAnimation4;
+    public bool attackAnimation1;
+    public bool attackAnimation2;
+    public bool attackAnimation3;
+    public bool attackAnimation4;
     private bool deathAnimation;
     private bool hitAnimation;
     private bool rollAnimation;
@@ -84,9 +84,14 @@ public class PlayerScript : MonoBehaviour
     private int isDeadHash;
     private int isRollingHash;
 
-
-
-
+    //combat
+    public Transform attackpoint;
+    public float attackRange = 0.1f;
+    public LayerMask enemyLayers;
+    public bool hit1 = true;
+    public bool hit2 = true;
+    public bool hit3 = true;
+    public bool hit4 = true;
 
 
 
@@ -111,7 +116,8 @@ public class PlayerScript : MonoBehaviour
         recoverStamina(3);
         setStaminaSlider(Stamina);
         StartCoroutine(Interact());
-        
+
+        attack();
     
     }
 
@@ -125,6 +131,7 @@ public class PlayerScript : MonoBehaviour
         InteractText = GameObject.Find("InteractText");
         textBubble = GameObject.Find("TextBubble");
         staminaSlider = GameObject.Find("StaminaBar").GetComponent<Slider>();
+        attackpoint = GameObject.Find("AttackPoint").GetComponent<Transform>();
 
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
@@ -173,7 +180,6 @@ public class PlayerScript : MonoBehaviour
         attackAnimation4 = animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack4");
         rollAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Rolling");
         jumpAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Jump");
-
     }
 
 //ability for player to move around in the world
@@ -347,6 +353,51 @@ private void movement() {
         }
     }
 
+    private void attack() {
+        Collider[] hitEnemies = Physics.OverlapSphere(attackpoint.position, attackRange, enemyLayers);
+        if (attackAnimation1 && hit1) {
+            foreach (Collider enemy in hitEnemies) {
+                enemy.GetComponent<Enemy>().takeDamage(2);
+                Debug.Log(enemy.name + " hit");
+                hit1 = false;
+            }
+        }
+        if (attackAnimation2 && hit2) {
+            foreach (Collider enemy in hitEnemies) {
+                enemy.GetComponent<Enemy>().takeDamage(4);
+                Debug.Log(enemy.name + " hit 2!");
+                hit2 = false;
+            }
+        }
+        if (attackAnimation3 && hit3) {
+            foreach (Collider enemy in hitEnemies) {
+                enemy.GetComponent<Enemy>().takeDamage(6);
+                Debug.Log(enemy.name + " hit 3!");
+                hit3 = false;
+            }
+        }
+        if (attackAnimation4 && hit4) {
+            foreach (Collider enemy in hitEnemies) {
+                enemy.GetComponent<Enemy>().takeDamage(10);
+                Debug.Log(enemy.name + " hit 4!");
+                hit4 = false;
+            }
+        }
+        if(!attackAnimation1 && !attackAnimation2 && !attackAnimation3 && !attackAnimation4) {
+            hit1 = true;
+            hit2 = true;
+            hit3 = true;
+            hit4 = true;
+        }
+    }
+
+    private void OnDrawGizmosSelected() {
+        if(attackpoint == null) {
+            return;
+        }
+        Gizmos.DrawWireSphere(attackpoint.position, attackRange);
+    }
+
 
     private void updateHealth() {
         //First [i] = 4. i.e. the array goes from 4 - 3 - 2 - 1 - 0.
@@ -460,6 +511,10 @@ private void movement() {
         return dist;
     }
     //finds the closest interactable target
+  
+    
+    
+    
     public GameObject GetClosestEnemy() {
         GameObject ClosestTarget = null;
         float closestDistanceSqr = Mathf.Infinity;
@@ -475,8 +530,7 @@ private void movement() {
         }
         return ClosestTarget;
     }
-
-
+    //look at target
     public void lookAtTarget(Transform target) {
         Vector3 lookPos = target.position - transform.position;
         lookPos.y = 0;

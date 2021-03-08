@@ -13,15 +13,7 @@ public abstract class Enemy : MonoBehaviour
     }
 
     public void takeDamage(int damage) {
-        setHealth(getHealth() - damage);
-    }
-
-    protected void OnTriggerEnter(Collider other) {
-        if (other.gameObject.CompareTag("Weapon")) {
-            int damageTaken = other.GetComponent<Weapon>().getDamage();
-            takeDamage(damageTaken);
-            print(getEnemyName() + " took " + damageTaken + " damage. Health Left: " + getHealth());
-        }
+       health -= damage;
     }
 
 
