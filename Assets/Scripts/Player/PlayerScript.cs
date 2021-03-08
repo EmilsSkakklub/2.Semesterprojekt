@@ -38,8 +38,8 @@ public class PlayerScript : MonoBehaviour
     public GameObject[] EmptyHearts;
 
     //stamina System
-    public float Stamina = 10f;
-    public float maxStamina = 10f;
+    public float Stamina;
+    public float maxStamina;
     public float recoveryTimer = 1f;
     public bool animationHasStarted = false;
     public bool animationAttStarted1 = false;
@@ -86,13 +86,6 @@ public class PlayerScript : MonoBehaviour
 
 
 
-    //FOR DASH - NOT FINISHED
-    public bool dash1Ready;
-    public bool dash2Ready;
-    public bool dash3Ready;
-    public float dashSpeed = 10f;
-    public float dashTime = .1f;
-
 
 
 
@@ -119,23 +112,7 @@ public class PlayerScript : MonoBehaviour
         setStaminaSlider(Stamina);
         StartCoroutine(Interact());
         
-        
-
-        /*
-        StartCoroutine("Dash1");
-        StartCoroutine("Dash2");
-        StartCoroutine("Dash3");
-        //TESTKODE - FJERN SENERE
-        if (Input.GetKeyDown(KeyCode.F)) {
-            animator.SetBool(isHitHash, true);
-        }
-        if (Input.GetKeyDown(KeyCode.G)) {
-            animator.SetBool(isDeadHash, true);
-        }
-        else {
-            animator.SetBool(isHitHash, false);
-            animator.SetBool(isDeadHash, false);
-        }*/
+    
     }
 
 
@@ -162,7 +139,8 @@ public class PlayerScript : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
 
-        setMaxStamina(10);
+        setMaxStamina(1000);
+        setStamina(maxStamina);
 
         foreach (GameObject interactable in GameObject.FindGameObjectsWithTag("Interactable")) {
             ListOfInteractables.Add(interactable);
@@ -269,9 +247,8 @@ private void movement() {
         if (!inDialog) {
             //checks if idle / runnig / walking
             if (idleAnimation) {
-                dash1Ready = true;
-                dash2Ready = true;
-                dash3Ready = true;
+
+
             }
 
             //walking animation
@@ -369,41 +346,8 @@ private void movement() {
             }
         }
     }
-    /*IEnumerator Dash1() {
-        bool attack1playing = animator.GetCurrentAnimatorStateInfo(0).IsTag("1");
-        yield return new WaitUntil(() => attack1playing);
 
-        yield return new WaitForSeconds(0.20f);
 
-        float startTime = Time.time; // need to remember this to know how long to dash
-        while (Time.time < startTime + dashTime) {
-            controller.Move(transform.forward * dashSpeed * Time.deltaTime);
-            yield return null; // this will make Unity stop here and continue next frame
-            }
-        
-        
-    }
-    IEnumerator Dash2() {
-        bool attack2playing = animator.GetCurrentAnimatorStateInfo(0).IsTag("2");
-        yield return new WaitUntil(() => attack2playing);
-        yield return new WaitForSeconds(0.50f);
-        float startTime = Time.deltaTime; // need to remember this to know how long to dash
-        while (Time.time < startTime + dashTime) {
-            controller.Move(transform.forward * dashSpeed * Time.deltaTime);
-            yield return null; // this will make Unity stop here and continue next frame
-        }
-    }
-    IEnumerator Dash3() {
-        bool attack3playing = animator.GetCurrentAnimatorStateInfo(0).IsTag("3");
-        yield return new WaitUntil(() => attack3playing);
-
-        yield return new WaitForSeconds(0.50f);
-        float startTime = Time.time; // need to remember this to know how long to dash
-        while (Time.time < startTime + dashTime) {
-            controller.Move(transform.forward * dashSpeed * Time.deltaTime);
-            yield return null; // this will make Unity stop here and continue next frame
-        }
-    }*/
     private void updateHealth() {
         //First [i] = 4. i.e. the array goes from 4 - 3 - 2 - 1 - 0.
         
