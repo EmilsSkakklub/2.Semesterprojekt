@@ -6,6 +6,8 @@ public abstract class Enemy : MonoBehaviour
 {
     public int health;
     public string enemyName;
+    public bool isDead;
+    public float removeTimer;
 
     public Animator animator;
     public Transform playerTransform;
@@ -21,14 +23,17 @@ public abstract class Enemy : MonoBehaviour
 
     //indicate what animation is playing
     public bool walkAnimation;
+    public bool deadAnimation;
 
     //hash codes for the animations
-    public int isWalkingHash;
+    private int isWalkingHash;
+    private int isDeadHash;
 
-    protected void initStart(string enemyName, int health) {
+    protected void initStart(string enemyName, int health, float deathAnimTimer) {
         gameObject.layer = LayerMask.NameToLayer("Enemy");
         setEnemyName(enemyName);
         setHealth(health);
+        setRemoveTimer(deathAnimTimer);
 
         animator = GetComponent<Animator>();
         playerTransform = GameObject.Find("Player").GetComponent<Transform>();
@@ -48,10 +53,13 @@ public abstract class Enemy : MonoBehaviour
     
     private void setAnimationHashCodes() {
         isWalkingHash = Animator.StringToHash("isWalking");
+        isDeadHash = Animator.StringToHash("isDead");
+        
     }
 
     private void getCurrentAnimationPlaying() {
         walkAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Walk");
+        deadAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Dead");
     }
 
     private void updateGravity() {
@@ -63,7 +71,7 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    void groundCheck() {
+    private void groundCheck() {
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.07f + 0.02f)) {
             isGrounded = true;
@@ -77,29 +85,42 @@ public abstract class Enemy : MonoBehaviour
        health -= damage;
     }
 
-    public void die() {
+    private void die() {
         if(health <= 0) {
-            Destroy(gameObject);
-        }
-    }
-
-    public void goTowardsEnemy() {
-        
-        transform.LookAt(playerTransform);
-
-        if (Vector3.Distance(transform.position, playerTransform.position) >= MinDistance) {
-            animator.SetBool(isWalkingHash, true);
-            transform.position += transform.forward * moveSpeed * Time.deltaTime;
-
-            if (Vector3.Distance(transform.position, playerTransform.position) <= MaxDistance) {
-                //implement Attack
+            setIsDead(true);
+            animator.SetBool(isDeadHash, true);
+            if (deadAnimation) {
+                animator.SetBool(isDeadHash, false);
+                removeTimer -= Time.deltaTime;
+                
+            }
+            if(removeTimer <= 0) {
+                Destroy(gameObject);
             }
         }
-        else {
-            animator.SetBool(isWalkingHash, false);
+    }
+
+    private void goTowardsEnemy() {
+        if (!isDead) {
+            transform.LookAt(playerTransform);
+            if (Vector3.Distance(transform.position, playerTransform.position) >= MinDistance) {
+                animator.SetBool(isWalkingHash, true);
+                transform.position += transform.forward * moveSpeed * Time.deltaTime;
+
+                if (Vector3.Distance(transform.position, playerTransform.position) <= MaxDistance) {
+                    //implement Attack
+                }
+            }
+            else {
+                animator.SetBool(isWalkingHash, false);
+            }
         }
     }
 
+
+    private void attack() {
+
+    }
 
 
 
@@ -119,6 +140,15 @@ public abstract class Enemy : MonoBehaviour
     public void setEnemyName(string enemyName) {
         this.enemyName = enemyName;
     }
+
+    public void setIsDead(bool isDead) {
+        this.isDead = isDead;
+    }
+
+    public void setRemoveTimer(float removeTimer) {
+        this.removeTimer = removeTimer;
+    }
+
 
     
 }
