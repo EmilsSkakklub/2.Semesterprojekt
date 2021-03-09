@@ -48,8 +48,13 @@ public abstract class Enemy : MonoBehaviour
         groundCheck();
         goTowardsEnemy();
         die();
+
+
+        //ved ikke hvorden den ikke virker hvis jeg smider den ned i en method
+        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
     }
 
+  
     
     private void setAnimationHashCodes() {
         isWalkingHash = Animator.StringToHash("isWalking");
@@ -102,6 +107,7 @@ public abstract class Enemy : MonoBehaviour
 
     private void goTowardsEnemy() {
         if (!isDead) {
+
             transform.LookAt(playerTransform);
             if (Vector3.Distance(transform.position, playerTransform.position) >= MinDistance) {
                 animator.SetBool(isWalkingHash, true);
