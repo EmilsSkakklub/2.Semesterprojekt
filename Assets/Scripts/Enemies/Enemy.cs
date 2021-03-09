@@ -25,11 +25,13 @@ public abstract class Enemy : MonoBehaviour
     public bool walkAnimation;
     public bool deadAnimation;
     public bool attackAnimation;
+    public bool hitAnimation;
 
     //hash codes for the animations
     private int isWalkingHash;
     private int isDeadHash;
     private int isAttackingHash;
+    private int isHitHash;
 
     protected void initStart(string enemyName, int health, float deathAnimTimer) {
         gameObject.layer = LayerMask.NameToLayer("Enemy");
@@ -51,9 +53,7 @@ public abstract class Enemy : MonoBehaviour
         goTowardsEnemy();
         die();
 
-
-        //ved ikke hvorden den ikke virker hvis jeg smider den ned i en method
-        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+        updateAnimations();
     }
 
   
@@ -62,6 +62,7 @@ public abstract class Enemy : MonoBehaviour
         isWalkingHash = Animator.StringToHash("isWalking");
         isDeadHash = Animator.StringToHash("isDead");
         isAttackingHash = Animator.StringToHash("isAttacking");
+        isHitHash = Animator.StringToHash("isHit");
 
     }
 
@@ -69,6 +70,7 @@ public abstract class Enemy : MonoBehaviour
         walkAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Walk");
         deadAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Dead");
         attackAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack");
+        hitAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Hit");
     }
 
     private void updateGravity() {
@@ -90,8 +92,20 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    private void updateAnimations() {
+        //the y rotation of the enemy should be static
+        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+        //avoid replaying the hit animation on repeat
+        if (hitAnimation) {
+            animator.SetBool(isHitHash, false);
+        }
+    }
+
     public void takeDamage(int damage) {
-       health -= damage;
+        if (!isDead) {
+            animator.SetBool(isHitHash, true);
+            health -= damage;
+        }
     }
 
     private void die() {
@@ -110,7 +124,7 @@ public abstract class Enemy : MonoBehaviour
     }
 
     private void goTowardsEnemy() {
-        if (!isDead) {
+        if (!isDead && !hitAnimation) {
 
             transform.LookAt(playerTransform);
             if (Vector3.Distance(transform.position, playerTransform.position) >= MinDistance) {
@@ -132,7 +146,7 @@ public abstract class Enemy : MonoBehaviour
 
 
     private void attack() {
-        animator.SetBool(isAttackingHash, true);
+            animator.SetBool(isAttackingHash, true);
     }
 
 
