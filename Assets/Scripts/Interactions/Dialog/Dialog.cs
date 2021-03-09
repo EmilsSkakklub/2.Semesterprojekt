@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public abstract class Dialog : MonoBehaviour
 {
-    private Interaction interaction;
+    protected Interaction interaction;
+    protected Inventory inventory;
     private SpriteRenderer spriteRenderer;
     private GameObject textBubble;
     private Text dialogText;
@@ -25,6 +26,7 @@ public abstract class Dialog : MonoBehaviour
     private int maxNumber;
 
     protected void initStart(bool isNPC) {
+        inventory = GameObject.Find("Player").GetComponent<Inventory>();
         interaction = GetComponent<Interaction>();
         textBubble = GameObject.Find("TextBubble");
         spriteRenderer = GameObject.Find("TextBubble").GetComponent<SpriteRenderer>();

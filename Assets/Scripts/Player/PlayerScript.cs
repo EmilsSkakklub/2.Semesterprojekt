@@ -11,7 +11,7 @@ public class PlayerScript : MonoBehaviour
     private Transform cam;
     private GameManager gm;
     public LayerMask groundMask;
-    
+
 
     //movement
     Vector3 velocity;
@@ -96,7 +96,7 @@ public class PlayerScript : MonoBehaviour
 
 
 
-
+    
     private void Start() {
         initiate();
     }
