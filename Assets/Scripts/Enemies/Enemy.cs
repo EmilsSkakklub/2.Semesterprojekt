@@ -24,10 +24,12 @@ public abstract class Enemy : MonoBehaviour
     //indicate what animation is playing
     public bool walkAnimation;
     public bool deadAnimation;
+    public bool attackAnimation;
 
     //hash codes for the animations
     private int isWalkingHash;
     private int isDeadHash;
+    private int isAttackingHash;
 
     protected void initStart(string enemyName, int health, float deathAnimTimer) {
         gameObject.layer = LayerMask.NameToLayer("Enemy");
@@ -59,12 +61,14 @@ public abstract class Enemy : MonoBehaviour
     private void setAnimationHashCodes() {
         isWalkingHash = Animator.StringToHash("isWalking");
         isDeadHash = Animator.StringToHash("isDead");
-        
+        isAttackingHash = Animator.StringToHash("isAttacking");
+
     }
 
     private void getCurrentAnimationPlaying() {
         walkAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Walk");
         deadAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Dead");
+        attackAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack");
     }
 
     private void updateGravity() {
@@ -114,7 +118,10 @@ public abstract class Enemy : MonoBehaviour
                 transform.position += transform.forward * moveSpeed * Time.deltaTime;
 
                 if (Vector3.Distance(transform.position, playerTransform.position) <= MaxDistance) {
-                    //implement Attack
+                    attack();
+                }
+                else {
+                    animator.SetBool(isAttackingHash, false);
                 }
             }
             else {
@@ -125,7 +132,7 @@ public abstract class Enemy : MonoBehaviour
 
 
     private void attack() {
-
+        animator.SetBool(isAttackingHash, true);
     }
 
 

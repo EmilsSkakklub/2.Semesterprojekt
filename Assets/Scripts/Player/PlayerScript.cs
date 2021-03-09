@@ -68,7 +68,7 @@ public class PlayerScript : MonoBehaviour
     public bool attackAnimation4;
     private bool deathAnimation;
     private bool hitAnimation;
-    private bool rollAnimation;
+    public bool rollAnimation;
     private bool jumpAnimation;
 
 
@@ -343,7 +343,7 @@ private void movement() {
             }
 
             //roll animation
-            if (rollPressed && Stamina > 0) {
+            if (rollPressed && Stamina > 0 && !rollAnimation) {
                 animator.SetBool(isRollingHash, true);
                 crouchingToggle = false;
             }
