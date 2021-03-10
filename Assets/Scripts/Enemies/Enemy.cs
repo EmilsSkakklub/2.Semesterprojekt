@@ -62,7 +62,6 @@ public abstract class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         playerTransform = GameObject.Find("Player").GetComponent<Transform>();
         controller = GetComponent<CharacterController>();
-        healthSlider = GameObject.Find("HealthBar").GetComponent<Slider>();
         playerCamera = GameObject.Find("Main Camera").GetComponent<Transform>();
 
         setAnimationHashCodes();

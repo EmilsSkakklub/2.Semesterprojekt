@@ -418,7 +418,7 @@ MonoBehaviour:
   hit: 1
   health: 0
   maxHealth: 0
-  healthSlider: {fileID: 0}
+  healthSlider: {fileID: 537017632777047774}
 --- !u!143 &5194301416834785831
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1464,3 +1464,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2834362228344716574, guid: 5f3d8d65fa2e12c4ea9bcdfb62a0e2c1, type: 3}
   m_PrefabInstance: {fileID: 7517311104084021056}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &537017632777047774 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8007686216626143646, guid: 5f3d8d65fa2e12c4ea9bcdfb62a0e2c1, type: 3}
+  m_PrefabInstance: {fileID: 7517311104084021056}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
