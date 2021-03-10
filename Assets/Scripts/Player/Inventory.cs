@@ -23,6 +23,13 @@ public class Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(backpack == null) {
+            return;
+        }
+        if(teddybackpack == null) {
+            return;
+        }
+
         if (getGotBackPack()) {
             backpack.SetActive(true);
             if (getGotTeddy()) {

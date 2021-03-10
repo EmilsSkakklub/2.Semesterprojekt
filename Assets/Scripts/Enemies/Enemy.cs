@@ -33,6 +33,15 @@ public abstract class Enemy : MonoBehaviour
     private int isAttackingHash;
     private int isHitHash;
 
+    //cobat
+    public Transform attackpoint;
+    public float attackRange = 0.3f;
+    public LayerMask playerLayers;
+    public bool hit1 = true;
+    public float attackTimer = 0;
+    public float attackStart = 0.5f;
+    public float attackEnd = 1f;
+
     protected void initStart(string enemyName, int health, float deathAnimTimer) {
         gameObject.layer = LayerMask.NameToLayer("Enemy");
         setEnemyName(enemyName);
@@ -42,6 +51,7 @@ public abstract class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         playerTransform = GameObject.Find("Player").GetComponent<Transform>();
         controller = GetComponent<CharacterController>();
+        attackpoint = GameObject.Find("EnemyAttackPoint").GetComponent<Transform>();
 
         setAnimationHashCodes();
     }
@@ -54,6 +64,7 @@ public abstract class Enemy : MonoBehaviour
         die();
 
         updateAnimations();
+        attack();
     }
 
   
@@ -132,7 +143,7 @@ public abstract class Enemy : MonoBehaviour
                 transform.position += transform.forward * moveSpeed * Time.deltaTime;
 
                 if (Vector3.Distance(transform.position, playerTransform.position) <= MaxDistance) {
-                    attack();
+                    animator.SetBool(isAttackingHash, true);
                 }
                 else {
                     animator.SetBool(isAttackingHash, false);
@@ -146,7 +157,30 @@ public abstract class Enemy : MonoBehaviour
 
 
     private void attack() {
-            animator.SetBool(isAttackingHash, true);
+        Collider[] hitPlayer = Physics.OverlapSphere(attackpoint.position, attackRange, playerLayers);
+        if (attackAnimation) {
+            attackTimer += Time.deltaTime;
+        }
+
+        if (attackAnimation && hit1 && attackTimer > attackStart && attackTimer < attackEnd) {
+            foreach (Collider player in hitPlayer) {
+                player.GetComponent<PlayerScript>().takeDamage(1);
+                Debug.Log(player.name + " hit");
+                hit1 = false;
+            }
+        }
+        if (!attackAnimation) {
+            hit1 = true;
+            attackTimer = 0f;
+        }
+    }
+
+
+    private void OnDrawGizmosSelected() {
+        if (attackpoint == null) {
+            return;
+        }
+        Gizmos.DrawWireSphere(attackpoint.position, attackRange);
     }
 
 

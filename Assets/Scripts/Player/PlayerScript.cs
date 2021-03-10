@@ -144,6 +144,8 @@ public class PlayerScript : MonoBehaviour
         isCrouchingHash = Animator.StringToHash("isCrouching");
         isRollingHash = Animator.StringToHash("isRolling");
 
+        gameObject.layer = LayerMask.NameToLayer("Player");
+
         Cursor.lockState = CursorLockMode.Locked;
 
         setMaxStamina(1000);
@@ -350,6 +352,11 @@ private void movement() {
             else {
                 animator.SetBool(isRollingHash, false);
             }
+
+            //hit animation
+            if (hitAnimation) {
+                animator.SetBool(isHitHash, false);
+            }
         }
     }
 
@@ -396,6 +403,15 @@ private void movement() {
             return;
         }
         Gizmos.DrawWireSphere(attackpoint.position, attackRange);
+    }
+
+    public void takeDamage(int damage) {
+        if (!deathAnimation) {
+            animator.SetBool(isHitHash, true);
+        }
+        if(HP > 0) {
+            HP -= damage;
+        }
     }
 
 
