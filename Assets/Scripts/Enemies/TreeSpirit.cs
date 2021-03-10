@@ -7,7 +7,7 @@ public class TreeSpirit : Enemy
     // Start is called before the first frame update
     void Start()
     {
-        initStart("TreeSpirit", 20, 3);
+        initStart("TreeSpirit", 10, 3);
     }
 
     // Update is called once per frame

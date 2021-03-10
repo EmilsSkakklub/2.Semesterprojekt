@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Enemy : MonoBehaviour
 {
-    public int health;
+    
     public string enemyName;
     public bool isDead;
     public float removeTimer;
@@ -12,6 +13,7 @@ public abstract class Enemy : MonoBehaviour
     private Animator animator;
     private Transform playerTransform;
     private CharacterController controller;
+    private Transform playerCamera;
 
     private Vector3 velocity;
     private float gravity = -9.81f;
@@ -42,19 +44,26 @@ public abstract class Enemy : MonoBehaviour
     private float attackStart = 0.5f;
     private float attackEnd = 1f;
 
-    protected void initStart(string enemyName, int health, float deathAnimTimer) {
+    public int health;
+    public int maxHealth;
+    public Slider healthSlider;
+
+    protected void initStart(string enemyName, int maxHealth, float deathAnimTimer) {
 
         gameObject.layer = LayerMask.NameToLayer("Enemy");
         playerLayers = LayerMask.GetMask("Player");
 
         setEnemyName(enemyName);
-        setHealth(health);
+        setMaxHealth(maxHealth);
+        setHealth(maxHealth);
         setRemoveTimer(deathAnimTimer);
+        
 
         animator = GetComponent<Animator>();
         playerTransform = GameObject.Find("Player").GetComponent<Transform>();
         controller = GetComponent<CharacterController>();
-        
+        healthSlider = GameObject.Find("HealthBar").GetComponent<Slider>();
+        playerCamera = GameObject.Find("Main Camera").GetComponent<Transform>();
 
         setAnimationHashCodes();
     }
@@ -64,10 +73,10 @@ public abstract class Enemy : MonoBehaviour
         updateGravity();
         groundCheck();
         goTowardsEnemy();
-        die();
-
         updateAnimations();
+        setHealthSlider(health);
         attack();
+        die();
     }
 
   
@@ -188,6 +197,17 @@ public abstract class Enemy : MonoBehaviour
 
 
 
+    public void setHealthSlider(int health) {
+        healthSlider.value = health;
+        healthSlider.transform.rotation = playerCamera.transform.rotation;
+    }
+
+    public void setMaxHealthSlider(int health) {
+        healthSlider.maxValue = health;
+        healthSlider.value = health;
+    }
+
+
     //getters and setters
     public int getHealth() {
         return health;
@@ -196,6 +216,16 @@ public abstract class Enemy : MonoBehaviour
     public void setHealth(int health) {
         this.health = health;
     }
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
+
 
     public string getEnemyName() {
         return enemyName;

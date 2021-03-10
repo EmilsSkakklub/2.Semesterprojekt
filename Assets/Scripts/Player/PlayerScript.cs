@@ -184,8 +184,8 @@ public class PlayerScript : MonoBehaviour
         jumpAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Jump");
     }
 
-//ability for player to move around in the world
-private void movement() {
+    //ability for player to move around in the world
+    private void movement() {
         //Gets Axis from Input Manager
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
