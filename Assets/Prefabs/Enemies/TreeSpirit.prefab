@@ -368,7 +368,7 @@ Transform:
   m_GameObject: {fileID: 3521861330216955777}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.42385888, y: 0.39, z: 3.7331762}
-  m_LocalScale: {x: 30, y: 30, z: 30}
+  m_LocalScale: {x: 22, y: 22, z: 22}
   m_Children:
   - {fileID: 8645689007704511919}
   - {fileID: 5324166381699866101}
@@ -416,19 +416,15 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   gravity: -9.81
   isGrounded: 0
-  moveSpeed: 1
-  MaxDistance: 1
-  MinDistance: 1
   walkAnimation: 0
   deadAnimation: 0
   attackAnimation: 0
   hitAnimation: 0
-  attackpoint: {fileID: 0}
-  attackRange: 0.1
+  attackpoint: {fileID: 1899868208226993248}
   playerLayers:
     serializedVersion: 2
     m_Bits: 0
-  hit1: 1
+  hit: 1
 --- !u!143 &5194301416834785831
 CharacterController:
   m_ObjectHideFlags: 0
@@ -456,7 +452,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 3521861330216955777}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.015
   m_Height: 0.09
   m_Direction: 1

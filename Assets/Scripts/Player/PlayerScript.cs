@@ -143,6 +143,7 @@ public class PlayerScript : MonoBehaviour
         isRollingHash = Animator.StringToHash("isRolling");
 
         gameObject.layer = LayerMask.NameToLayer("Player");
+        enemyLayers = LayerMask.GetMask("Enemy");
 
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -192,7 +193,7 @@ private void movement() {
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
         //player can't move while hit or death animation is playing
-        if (!hitAnimation && !deathAnimation && !inDialog) {
+        if (!hitAnimation && !deathAnimation && !inDialog ) {
             //move
             if (direction.magnitude >= 0.1f) {
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
@@ -201,10 +202,15 @@ private void movement() {
 
                 Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
-                //mopve a little faster while rolling
+                //move a little faster while rolling
                 if (rollAnimation) {
                     controller.Move(moveDir.normalized * speed* 1.5f * Time.deltaTime);
                 }
+                //move slower when attacking
+                else if (attackAnimation1 || attackAnimation2 || attackAnimation3 || attackAnimation4) {
+                    controller.Move(moveDir.normalized * speed * 0.3f * Time.deltaTime);
+                }
+                //normal move
                 else {
                     controller.Move(moveDir.normalized * speed * Time.deltaTime);
                 }
@@ -214,6 +220,12 @@ private void movement() {
             if (Input.GetButtonDown("Jump") && isGrounded && !rollAnimation && getStamina() > 0) {
                 StartCoroutine("Jump");
             }
+
+            if (attackAnimation1) {
+
+            }
+
+
         }
 
         //gravity

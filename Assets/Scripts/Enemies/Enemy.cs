@@ -9,23 +9,23 @@ public abstract class Enemy : MonoBehaviour
     public bool isDead;
     public float removeTimer;
 
-    public Animator animator;
-    public Transform playerTransform;
-    public CharacterController controller;
+    private Animator animator;
+    private Transform playerTransform;
+    private CharacterController controller;
 
-    public Vector3 velocity;
-    public float gravity = -9.81f;
+    private Vector3 velocity;
+    private float gravity = -9.81f;
     public bool isGrounded;
 
-    public float moveSpeed = 1f;
-    public float MaxDistance = 1f;
-    public float MinDistance = 1f;
+    private float moveSpeed = 1f;
+    private float MaxDistance = 2f;
+    private float MinDistance = 1f;
 
     //indicate what animation is playing
-    public bool walkAnimation;
-    public bool deadAnimation;
-    public bool attackAnimation;
-    public bool hitAnimation;
+    private bool walkAnimation;
+    private bool deadAnimation;
+    private bool attackAnimation;
+    private bool hitAnimation;
 
     //hash codes for the animations
     private int isWalkingHash;
@@ -35,15 +35,18 @@ public abstract class Enemy : MonoBehaviour
 
     //cobat
     public Transform attackpoint;
-    public float attackRange = 0.3f;
+    private float attackRange = 0.5f;
     public LayerMask playerLayers;
     public bool hit = true;
-    public float attackTimer = 0;
-    public float attackStart = 0.5f;
-    public float attackEnd = 1f;
+    private float attackTimer = 0;
+    private float attackStart = 0.5f;
+    private float attackEnd = 1f;
 
     protected void initStart(string enemyName, int health, float deathAnimTimer) {
+
         gameObject.layer = LayerMask.NameToLayer("Enemy");
+        playerLayers = LayerMask.GetMask("Player");
+
         setEnemyName(enemyName);
         setHealth(health);
         setRemoveTimer(deathAnimTimer);
@@ -51,7 +54,7 @@ public abstract class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         playerTransform = GameObject.Find("Player").GetComponent<Transform>();
         controller = GetComponent<CharacterController>();
-        attackpoint = GameObject.Find("EnemyAttackPoint").GetComponent<Transform>();
+        
 
         setAnimationHashCodes();
     }
