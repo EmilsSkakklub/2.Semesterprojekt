@@ -37,7 +37,7 @@ public abstract class Enemy : MonoBehaviour
     public Transform attackpoint;
     public float attackRange = 0.3f;
     public LayerMask playerLayers;
-    public bool hit1 = true;
+    public bool hit = true;
     public float attackTimer = 0;
     public float attackStart = 0.5f;
     public float attackEnd = 1f;
@@ -162,15 +162,15 @@ public abstract class Enemy : MonoBehaviour
             attackTimer += Time.deltaTime;
         }
 
-        if (attackAnimation && hit1 && attackTimer > attackStart && attackTimer < attackEnd) {
+        if (attackAnimation && hit && attackTimer > attackStart && attackTimer < attackEnd) {
             foreach (Collider player in hitPlayer) {
                 player.GetComponent<PlayerScript>().takeDamage(1);
                 Debug.Log(player.name + " hit");
-                hit1 = false;
+                hit = false;
             }
         }
         if (!attackAnimation) {
-            hit1 = true;
+            hit = true;
             attackTimer = 0f;
         }
     }

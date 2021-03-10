@@ -47,6 +47,16 @@ public class PlayerScript : MonoBehaviour
     public bool animationAttStarted3 = false;
     public Slider staminaSlider;
 
+    //combat system
+    public int attackDamage;
+    public Transform attackpoint;
+    public float attackRange = 0.3f;
+    public LayerMask enemyLayers;
+    public bool hit1 = true;
+    public bool hit2 = true;
+    public bool hit3 = true;
+    public bool hit4 = true;
+
     //input booleans
     private bool forwardPressed;
     private bool runPressed;
@@ -83,18 +93,6 @@ public class PlayerScript : MonoBehaviour
     private int isHitHash;
     private int isDeadHash;
     private int isRollingHash;
-
-    //combat
-    public Transform attackpoint;
-    public float attackRange = 0.1f;
-    public LayerMask enemyLayers;
-    public bool hit1 = true;
-    public bool hit2 = true;
-    public bool hit3 = true;
-    public bool hit4 = true;
-
-
-
 
     
     private void Start() {
@@ -148,6 +146,7 @@ public class PlayerScript : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
 
+        setAttackDamage(1);
         setMaxStamina(1000);
         setStamina(maxStamina);
 
@@ -364,29 +363,25 @@ private void movement() {
         Collider[] hitEnemies = Physics.OverlapSphere(attackpoint.position, attackRange, enemyLayers);
         if (attackAnimation1 && hit1) {
             foreach (Collider enemy in hitEnemies) {
-                enemy.GetComponent<Enemy>().takeDamage(2);
-                Debug.Log(enemy.name + " hit");
+                enemy.GetComponent<Enemy>().takeDamage(attackDamage);
                 hit1 = false;
             }
         }
         if (attackAnimation2 && hit2) {
             foreach (Collider enemy in hitEnemies) {
-                enemy.GetComponent<Enemy>().takeDamage(4);
-                Debug.Log(enemy.name + " hit 2!");
+                enemy.GetComponent<Enemy>().takeDamage(attackDamage);
                 hit2 = false;
             }
         }
         if (attackAnimation3 && hit3) {
             foreach (Collider enemy in hitEnemies) {
-                enemy.GetComponent<Enemy>().takeDamage(6);
-                Debug.Log(enemy.name + " hit 3!");
+                enemy.GetComponent<Enemy>().takeDamage(attackDamage);
                 hit3 = false;
             }
         }
         if (attackAnimation4 && hit4) {
             foreach (Collider enemy in hitEnemies) {
-                enemy.GetComponent<Enemy>().takeDamage(10);
-                Debug.Log(enemy.name + " hit 4!");
+                enemy.GetComponent<Enemy>().takeDamage(attackDamage);
                 hit4 = false;
             }
         }
@@ -406,11 +401,13 @@ private void movement() {
     }
 
     public void takeDamage(int damage) {
-        if (!deathAnimation) {
-            animator.SetBool(isHitHash, true);
-        }
-        if(HP > 0) {
-            HP -= damage;
+        if (!rollAnimation) {
+            if (!deathAnimation) {
+                animator.SetBool(isHitHash, true);
+            }
+            if (HP > 0) {
+                HP -= damage;
+            }
         }
     }
 
@@ -656,11 +653,18 @@ private void movement() {
         this.Stamina = Stamina;
     }
 
-    public float getMaStamina() {
+    public float getMaxStamina() {
         return maxStamina;
     }
     public void setMaxStamina(float maxStamina) {
         this.maxStamina = maxStamina;
+    }
+
+    public float getattackDamage() {
+        return attackDamage;
+    }
+    public void setAttackDamage(int attackDamage) {
+        this.attackDamage = attackDamage;
     }
 
     public bool getInDialog() {
@@ -669,6 +673,7 @@ private void movement() {
     public void setInDialog(bool inDialog) {
         this.inDialog = inDialog;
     }
+
 }
 
 
