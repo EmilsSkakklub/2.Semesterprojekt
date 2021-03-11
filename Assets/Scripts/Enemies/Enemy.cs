@@ -12,14 +12,15 @@ public abstract class Enemy : MonoBehaviour
 
     private Animator animator;
     private Transform playerTransform;
+    private Transform cameraTransform;
     private CharacterController controller;
-    private Transform playerCamera;
+    
 
     private Vector3 velocity;
     private float gravity = -9.81f;
     public bool isGrounded;
 
-    private float moveSpeed = 1f;
+    private float moveSpeed;
     private float MaxDistance = 2f;
     private float MinDistance = 1f;
 
@@ -34,8 +35,9 @@ public abstract class Enemy : MonoBehaviour
     private int isDeadHash;
     private int isAttackingHash;
     private int isHitHash;
+    private int walkSpeedHash;
 
-    //cobat
+    //combat
     public Transform attackpoint;
     private float attackRange = 0.5f;
     public LayerMask playerLayers;
@@ -48,7 +50,7 @@ public abstract class Enemy : MonoBehaviour
     public int maxHealth;
     public Slider healthSlider;
 
-    protected void initStart(string enemyName, int maxHealth, float deathAnimTimer) {
+    protected void initStart(string enemyName, int maxHealth, float moveSpeed) {
 
         gameObject.layer = LayerMask.NameToLayer("Enemy");
         playerLayers = LayerMask.GetMask("Player");
@@ -56,13 +58,13 @@ public abstract class Enemy : MonoBehaviour
         setEnemyName(enemyName);
         setMaxHealth(maxHealth);
         setHealth(maxHealth);
-        setRemoveTimer(deathAnimTimer);
+        setMoveSpeed(moveSpeed);
+        setRemoveTimer(3);
         
-
         animator = GetComponent<Animator>();
         playerTransform = GameObject.Find("Player").GetComponent<Transform>();
+        cameraTransform = GameObject.Find("Main Camera").GetComponent<Transform>();
         controller = GetComponent<CharacterController>();
-        playerCamera = GameObject.Find("Main Camera").GetComponent<Transform>();
 
         setAnimationHashCodes();
     }
@@ -85,7 +87,7 @@ public abstract class Enemy : MonoBehaviour
         isDeadHash = Animator.StringToHash("isDead");
         isAttackingHash = Animator.StringToHash("isAttacking");
         isHitHash = Animator.StringToHash("isHit");
-
+        walkSpeedHash = Animator.StringToHash("walkSpeed");
     }
 
     private void getCurrentAnimationPlaying() {
@@ -93,6 +95,9 @@ public abstract class Enemy : MonoBehaviour
         deadAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Dead");
         attackAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack");
         hitAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Hit");
+
+        //set the speed of the walk animation to be equal to moveSpeed 
+        animator.SetFloat(walkSpeedHash, moveSpeed);
     }
 
     private void updateGravity() {
@@ -146,7 +151,7 @@ public abstract class Enemy : MonoBehaviour
     }
 
     private void goTowardsEnemy() {
-        if (!isDead && !hitAnimation) {
+        if (!isDead && !hitAnimation && !attackAnimation) {
 
             transform.LookAt(playerTransform);
             if (Vector3.Distance(transform.position, playerTransform.position) >= MinDistance) {
@@ -198,13 +203,9 @@ public abstract class Enemy : MonoBehaviour
 
     public void setHealthSlider(int health) {
         healthSlider.value = health;
-        healthSlider.transform.rotation = playerCamera.transform.rotation;
+        healthSlider.transform.rotation = cameraTransform.transform.rotation;
     }
 
-    public void setMaxHealthSlider(int health) {
-        healthSlider.maxValue = health;
-        healthSlider.value = health;
-    }
 
 
     //getters and setters
@@ -222,6 +223,10 @@ public abstract class Enemy : MonoBehaviour
 
     public void setMaxHealth(int maxHealth) {
         this.maxHealth = maxHealth;
+    }
+
+    public void setMoveSpeed(float moveSpeed) {
+        this.moveSpeed = moveSpeed;
     }
 
 

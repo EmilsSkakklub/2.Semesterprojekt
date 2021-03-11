@@ -144,6 +144,7 @@ public class PlayerScript : MonoBehaviour
 
         gameObject.layer = LayerMask.NameToLayer("Player");
         enemyLayers = LayerMask.GetMask("Enemy");
+        groundMask = LayerMask.GetMask("Ground");
 
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -381,19 +382,19 @@ public class PlayerScript : MonoBehaviour
         }
         if (attackAnimation2 && hit2) {
             foreach (Collider enemy in hitEnemies) {
-                enemy.GetComponent<Enemy>().takeDamage(attackDamage);
+                enemy.GetComponent<Enemy>().takeDamage(attackDamage + 1);
                 hit2 = false;
             }
         }
         if (attackAnimation3 && hit3) {
             foreach (Collider enemy in hitEnemies) {
-                enemy.GetComponent<Enemy>().takeDamage(attackDamage);
+                enemy.GetComponent<Enemy>().takeDamage(attackDamage + 2);
                 hit3 = false;
             }
         }
         if (attackAnimation4 && hit4) {
             foreach (Collider enemy in hitEnemies) {
-                enemy.GetComponent<Enemy>().takeDamage(attackDamage);
+                enemy.GetComponent<Enemy>().takeDamage(attackDamage + 2);
                 hit4 = false;
             }
         }
