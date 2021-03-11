@@ -20,7 +20,7 @@ public abstract class Enemy : MonoBehaviour
     private float gravity = -9.81f;
     public bool isGrounded;
 
-    private float moveSpeed;
+    public float moveSpeed;
     private float MaxDistance = 2f;
     private float MinDistance = 1f;
 
@@ -39,6 +39,7 @@ public abstract class Enemy : MonoBehaviour
 
     //combat
     public Transform attackpoint;
+    public int attackDamage;
     private float attackRange = 0.5f;
     public LayerMask playerLayers;
     public bool hit = true;
@@ -50,12 +51,13 @@ public abstract class Enemy : MonoBehaviour
     public int maxHealth;
     public Slider healthSlider;
 
-    protected void initStart(string enemyName, int maxHealth, float moveSpeed) {
+    protected void initStart(string enemyName, int attackDamage, int maxHealth, float moveSpeed) {
 
         gameObject.layer = LayerMask.NameToLayer("Enemy");
         playerLayers = LayerMask.GetMask("Player");
 
         setEnemyName(enemyName);
+        setAttackDamage(attackDamage);
         setMaxHealth(maxHealth);
         setHealth(maxHealth);
         setMoveSpeed(moveSpeed);
@@ -180,7 +182,7 @@ public abstract class Enemy : MonoBehaviour
 
         if (attackAnimation && hit && attackTimer > attackStart && attackTimer < attackEnd) {
             foreach (Collider player in hitPlayer) {
-                player.GetComponent<PlayerScript>().takeDamage(1);
+                player.GetComponent<PlayerScript>().takeDamage(attackDamage);
                 Debug.Log(player.name + " hit");
                 hit = false;
             }
@@ -227,6 +229,10 @@ public abstract class Enemy : MonoBehaviour
 
     public void setMoveSpeed(float moveSpeed) {
         this.moveSpeed = moveSpeed;
+    }
+
+    public void setAttackDamage(int attackDamage) {
+        this.attackDamage = attackDamage;
     }
 
 
