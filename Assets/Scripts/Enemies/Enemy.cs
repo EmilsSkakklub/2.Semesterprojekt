@@ -10,6 +10,8 @@ public abstract class Enemy : MonoBehaviour
     public bool isDead;
     public float removeTimer;
 
+    public PlayerScript player;
+
     private Animator animator;
     private Transform playerTransform;
     private Transform cameraTransform;
@@ -40,7 +42,7 @@ public abstract class Enemy : MonoBehaviour
     //combat
     public Transform attackpoint;
     public int attackDamage;
-    private float attackRange = 0.5f;
+    private float attackRange = 0.8f;
     public LayerMask playerLayers;
     public bool hit = true;
     private float attackTimer = 0;
@@ -56,7 +58,7 @@ public abstract class Enemy : MonoBehaviour
     private float visionRange = 5;
     private float visionConeAngle = 30;
 
-    private float surroundVisionRange = 1;
+    private float surroundVisionRange = 2f;
     private float surroundVisionConeAngle = 360;
     public bool isDetected;
 
@@ -73,7 +75,8 @@ public abstract class Enemy : MonoBehaviour
         setHealth(maxHealth);
         setMoveSpeed(moveSpeed);
         setRemoveTimer(3);
-        
+
+        player = GameObject.Find("Player").GetComponent<PlayerScript>();
         animator = GetComponent<Animator>();
         playerTransform = GameObject.Find("Player").GetComponent<Transform>();
         cameraTransform = GameObject.Find("Main Camera").GetComponent<Transform>();
@@ -144,6 +147,7 @@ public abstract class Enemy : MonoBehaviour
 
     public void takeDamage(int damage) {
         if (!isDead) {
+            setIsDetected(true);
             animator.SetBool(isHitHash, true);
             health -= damage;
         }
@@ -175,7 +179,7 @@ public abstract class Enemy : MonoBehaviour
         if (!isDead && !hitAnimation && !attackAnimation && isDetected) {
             if (Vector3.Distance(transform.position, playerTransform.position) >= MinDistance) {
                 animator.SetBool(isWalkingHash, true);
-                transform.position += transform.forward * moveSpeed * Time.deltaTime;
+                transform.position += transform.forward * moveSpeed * 2 * Time.deltaTime;
 
                 if (Vector3.Distance(transform.position, playerTransform.position) <= MaxDistance) {
                     animator.SetBool(isAttackingHash, true);
@@ -232,11 +236,11 @@ public abstract class Enemy : MonoBehaviour
 
         if (isDetected) {
             visionRange = 10;
-            surroundVisionRange = 2;
+            surroundVisionRange = 4;
         }
 
         //surrounding vision
-        if (Vector3.Distance(transform.position, playerTransform.position) <= surroundVisionRange) {
+        if (Vector3.Distance(transform.position, playerTransform.position) <= surroundVisionRange && !player.getCrouchToggle()) {
             if (Vector3.Angle(transform.forward, vectorToPlayer) <= surroundVisionConeAngle) {
                 setIsDetected(true);
                 
@@ -257,7 +261,7 @@ public abstract class Enemy : MonoBehaviour
         else {
             setIsDetected(false);
             visionRange = 5;
-            surroundVisionRange = 1;
+            surroundVisionRange = 2;
         }
 
         

@@ -141,7 +141,6 @@ public class PlayerScript : MonoBehaviour
         isDeadHash = Animator.StringToHash("isDead");
         isCrouchingHash = Animator.StringToHash("isCrouching");
         isRollingHash = Animator.StringToHash("isRolling");
-
         gameObject.layer = LayerMask.NameToLayer("Player");
         enemyLayers = LayerMask.GetMask("Enemy");
         groundMask = LayerMask.GetMask("Ground");
@@ -177,6 +176,7 @@ public class PlayerScript : MonoBehaviour
         runningAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Run");
         deathAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Death");
         hitAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Hit");
+        
         attackAnimation1 = animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack1");
         attackAnimation2 = animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack2");
         attackAnimation3 = animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack3");
@@ -255,7 +255,7 @@ public class PlayerScript : MonoBehaviour
 
         yield return new WaitForSeconds(0.2f);
         animator.SetBool(isJumpingHash, false);
-        crouchingToggle = false;
+        setCrouchToggle(false);
     }
 
     private void animatePlayer(){
@@ -281,7 +281,7 @@ public class PlayerScript : MonoBehaviour
             //running animation
             if ((forwardPressed || backwardPressed || leftPressed || rightPressed) && runPressed && getStamina() > 0) {
                 animator.SetBool(isRunningHash, true);
-                crouchingToggle = false;
+                setCrouchToggle(false);
                 speed = 4;
             } else {
                 animator.SetBool(isRunningHash, false);
@@ -359,7 +359,7 @@ public class PlayerScript : MonoBehaviour
             //roll animation
             if (rollPressed && Stamina > 0 && !rollAnimation) {
                 animator.SetBool(isRollingHash, true);
-                crouchingToggle = false;
+                setCrouchToggle(false);
             }
             else {
                 animator.SetBool(isRollingHash, false);
@@ -685,6 +685,14 @@ public class PlayerScript : MonoBehaviour
     }
     public void setInDialog(bool inDialog) {
         this.inDialog = inDialog;
+    }
+
+    public bool getCrouchToggle() {
+        return crouchingToggle;
+    }
+
+    public void setCrouchToggle(bool crouchingToggle) {
+        this.crouchingToggle = crouchingToggle;
     }
 
 }
