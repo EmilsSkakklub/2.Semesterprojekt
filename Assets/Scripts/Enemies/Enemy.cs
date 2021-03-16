@@ -53,17 +53,13 @@ public abstract class Enemy : MonoBehaviour
     public Slider healthSlider;
 
     //vision cone
-    public float visionRange;
-    public float visionConeAngle;
+    private float visionRange = 5;
+    private float visionConeAngle = 30;
 
-    public float surroundVisionRange = 1;
-    public float surroundVisionConeAngle = 360;
+    private float surroundVisionRange = 1;
+    private float surroundVisionConeAngle = 360;
     public bool isDetected;
 
-    //REMOVE LATER
-    public Light vision;
-    public Light surrVision1;
-    public Light surrVision2;
 
 
     protected void initStart(string enemyName, int attackDamage, int maxHealth, float moveSpeed) {
@@ -169,7 +165,7 @@ public abstract class Enemy : MonoBehaviour
     }
 
     private void goTowardsEnemy() {
-        if (isDetected) {
+        if (isDetected && !isDead) {
             Vector3 lookPos = playerTransform.position - transform.position;
             lookPos.y = 0;
             Quaternion rotate = Quaternion.LookRotation(lookPos);
@@ -179,7 +175,7 @@ public abstract class Enemy : MonoBehaviour
         if (!isDead && !hitAnimation && !attackAnimation && isDetected) {
             if (Vector3.Distance(transform.position, playerTransform.position) >= MinDistance) {
                 animator.SetBool(isWalkingHash, true);
-                transform.position += transform.forward * moveSpeed * 2 * Time.deltaTime;
+                transform.position += transform.forward * moveSpeed * Time.deltaTime;
 
                 if (Vector3.Distance(transform.position, playerTransform.position) <= MaxDistance) {
                     animator.SetBool(isAttackingHash, true);
@@ -232,9 +228,6 @@ public abstract class Enemy : MonoBehaviour
     //vision cone method
     public void updateVisionCone() {
         Vector3 vectorToPlayer = playerTransform.position - transform.position;
-        vision.range = visionRange;
-        surrVision1.range = surroundVisionRange;
-        surrVision2.range = surroundVisionRange;
 
 
         if (isDetected) {
