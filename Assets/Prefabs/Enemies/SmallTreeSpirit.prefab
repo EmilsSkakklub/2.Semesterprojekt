@@ -1246,7 +1246,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: e099a4b0c078eb74b986dea100566ab2, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -1304,6 +1304,7 @@ MonoBehaviour:
   isGrounded: 0
   moveSpeed: 0
   attackpoint: {fileID: 6148552698535017331}
+  attackDamage: 0
   playerLayers:
     serializedVersion: 2
     m_Bits: 0

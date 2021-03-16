@@ -47,9 +47,24 @@ public abstract class Enemy : MonoBehaviour
     private float attackStart = 0.5f;
     private float attackEnd = 1f;
 
+    //health
     public int health;
     public int maxHealth;
     public Slider healthSlider;
+
+    //vision cone
+    public float visionRange;
+    public float visionConeAngle;
+
+    public float surroundVisionRange = 1;
+    public float surroundVisionConeAngle = 360;
+    public bool isDetected;
+
+    //REMOVE LATER
+    public Light vision;
+    public Light surrVision1;
+    public Light surrVision2;
+
 
     protected void initStart(string enemyName, int attackDamage, int maxHealth, float moveSpeed) {
 
@@ -80,6 +95,7 @@ public abstract class Enemy : MonoBehaviour
         setHealthSlider(health);
         attack();
         die();
+        updateVisionCone();
     }
 
   
@@ -153,12 +169,17 @@ public abstract class Enemy : MonoBehaviour
     }
 
     private void goTowardsEnemy() {
-        if (!isDead && !hitAnimation && !attackAnimation) {
+        if (isDetected) {
+            Vector3 lookPos = playerTransform.position - transform.position;
+            lookPos.y = 0;
+            Quaternion rotate = Quaternion.LookRotation(lookPos);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotate, Time.deltaTime * 5);
+        }
 
-            transform.LookAt(playerTransform);
+        if (!isDead && !hitAnimation && !attackAnimation && isDetected) {
             if (Vector3.Distance(transform.position, playerTransform.position) >= MinDistance) {
                 animator.SetBool(isWalkingHash, true);
-                transform.position += transform.forward * moveSpeed * Time.deltaTime;
+                transform.position += transform.forward * moveSpeed * 2 * Time.deltaTime;
 
                 if (Vector3.Distance(transform.position, playerTransform.position) <= MaxDistance) {
                     animator.SetBool(isAttackingHash, true);
@@ -170,6 +191,10 @@ public abstract class Enemy : MonoBehaviour
             else {
                 animator.SetBool(isWalkingHash, false);
             }
+        }
+        else if (!isDetected) {
+            animator.SetBool(isWalkingHash, false);
+            animator.SetBool(isAttackingHash, false);
         }
     }
 
@@ -200,6 +225,54 @@ public abstract class Enemy : MonoBehaviour
         }
         Gizmos.DrawWireSphere(attackpoint.position, attackRange);
     }
+
+
+
+
+    //vision cone method
+    public void updateVisionCone() {
+        Vector3 vectorToPlayer = playerTransform.position - transform.position;
+        vision.range = visionRange;
+        surrVision1.range = surroundVisionRange;
+        surrVision2.range = surroundVisionRange;
+
+
+        if (isDetected) {
+            visionRange = 10;
+            surroundVisionRange = 2;
+        }
+
+        //surrounding vision
+        if (Vector3.Distance(transform.position, playerTransform.position) <= surroundVisionRange) {
+            if (Vector3.Angle(transform.forward, vectorToPlayer) <= surroundVisionConeAngle) {
+                setIsDetected(true);
+                
+            }
+            else {
+                setIsDetected(false);
+            }
+        }
+        //forward vision
+        else if (Vector3.Distance(transform.position, playerTransform.position) <= visionRange) {
+            if (Vector3.Angle(transform.forward, vectorToPlayer) <= visionConeAngle) {
+                setIsDetected(true);
+            }
+            else {
+                setIsDetected(false);
+            }
+        }
+        else {
+            setIsDetected(false);
+            visionRange = 5;
+            surroundVisionRange = 1;
+        }
+
+        
+    }
+
+    
+
+
 
 
 
@@ -253,6 +326,10 @@ public abstract class Enemy : MonoBehaviour
         this.removeTimer = removeTimer;
     }
 
+
+    public void setIsDetected(bool isDetected) {
+        this.isDetected = isDetected;
+    }
 
     
 }
