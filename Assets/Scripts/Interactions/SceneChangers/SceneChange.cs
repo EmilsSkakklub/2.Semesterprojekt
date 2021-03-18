@@ -8,6 +8,7 @@ public class SceneChange : MonoBehaviour
     PlayerScript ps;
     Interaction interaction;
     Animator transition;
+    GameManager gameManager;
     float transitionTime = 1f;
     string sceneName;
 
@@ -16,10 +17,12 @@ public class SceneChange : MonoBehaviour
         transition = GameObject.Find("Crossfade").GetComponent<Animator>();
         ps = GameObject.Find("Player").GetComponent<PlayerScript>();
         interaction = GetComponent<Interaction>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        
     }
     protected void SceneChangeTo(string sceneName) {
         this.sceneName = sceneName;
-        
+        gameManager.clearEnemyList();
     }
 
     protected IEnumerator SceneChanger() {

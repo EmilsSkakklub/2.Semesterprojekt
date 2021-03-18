@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
     private PlayerScript playerScript;
     private Inventory inventory;
 
-
-
+    public List<GameObject> enemies = new List<GameObject>();
+    public List<GameObject> chasingEnemies = new List<GameObject>();
 
     private static GameManager instance = null;
 
@@ -28,13 +28,75 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InitStart();
-    }
-
-    private void InitStart() {
         playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
         inventory = GameObject.Find("Player").GetComponent<Inventory>();
     }
+
+    private void Update() {
+        updateEnemyLists();
+    }
+
+
+    public void updateEnemyLists() {
+        //add enemies to list when loading new scene
+        if (enemies.Count == 0) {
+            foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy")) {
+                enemies.Add(enemy);
+
+            }
+        }
+
+        //remove from list if dead
+        for (int i = 0; i < enemies.Count; i++) {
+            if (enemies[i].GetComponent<Enemy>().getIsDead()) {
+                for (int j = 0; j < chasingEnemies.Count; j++) {
+                    if (enemies[i] == chasingEnemies[j]) {
+                        chasingEnemies.RemoveAt(j);
+                    }
+                }
+                enemies.RemoveAt(i);
+            }
+        }
+
+        //if one or more enemies have detected player -> player is in combat
+        if(chasingEnemies.Count > 0) {
+            playerScript.setIsInCombar(true);
+        }
+        else if(chasingEnemies.Count == 0) {
+            playerScript.setIsInCombar(false);
+        }
+
+
+        //add to list 'chasingEnemies' when detected player
+        for (int i = 0; i < enemies.Count; i++) {
+            if (enemies[i].GetComponent<Enemy>().getDetectedPlayer()) {
+                if(!chasingEnemies.Contains(enemies[i])) {
+                    chasingEnemies.Add(enemies[i]);
+                }
+            }
+
+            else if (!enemies[i].GetComponent<Enemy>().getDetectedPlayer()) {
+                if(chasingEnemies.Count != 0) {
+                    for (int j = 0; j < chasingEnemies.Count; j++) {
+                        if(chasingEnemies[j] == enemies[i]) {
+                            chasingEnemies.RemoveAt(j);
+                        }
+                    }
+                }
+            }
+        }
+
+
+        }
+
+    
+
+
+
+    public void clearEnemyList() {
+        enemies.Clear();
+    }
+
 
 
 }

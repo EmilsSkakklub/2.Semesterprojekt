@@ -66,6 +66,7 @@ public abstract class Enemy : MonoBehaviour
 
     protected void initStart(string enemyName, int attackDamage, int maxHealth, float moveSpeed) {
 
+        gameObject.tag = "Enemy";
         gameObject.layer = LayerMask.NameToLayer("Enemy");
         playerLayers = LayerMask.GetMask("Player");
 
@@ -241,7 +242,6 @@ public abstract class Enemy : MonoBehaviour
         if (Vector3.Distance(transform.position, playerTransform.position) <= surroundVisionRange && !player.getCrouchToggle()) {
             if (Vector3.Angle(transform.forward, vectorToPlayer) <= surroundVisionConeAngle) {
                 setDetectedPlayer(true);
-                
             }
             else {
                 setDetectedPlayer(false);
@@ -261,8 +261,6 @@ public abstract class Enemy : MonoBehaviour
             visionRange = 5;
             surroundVisionRange = 2;
         }
-
-        
     }
 
     
@@ -313,6 +311,10 @@ public abstract class Enemy : MonoBehaviour
         this.enemyName = enemyName;
     }
 
+
+    public bool getIsDead() {
+        return isDead;
+    }
     public void setIsDead(bool isDead) {
         this.isDead = isDead;
     }
@@ -321,6 +323,10 @@ public abstract class Enemy : MonoBehaviour
         this.removeTimer = removeTimer;
     }
 
+
+    public bool getDetectedPlayer() {
+        return hasDetectedPlayer;
+    }
 
     public void setDetectedPlayer(bool isDetected) {
         this.hasDetectedPlayer = isDetected;
