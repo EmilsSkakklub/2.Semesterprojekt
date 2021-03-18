@@ -23,6 +23,7 @@ public class PlayerScript : MonoBehaviour
     private float SmoothTurn = 0.1f;
     private float TurnSmoothVelocity;
     private bool crouchingToggle = false;
+    public bool isStealth;
 
     //interact
     Interaction ClosestTarget;
@@ -695,6 +696,15 @@ public class PlayerScript : MonoBehaviour
         this.crouchingToggle = crouchingToggle;
     }
 
+
+    public bool getIsStealth() {
+        return isStealth;
+    }
+    public void setIsStealth(bool isStealth) {
+        this.isStealth = isStealth;
+    }
+
+    
 }
 
 

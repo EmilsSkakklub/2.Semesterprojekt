@@ -60,7 +60,7 @@ public abstract class Enemy : MonoBehaviour
 
     private float surroundVisionRange = 2f;
     private float surroundVisionConeAngle = 360;
-    public bool isDetected;
+    public bool hasDetectedPlayer;
 
 
 
@@ -147,7 +147,7 @@ public abstract class Enemy : MonoBehaviour
 
     public void takeDamage(int damage) {
         if (!isDead) {
-            setIsDetected(true);
+            setDetectedPlayer(true);
             animator.SetBool(isHitHash, true);
             health -= damage;
         }
@@ -169,14 +169,14 @@ public abstract class Enemy : MonoBehaviour
     }
 
     private void goTowardsEnemy() {
-        if (isDetected && !isDead) {
+        if (hasDetectedPlayer && !isDead) {
             Vector3 lookPos = playerTransform.position - transform.position;
             lookPos.y = 0;
             Quaternion rotate = Quaternion.LookRotation(lookPos);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotate, Time.deltaTime * 5);
         }
 
-        if (!isDead && !hitAnimation && !attackAnimation && isDetected) {
+        if (!isDead && !hitAnimation && !attackAnimation && hasDetectedPlayer) {
             if (Vector3.Distance(transform.position, playerTransform.position) >= MinDistance) {
                 animator.SetBool(isWalkingHash, true);
                 transform.position += transform.forward * moveSpeed * 2 * Time.deltaTime;
@@ -192,7 +192,7 @@ public abstract class Enemy : MonoBehaviour
                 animator.SetBool(isWalkingHash, false);
             }
         }
-        else if (!isDetected) {
+        else if (!hasDetectedPlayer) {
             animator.SetBool(isWalkingHash, false);
             animator.SetBool(isAttackingHash, false);
         }
@@ -232,9 +232,7 @@ public abstract class Enemy : MonoBehaviour
     //vision cone method
     public void updateVisionCone() {
         Vector3 vectorToPlayer = playerTransform.position - transform.position;
-
-
-        if (isDetected) {
+        if (hasDetectedPlayer) {
             visionRange = 10;
             surroundVisionRange = 4;
         }
@@ -242,24 +240,24 @@ public abstract class Enemy : MonoBehaviour
         //surrounding vision
         if (Vector3.Distance(transform.position, playerTransform.position) <= surroundVisionRange && !player.getCrouchToggle()) {
             if (Vector3.Angle(transform.forward, vectorToPlayer) <= surroundVisionConeAngle) {
-                setIsDetected(true);
+                setDetectedPlayer(true);
                 
             }
             else {
-                setIsDetected(false);
+                setDetectedPlayer(false);
             }
         }
         //forward vision
-        else if (Vector3.Distance(transform.position, playerTransform.position) <= visionRange) {
+        else if (Vector3.Distance(transform.position, playerTransform.position) <= visionRange && !player.getIsStealth()) {
             if (Vector3.Angle(transform.forward, vectorToPlayer) <= visionConeAngle) {
-                setIsDetected(true);
+                setDetectedPlayer(true);
             }
             else {
-                setIsDetected(false);
+                setDetectedPlayer(false);
             }
         }
         else {
-            setIsDetected(false);
+            setDetectedPlayer(false);
             visionRange = 5;
             surroundVisionRange = 2;
         }
@@ -324,8 +322,8 @@ public abstract class Enemy : MonoBehaviour
     }
 
 
-    public void setIsDetected(bool isDetected) {
-        this.isDetected = isDetected;
+    public void setDetectedPlayer(bool isDetected) {
+        this.hasDetectedPlayer = isDetected;
     }
 
     
