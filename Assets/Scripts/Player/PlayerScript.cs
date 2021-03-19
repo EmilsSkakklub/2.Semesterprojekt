@@ -150,7 +150,7 @@ public class PlayerScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         setAttackDamage(1);
-        setMaxStamina(1000);
+        setMaxStamina(10);
         setStamina(maxStamina);
 
         foreach (GameObject interactable in GameObject.FindGameObjectsWithTag("Interactable")) {
