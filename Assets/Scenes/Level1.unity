@@ -2452,11 +2452,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8280714084855022254, guid: 0663a52ecfc7f6248ab585afdc6e3a9a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000038220787
+      value: 0.000000038220783
       objectReference: {fileID: 0}
     - target: {fileID: 8280714084855022254, guid: 0663a52ecfc7f6248ab585afdc6e3a9a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000004412373
+      value: -0.0000000044123727
       objectReference: {fileID: 0}
     - target: {fileID: 8280714084870778433, guid: 0663a52ecfc7f6248ab585afdc6e3a9a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2544,11 +2544,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8280714085171661902, guid: 0663a52ecfc7f6248ab585afdc6e3a9a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000019110399
+      value: 0.00000001911039
       objectReference: {fileID: 0}
     - target: {fileID: 8280714085171661902, guid: 0663a52ecfc7f6248ab585afdc6e3a9a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000022061868
+      value: -0.0000000022061861
       objectReference: {fileID: 0}
     - target: {fileID: 8280714085674492518, guid: 0663a52ecfc7f6248ab585afdc6e3a9a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3311,6 +3311,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7494567157059551908, guid: c5340da0bf3b7e64c864035d0df3248b, type: 3}
   m_PrefabInstance: {fileID: 2073944443}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1147034718 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5573075222370385784, guid: ec84fb40f61afa549ad14d965efaa9f3, type: 3}
+  m_PrefabInstance: {fileID: 734027007}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1147034719
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147034718}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 8.02, y: 5.1, z: 2.37}
+  m_Center: {x: 0, y: 1.21, z: 0.2}
 --- !u!1 &1151215582 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1896977585435925607, guid: 8b1cd5c3cc0dfd246aef7e80b4ae2d15, type: 3}
