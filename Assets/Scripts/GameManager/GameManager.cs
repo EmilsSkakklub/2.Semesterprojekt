@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public List<GameObject> enemies = new List<GameObject>();
     public List<GameObject> enemiesInCombat = new List<GameObject>();
 
+    public float StoryNumber = 0;
+    public bool CheckStory = true;
     private static GameManager instance = null;
 
     //singelton pattern
