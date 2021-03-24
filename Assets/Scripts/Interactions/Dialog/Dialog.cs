@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class Dialog : MonoBehaviour
-{
+public abstract class Dialog : MonoBehaviour {
     protected Interaction interaction;
+    protected GameManager gm;
     protected Inventory inventory;
     private SpriteRenderer spriteRenderer;
     private GameObject textBubble;
@@ -26,6 +26,7 @@ public abstract class Dialog : MonoBehaviour
     private int maxNumber;
 
     protected void initStart(bool isNPC) {
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         inventory = GameObject.Find("Player").GetComponent<Inventory>();
         interaction = GetComponent<Interaction>();
         textBubble = GameObject.Find("TextBubble");
@@ -42,7 +43,7 @@ public abstract class Dialog : MonoBehaviour
     }
 
     protected void dialog() {
-        
+
         maxNumber = dialogLines.Count;
 
         if (dialogNumber == maxNumber) {
@@ -61,17 +62,17 @@ public abstract class Dialog : MonoBehaviour
             if (dialogNumber < maxNumber) {
                 dialogText.text = dialogLines[dialogNumber];
                 spriteRenderer.sprite = sprites[moodSprites[dialogNumber]];
-            } 
+            }
         }
 
         //look at player if object is NPC
-        if(isNPC && interaction.getStartInteraction()) {
+        if (isNPC && interaction.getStartInteraction()) {
             lookAtTarget(player);
         }
         if (!interaction.getStartInteraction()) {
             NPC.rotation = Quaternion.Slerp(NPC.rotation, defaultRotation, Time.deltaTime * 2);
         }
-        
+
     }
 
     protected void newDialogLine(string line, int mood) {

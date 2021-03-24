@@ -420,8 +420,8 @@ CharacterController:
   m_Height: 0.14
   m_Radius: 0.03
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
+  m_StepOffset: 0.01
+  m_SkinWidth: 0.06
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.075, z: 0}
 --- !u!95 &2693857264682868236
@@ -473,6 +473,8 @@ MonoBehaviour:
     m_Bits: 8
   isGrounded: 0
   jumpNotReady: 0
+  isStealth: 0
+  isInCombat: 0
   ListOfInteractables: []
   HP: 8
   FullHearts:
@@ -498,11 +500,7 @@ MonoBehaviour:
   animationAttStarted2: 0
   animationAttStarted3: 0
   staminaSlider: {fileID: 0}
-  attackAnimation1: 0
-  attackAnimation2: 0
-  attackAnimation3: 0
-  attackAnimation4: 0
-  rollAnimation: 0
+  attackDamage: 0
   attackpoint: {fileID: 0}
   attackRange: 0.1
   enemyLayers:
@@ -512,6 +510,11 @@ MonoBehaviour:
   hit2: 1
   hit3: 1
   hit4: 1
+  attackAnimation1: 0
+  attackAnimation2: 0
+  attackAnimation3: 0
+  attackAnimation4: 0
+  rollAnimation: 0
 --- !u!1 &3055552108599367835
 GameObject:
   m_ObjectHideFlags: 0
@@ -1175,7 +1178,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7130278102306405055, guid: 3303140472faa57448fcddd4311dcc89, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7617845965496016901, guid: 3303140472faa57448fcddd4311dcc89, type: 3}
       propertyPath: m_RootOrder

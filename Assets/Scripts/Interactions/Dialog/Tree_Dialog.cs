@@ -12,7 +12,17 @@ public class Tree_Dialog : Dialog {
 
     // Update is called once per frame
     void Update() {
+        if (interaction.getStartInteraction()) {
+            gm.CheckStory = true;
+            
+            if(gm.StoryNumber <= 0.01f) {
+                gm.StoryNumber = 0.01f;
+            }
+
+        }
         dialog();
+
+        
     }
 
 
