@@ -38,9 +38,9 @@ public class PlayerScript : MonoBehaviour
 
     //HP System
     public int HP = 8;
-    public GameObject[] FullHearts;
-    public GameObject[] HalfHearts;
-    public GameObject[] EmptyHearts;
+    private GameObject[] FullHearts = new GameObject[4];
+    private GameObject[] HalfHearts = new GameObject[4];
+    private GameObject[] EmptyHearts = new GameObject[4];
 
     //stamina System
     public float Stamina;
@@ -100,7 +100,21 @@ public class PlayerScript : MonoBehaviour
     private int isDeadHash;
     private int isRollingHash;
 
-    
+
+    GameObject H1E;
+    GameObject H2E;
+    GameObject H3E;
+    GameObject H4E;
+    GameObject H1H;
+    GameObject H2H;
+    GameObject H3H;
+    GameObject H4H;
+    GameObject H1F;
+    GameObject H2F;
+    GameObject H3F; 
+    GameObject H4F;
+
+
     private void Start() {
         initiate();
     }
@@ -129,6 +143,9 @@ public class PlayerScript : MonoBehaviour
 
     //for initialization 
     private void initiate() {
+        
+
+
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         cam = GameObject.Find("Main Camera").GetComponent<Transform>();
@@ -137,6 +154,8 @@ public class PlayerScript : MonoBehaviour
         textBubble = GameObject.Find("TextBubble");
         staminaSlider = GameObject.Find("StaminaBar").GetComponent<Slider>();
         attackpoint = GameObject.Find("AttackPoint").GetComponent<Transform>();
+
+
 
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
@@ -154,9 +173,11 @@ public class PlayerScript : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
 
+        FillHeartsArrays();
         setAttackDamage(1);
         setMaxStamina(10);
         setStamina(maxStamina);
+
 
         foreach (GameObject interactable in GameObject.FindGameObjectsWithTag("Interactable")) {
             ListOfInteractables.Add(interactable);
@@ -233,8 +254,6 @@ public class PlayerScript : MonoBehaviour
             if (attackAnimation1) {
 
             }
-
-
         }
 
         //gravity
@@ -511,6 +530,44 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    
+
+    private void FillHeartsArrays() {
+        H1E = GameObject.Find("H1 empty");
+        H2E = GameObject.Find("H2 empty");
+        H3E = GameObject.Find("H3 empty");
+        H4E = GameObject.Find("H4 empty");
+        H1H = GameObject.Find("H1 half");
+        H2H = GameObject.Find("H2 half");
+        H3H = GameObject.Find("H3 half");
+        H4H = GameObject.Find("H4 half");
+        H1F = GameObject.Find("H1 full");
+        H2F = GameObject.Find("H2 full");
+        H3F = GameObject.Find("H3 full");
+        H4F = GameObject.Find("H4 full");
+
+        EmptyHearts[0] = H1E;
+        EmptyHearts[1] = H2E;
+        EmptyHearts[2] = H3E;
+        EmptyHearts[3] = H4E;
+
+        HalfHearts[0] = H1H;
+        HalfHearts[1] = H2H;
+        HalfHearts[2] = H3H;
+        HalfHearts[3] = H4H;
+
+        FullHearts[0] = H1F;
+        FullHearts[1] = H2F;
+        FullHearts[2] = H3F;
+        FullHearts[3] = H4F;
+
+
+    }
+
+
+
+
+
     //interaction
     private IEnumerator Interact() {
         if(ListOfInteractables.Count != 0) {
@@ -542,8 +599,7 @@ public class PlayerScript : MonoBehaviour
         return dist;
     }
     //finds the closest interactable target
-  
-    
+
     
     
     public GameObject GetClosestEnemy() {
