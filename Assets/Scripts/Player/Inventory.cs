@@ -9,7 +9,9 @@ public class Inventory : MonoBehaviour
     private PlayerScript player;
     private Image inventoryUI;
 
-    public List<Slot> inventory = new List<Slot>();
+    public List<Item> ListInventory = new List<Item>();
+    public List<Slot> ListSlots = new List<Slot>();
+    
 
 
     GameObject backpack;
@@ -31,7 +33,7 @@ public class Inventory : MonoBehaviour
         teddybackpack = GameObject.Find("backpack2");
 
 
-        initializeInventorySlots();
+        initializeSlots();
     }
 
     // Update is called once per frame
@@ -39,14 +41,27 @@ public class Inventory : MonoBehaviour
     {
         backpackTeddy();
         toggleInventory();
+        updateSlots();
     }
 
     
-    private void initializeInventorySlots() {
+    private void initializeSlots() {
         for(int i = 0; i < inventoryUI.transform.childCount; i++) {
-            inventory.Add(inventoryUI.transform.GetChild(i).GetComponent<Slot>());
-            inventory[i].setIndex(i + 1);
+            ListSlots.Add(inventoryUI.transform.GetChild(i).GetComponent<Slot>());
+            ListSlots[i].setIndex(i);
         }
+    }
+
+    private void updateSlots() {
+        if(ListInventory.Count > 0) {
+            for(int i = 0; i < ListInventory.Count; i++) {
+                ListSlots[i].setItem(ListInventory[i]);
+            }
+        }
+    }
+    
+    public void addItem(Item item) {
+        ListInventory.Add(item);
     }
 
 

@@ -39,12 +39,11 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void updateEnemyLists() {
+    private void updateEnemyLists() {
         //add enemies to list when loading new scene
         if (enemies.Count == 0) {
             foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy")) {
                 enemies.Add(enemy);
-
             }
         }
 
@@ -87,12 +86,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-
-
-        }
-
-    
-
+    }
 
 
     public void clearEnemyList() {
