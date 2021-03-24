@@ -25,8 +25,8 @@ public class Slot : MonoBehaviour, IPointerDownHandler {
         //left click in the inventory
         if(eventData.button == PointerEventData.InputButton.Left) {
             if (isOccupied) {
-                print(item.getName() + " " + index);
-                
+                item.useItem();
+                item.setItemUsed(true);
             }
             else if (!isOccupied) {
                 print(index + " is empty");
@@ -65,12 +65,18 @@ public class Slot : MonoBehaviour, IPointerDownHandler {
         this.isOccupied = isEmpty;
     }
 
-
     public Item getItem() {
         return item;
     }
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    public Sprite getSpriterender() {
+        return spriteRender.sprite;
+    }
+    public void setSpriteRender(Sprite sprite) {
+        spriteRender.sprite = sprite;
     }
 
 }

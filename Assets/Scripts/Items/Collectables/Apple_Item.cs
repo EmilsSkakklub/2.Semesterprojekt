@@ -2,23 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestItem : Item
+public class Apple_Item : Item
 {
-
     // Start is called before the first frame update
     void Start()
     {
-        initStart("Test Item", true, true);
+        initStart("Apple", true, true);
     }
 
     // Update is called once per frame
     void Update()
     {
         initUpdate();
-    }    
-    
-    //what to do when using item
-    public override void useItem() {
-        print("You used " + getName());
     }
+    public override void useItem() {
+        print("Apple, hey");
+    }
+
 }

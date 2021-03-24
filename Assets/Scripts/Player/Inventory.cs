@@ -32,7 +32,6 @@ public class Inventory : MonoBehaviour
         backpack = GameObject.Find("Backpack1");
         teddybackpack = GameObject.Find("backpack2");
 
-
         initializeSlots();
     }
 
@@ -42,9 +41,10 @@ public class Inventory : MonoBehaviour
         backpackTeddy();
         toggleInventory();
         updateSlots();
+        updateItems();
     }
 
-    
+    //initialise the inventory with all 55 slots
     private void initializeSlots() {
         for(int i = 0; i < inventoryUI.transform.childCount; i++) {
             ListSlots.Add(inventoryUI.transform.GetChild(i).GetComponent<Slot>());
@@ -53,25 +53,57 @@ public class Inventory : MonoBehaviour
     }
 
     private void updateSlots() {
-        if(ListInventory.Count > 0) {
-            for(int i = 0; i < ListInventory.Count; i++) {
+        //insert the item in the inventory slot
+        
+
+        for(int i = 0; i < ListInventory.Count; i++) {
+            if (ListSlots[i].getItem() == null) {
                 ListSlots[i].setItem(ListInventory[i]);
+            }
+        }
+        //remove the item sprite from the inventory slot when removing item
+        for (int i = 0; i < ListSlots.Count; i++) {
+            if (ListSlots[i].getItem() == null) {
+                ListSlots[i].setSpriteRender(null);
+            }
+        }
+    }
+
+    
+    private void updateItems() {
+        //if using consumable item, remove it
+        for(int i = 0; i < ListInventory.Count; i++) {
+            if(ListInventory[i].getItemUsed() && ListInventory[i].getIsConsumable()) {
+                removeItem(i);
             }
         }
     }
     
+    //add item to the inventory
     public void addItem(Item item) {
         ListInventory.Add(item);
     }
 
+    //remove item from inventory
+    public void removeItem(int index) {
+        ListInventory.RemoveAt(index);
+        ListSlots[index].setItem(null);
+        for(int i = 0; i < ListSlots.Count-1; i++) {
+            if(ListSlots[i].getItem() == null && ListSlots[i+1].getItem() != null) {
+                ListSlots[i].setItem(ListSlots[i + 1].getItem());
+                ListSlots[i + 1].setItem(null);
+            }
+        }
+    }
 
-    //inventory
+
+    //toggle inventory
     private void toggleInventory() {
         //if inventory is open, pause game and show mouse 
         if (player.getOpenInventory()) {
             Cursor.lockState = CursorLockMode.Confined;
             inventoryUI.gameObject.SetActive(true);
-            Time.timeScale = 0;
+            Time.timeScale = 0f;
         }
         else if (!player.getOpenInventory()) {
             inventoryUI.gameObject.SetActive(false);
@@ -79,10 +111,6 @@ public class Inventory : MonoBehaviour
             Time.timeScale = 1;
         }
     }
-
-
-
-
 
 
 
