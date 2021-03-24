@@ -12,6 +12,9 @@ public class PlayerScript : MonoBehaviour
     private GameManager gm;
     public LayerMask groundMask;
 
+    //inventory
+    private Inventory inventory;
+    public bool openInventory = false;
 
     //movement
     Vector3 velocity;
@@ -69,6 +72,7 @@ public class PlayerScript : MonoBehaviour
     private bool attackPressed;
     private bool crouchPressed;
     private bool rollPressed;
+    private bool inventoryPressed;
 
     //bools to see what animation is currently playing
     private bool idleAnimation;
@@ -118,7 +122,8 @@ public class PlayerScript : MonoBehaviour
         StartCoroutine(Interact());
 
         attack();
-    
+
+        toggleInventory();
     }
 
 
@@ -169,6 +174,7 @@ public class PlayerScript : MonoBehaviour
         attackPressed = Input.GetMouseButtonDown(0);
         crouchPressed = Input.GetKeyDown(KeyCode.C);
         rollPressed = Input.GetMouseButtonDown(1);
+        inventoryPressed = Input.GetKeyDown(KeyCode.Tab);
     }
 
     //checks which animation is running 
@@ -652,6 +658,11 @@ public class PlayerScript : MonoBehaviour
     }
 
 
+    public void toggleInventory() {
+        if (inventoryPressed) {
+            openInventory = !openInventory;
+        }
+    }
 
 
 
@@ -713,6 +724,14 @@ public class PlayerScript : MonoBehaviour
         this.isInCombat = isInCombat;
     }
 
+
+
+    public bool getOpenInventory() {
+        return openInventory;
+    }
+    public void setOpenInventory(bool openInventory) {
+        this.openInventory = openInventory;
+    }
 
 }
 
