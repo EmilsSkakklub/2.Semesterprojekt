@@ -43,3 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4c8ea36d382fe40a8d0aa63c242cc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemies: []
+  enemiesInCombat: []
+  StoryNumber: 0
+  CheckStory: 1

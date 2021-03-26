@@ -7,7 +7,7 @@ public class Apple_Item : Item
     // Start is called before the first frame update
     void Start()
     {
-        initStart("Apple", true, true);
+        initStart("Apple", true);
     }
 
     // Update is called once per frame

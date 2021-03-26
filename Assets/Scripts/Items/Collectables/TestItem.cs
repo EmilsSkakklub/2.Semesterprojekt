@@ -8,7 +8,7 @@ public class TestItem : Item
     // Start is called before the first frame update
     void Start()
     {
-        initStart("Test Item", true, true);
+        initStart("Test Item", false);
     }
 
     // Update is called once per frame

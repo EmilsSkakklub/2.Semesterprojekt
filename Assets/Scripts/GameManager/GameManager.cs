@@ -32,6 +32,10 @@ public class GameManager : MonoBehaviour
     {
         playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
         inventory = GameObject.Find("Player").GetComponent<Inventory>();
+
+        //safe the player at the start of the game
+        playerScript.safePlayer();
+    
     }
 
     private void Update() {

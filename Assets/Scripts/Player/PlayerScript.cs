@@ -13,8 +13,9 @@ public class PlayerScript : MonoBehaviour
     public LayerMask groundMask;
 
     //inventory
-    private Inventory inventory;
+    public Inventory inventory;
     public bool openInventory = false;
+    public List<string> stringInventory = new List<string>();
 
     //movement
     Vector3 velocity;
@@ -141,11 +142,25 @@ public class PlayerScript : MonoBehaviour
     }
 
 
+    public void safePlayer() {
+            GameSaveManager.SavePlayer(this);
+    }
+
+    public void LoadPlayer() {
+        PlayerData data = GameSaveManager.loadPlayer();
+
+        HP = data.health;
+        setStamina(data.stamina);
+    }
+
+
+
     //for initialization 
     private void initiate() {
+
         
 
-
+        inventory = GetComponent<Inventory>();
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         cam = GameObject.Find("Main Camera").GetComponent<Transform>();
@@ -469,63 +484,103 @@ public class PlayerScript : MonoBehaviour
 
         
         //First
-        if (HP == 7) {
-            FullHearts[3].gameObject.SetActive(false);
-        }
-        if (HP > 7) {
+        if(HP == 8) {
             FullHearts[3].gameObject.SetActive(true);
-        }
-        if (HP > 6) {
-            HalfHearts[3].gameObject.SetActive(true);
-        }
-        else if (HP == 6) {
-            HalfHearts[3].gameObject.SetActive(false);
-        }
-
-
-        //Second
-        else if (HP == 5) {
-            FullHearts[2].gameObject.SetActive(false);
-        }
-        if (HP > 5) {
             FullHearts[2].gameObject.SetActive(true);
-        }
-        if (HP > 4) {
-            HalfHearts[2].gameObject.SetActive(true);
-        }
-
-        else if (HP == 4) {
-            HalfHearts[2].gameObject.SetActive(false);
-        }
-
-
-
-        //Third
-        else if (HP == 3) {
-            FullHearts[1].gameObject.SetActive(false);
-        }
-        if (HP > 3) {
             FullHearts[1].gameObject.SetActive(true);
-        }
-        if (HP > 2) {
-            HalfHearts[1].gameObject.SetActive(true);
-        }
-        else if (HP == 2) {
-            HalfHearts[1].gameObject.SetActive(false);
-        }
-
-
-        //fourth and Last
-        else if (HP == 1) {
-            FullHearts[0].gameObject.SetActive(false);
-        }
-        if (HP > 1) {
             FullHearts[0].gameObject.SetActive(true);
+
+            HalfHearts[3].gameObject.SetActive(false);
+            HalfHearts[2].gameObject.SetActive(false);
+            HalfHearts[1].gameObject.SetActive(false);
+            HalfHearts[0].gameObject.SetActive(false);
         }
-        if (HP > 0) {
+        if(HP == 7) {
+            FullHearts[3].gameObject.SetActive(false);
+            FullHearts[2].gameObject.SetActive(true);
+            FullHearts[1].gameObject.SetActive(true);
+            FullHearts[0].gameObject.SetActive(true);
+
+            HalfHearts[3].gameObject.SetActive(true);
+            HalfHearts[2].gameObject.SetActive(false);
+            HalfHearts[1].gameObject.SetActive(false);
+            HalfHearts[0].gameObject.SetActive(false);
+        }
+        if(HP == 6) {
+            FullHearts[3].gameObject.SetActive(false);
+            FullHearts[2].gameObject.SetActive(true);
+            FullHearts[1].gameObject.SetActive(true);
+            FullHearts[0].gameObject.SetActive(true);
+
+            HalfHearts[3].gameObject.SetActive(false);
+            HalfHearts[2].gameObject.SetActive(false);
+            HalfHearts[1].gameObject.SetActive(false);
+            HalfHearts[0].gameObject.SetActive(false);
+        }
+        if (HP == 5) {
+            FullHearts[3].gameObject.SetActive(false);
+            FullHearts[2].gameObject.SetActive(false);
+            FullHearts[1].gameObject.SetActive(true);
+            FullHearts[0].gameObject.SetActive(true);
+
+            HalfHearts[3].gameObject.SetActive(false);
+            HalfHearts[2].gameObject.SetActive(true);
+            HalfHearts[1].gameObject.SetActive(false);
+            HalfHearts[0].gameObject.SetActive(false);
+        }
+        if (HP == 4) {
+            FullHearts[3].gameObject.SetActive(false);
+            FullHearts[2].gameObject.SetActive(false);
+            FullHearts[1].gameObject.SetActive(true);
+            FullHearts[0].gameObject.SetActive(true);
+
+            HalfHearts[3].gameObject.SetActive(false);
+            HalfHearts[2].gameObject.SetActive(false);
+            HalfHearts[1].gameObject.SetActive(false);
+            HalfHearts[0].gameObject.SetActive(false);
+        }
+        if (HP == 3) {
+            FullHearts[3].gameObject.SetActive(false);
+            FullHearts[2].gameObject.SetActive(false);
+            FullHearts[1].gameObject.SetActive(false);
+            FullHearts[0].gameObject.SetActive(true);
+
+            HalfHearts[3].gameObject.SetActive(false);
+            HalfHearts[2].gameObject.SetActive(false);
+            HalfHearts[1].gameObject.SetActive(true);
+            HalfHearts[0].gameObject.SetActive(false);
+        }
+        if (HP == 2) {
+            FullHearts[3].gameObject.SetActive(false);
+            FullHearts[2].gameObject.SetActive(false);
+            FullHearts[1].gameObject.SetActive(false);
+            FullHearts[0].gameObject.SetActive(true);
+
+            HalfHearts[3].gameObject.SetActive(false);
+            HalfHearts[2].gameObject.SetActive(false);
+            HalfHearts[1].gameObject.SetActive(false);
+            HalfHearts[0].gameObject.SetActive(false);
+        }
+        if (HP == 1) {
+            FullHearts[3].gameObject.SetActive(false);
+            FullHearts[2].gameObject.SetActive(false);
+            FullHearts[1].gameObject.SetActive(false);
+            FullHearts[0].gameObject.SetActive(false);
+
+            HalfHearts[3].gameObject.SetActive(false);
+            HalfHearts[2].gameObject.SetActive(false);
+            HalfHearts[1].gameObject.SetActive(false);
             HalfHearts[0].gameObject.SetActive(true);
         }
-        else if (HP == 0) {
+        if (HP == 0) {
+            FullHearts[3].gameObject.SetActive(false);
+            FullHearts[2].gameObject.SetActive(false);
+            FullHearts[1].gameObject.SetActive(false);
+            FullHearts[0].gameObject.SetActive(false);
+
+            HalfHearts[3].gameObject.SetActive(false);
+            HalfHearts[2].gameObject.SetActive(false);
+            HalfHearts[1].gameObject.SetActive(false);
             HalfHearts[0].gameObject.SetActive(false);
         }
     }
@@ -727,6 +782,9 @@ public class PlayerScript : MonoBehaviour
         return animator;
     }
 
+    public Inventory getInventory() {
+        return inventory;
+    }
 
     public float getStamina() {
         return Stamina;

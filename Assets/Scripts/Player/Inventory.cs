@@ -12,8 +12,6 @@ public class Inventory : MonoBehaviour
     public List<Item> ListInventory = new List<Item>();
     public List<Slot> ListSlots = new List<Slot>();
     
-
-
     GameObject backpack;
     GameObject teddybackpack;
     bool readyToPickUpBackpack;

@@ -18,18 +18,23 @@ public class SceneChange : MonoBehaviour
         ps = GameObject.Find("Player").GetComponent<PlayerScript>();
         interaction = GetComponent<Interaction>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        
     }
+
     protected void SceneChangeTo(string sceneName) {
         this.sceneName = sceneName;
         gameManager.clearEnemyList();
+
+        ps.LoadPlayer();
     }
 
     protected IEnumerator SceneChanger() {
         if (interaction.getStartInteraction()) {
             ps.ListOfInteractables.Clear();
             transition.SetTrigger("Start");
+
             yield return new WaitForSeconds(transitionTime);
+            ps.safePlayer();
+
             SceneManager.LoadScene(sceneName);
         }
     }

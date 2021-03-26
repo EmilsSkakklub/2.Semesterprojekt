@@ -7,22 +7,17 @@ public abstract class Item : MonoBehaviour
 {
     private Interaction interaction;
     private Inventory inventory;
-
     public Sprite sprite;
 
     public string itemName;
-    
-    public int amount;
 
     public bool isConsumable;
-    public bool isStackable;
     public bool itemUsed;
     
 
-    protected void initStart(string itemName, bool isConsumable, bool isStackable) {
+    protected void initStart(string itemName, bool isConsumable) {
         setName(itemName);
         setIsConsumable(isConsumable);
-        setIsStackable(isStackable);
 
         gameObject.tag = "Item";
 
@@ -82,11 +77,5 @@ public abstract class Item : MonoBehaviour
         this.sprite = sprite;
     }
 
-    public bool getIsStackable() {
-        return isStackable;
-    }
-    public void setIsStackable(bool isStackable) {
-        this.isStackable = isStackable;
-    }
 
 }
