@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class Slot : MonoBehaviour, IPointerDownHandler {
     
@@ -11,10 +12,12 @@ public class Slot : MonoBehaviour, IPointerDownHandler {
     public Item item;
     public Image spriteRender;
 
-    private void Start() {
+    void Awake() {
         spriteRender = gameObject.transform.Find("SpriteRender").GetComponent<Image>();
-        
     }
+
+    
+
 
     private void Update() {
         checkSlot();

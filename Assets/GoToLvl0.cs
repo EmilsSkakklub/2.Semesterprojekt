@@ -10,6 +10,6 @@ public class GoToLvl0 : SceneChange {
 
 
     void Update() {
-        StartCoroutine(SceneChanger());
+        StartCoroutine(SceneChanger("L0S3"));
     }
 }

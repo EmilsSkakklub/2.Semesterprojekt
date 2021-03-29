@@ -11,6 +11,6 @@ public class goInside : SceneChange
 
 
     void Update() {
-        StartCoroutine(SceneChanger());
+        StartCoroutine(SceneChanger("LHS1"));
     }
 }

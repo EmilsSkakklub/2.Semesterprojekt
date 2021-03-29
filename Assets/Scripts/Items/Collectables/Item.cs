@@ -20,8 +20,7 @@ public abstract class Item : MonoBehaviour
         setIsConsumable(isConsumable);
 
         gameObject.tag = "Item";
-
-        interaction = GetComponent<Interaction>();
+        interaction = GetComponentInChildren<Interaction>();
         inventory = GameObject.Find("Player").GetComponent<Inventory>();
     }
 

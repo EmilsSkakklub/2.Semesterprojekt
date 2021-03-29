@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Inventory : MonoBehaviour
 {
@@ -18,10 +19,12 @@ public class Inventory : MonoBehaviour
     bool GotTeddy;
     bool GotBackPack;
 
+    void OnEnable() {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    // called second
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         player = GameObject.Find("Player").GetComponent<PlayerScript>();
         inventoryUI = GameObject.Find("InventoryUI").GetComponent<Image>();
 
@@ -33,6 +36,12 @@ public class Inventory : MonoBehaviour
         initializeSlots();
     }
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -42,12 +51,13 @@ public class Inventory : MonoBehaviour
         updateItems();
     }
 
-    //initialise the inventory with all 55 slots
+    //initialise the inventory with all 12 slots
     private void initializeSlots() {
-        for(int i = 0; i < inventoryUI.transform.childCount; i++) {
+        ListSlots.Clear();
+        for (int i = 0; i < inventoryUI.transform.childCount; i++) {
             ListSlots.Add(inventoryUI.transform.GetChild(i).GetComponent<Slot>());
             ListSlots[i].setIndex(i);
-        }
+        }     
     }
 
     private void updateSlots() {

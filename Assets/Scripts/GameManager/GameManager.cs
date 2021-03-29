@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public float StoryNumber = 0;
     public bool CheckStory = true;
     private static GameManager instance = null;
-
+    
     //singelton pattern
     private void Awake() {
         if (instance == null) {
@@ -30,11 +30,12 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
         inventory = GameObject.Find("Player").GetComponent<Inventory>();
 
-        //safe the player at the start of the game
-        playerScript.safePlayer();
+        //save the player at the start of the game
+        //playerScript.savePlayer();
     
     }
 

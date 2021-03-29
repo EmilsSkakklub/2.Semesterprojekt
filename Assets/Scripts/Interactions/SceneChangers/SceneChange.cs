@@ -24,16 +24,17 @@ public class SceneChange : MonoBehaviour
         this.sceneName = sceneName;
         gameManager.clearEnemyList();
 
-        ps.LoadPlayer();
+        //ps.LoadPlayer();
     }
 
-    protected IEnumerator SceneChanger() {
+    protected IEnumerator SceneChanger(string spawnpoint) {
         if (interaction.getStartInteraction()) {
+            ps.CurrentSpawnpoint = spawnpoint;
             ps.ListOfInteractables.Clear();
             transition.SetTrigger("Start");
 
             yield return new WaitForSeconds(transitionTime);
-            ps.safePlayer();
+            //ps.savePlayer();
 
             SceneManager.LoadScene(sceneName);
         }

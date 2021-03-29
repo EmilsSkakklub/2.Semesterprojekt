@@ -10,6 +10,6 @@ public class goToLvl1 : SceneChange {
 
 
     void Update() {
-        StartCoroutine(SceneChanger());
+        StartCoroutine(SceneChanger("L1S1"));
     }
 }

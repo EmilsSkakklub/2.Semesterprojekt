@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class PlayerScript : MonoBehaviour
     private Transform cam;
     private GameManager gm;
     public LayerMask groundMask;
+
+    //singleton
+    private static PlayerScript instance = null;
 
     //inventory
     public Inventory inventory;
@@ -39,9 +43,21 @@ public class PlayerScript : MonoBehaviour
 
     //HP System
     public int HP = 8;
-    private GameObject[] FullHearts = new GameObject[4];
-    private GameObject[] HalfHearts = new GameObject[4];
-    private GameObject[] EmptyHearts = new GameObject[4];
+    public GameObject[] FullHearts = new GameObject[4];
+    public GameObject[] HalfHearts = new GameObject[4];
+    public GameObject[] EmptyHearts = new GameObject[4];
+    GameObject H1E;
+    GameObject H2E;
+    GameObject H3E;
+    GameObject H4E;
+    GameObject H1H;
+    GameObject H2H;
+    GameObject H3H;
+    GameObject H4H;
+    GameObject H1F;
+    GameObject H2F;
+    GameObject H3F;
+    GameObject H4F;
 
     //stamina System
     public float Stamina;
@@ -62,6 +78,10 @@ public class PlayerScript : MonoBehaviour
     public bool hit2 = true;
     public bool hit3 = true;
     public bool hit4 = true;
+
+    //spawnpoint
+    private Transform spawnpoint;
+    public string CurrentSpawnpoint;
 
     //input booleans
     private bool forwardPressed;
@@ -101,23 +121,19 @@ public class PlayerScript : MonoBehaviour
     private int isDeadHash;
     private int isRollingHash;
 
-
-    GameObject H1E;
-    GameObject H2E;
-    GameObject H3E;
-    GameObject H4E;
-    GameObject H1H;
-    GameObject H2H;
-    GameObject H3H;
-    GameObject H4H;
-    GameObject H1F;
-    GameObject H2F;
-    GameObject H3F; 
-    GameObject H4F;
-
-
-    private void Start() {
+    private void Awake() {
+        Singleton();
+    }
+    void OnEnable() {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        Spawnpoint();
         initiate();
+    }
+    private void Start() {
+        //initiate();
+
     }
     private void FixedUpdate() {
         groundCheck();
@@ -141,19 +157,15 @@ public class PlayerScript : MonoBehaviour
         toggleInventory();
     }
 
-
-    public void safePlayer() {
-            GameSaveManager.SavePlayer(this);
+    //Singleton pattern
+    private void Singleton() {
+        if (instance == null) {
+            instance = this;
+        } else if (instance != null) {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
     }
-
-    public void LoadPlayer() {
-        PlayerData data = GameSaveManager.loadPlayer();
-
-        HP = data.health;
-        setStamina(data.stamina);
-    }
-
-
 
     //for initialization 
     private void initiate() {
@@ -169,6 +181,7 @@ public class PlayerScript : MonoBehaviour
         textBubble = GameObject.Find("TextBubble");
         staminaSlider = GameObject.Find("StaminaBar").GetComponent<Slider>();
         attackpoint = GameObject.Find("AttackPoint").GetComponent<Transform>();
+        
 
 
 
@@ -192,11 +205,11 @@ public class PlayerScript : MonoBehaviour
         setAttackDamage(1);
         setMaxStamina(10);
         setStamina(maxStamina);
-
-
-        foreach (GameObject interactable in GameObject.FindGameObjectsWithTag("Interactable")) {
-            ListOfInteractables.Add(interactable);
-        }
+    }
+    void Spawnpoint() {
+        spawnpoint = GameObject.Find(CurrentSpawnpoint).GetComponent<Transform>();
+        transform.position = new Vector3(spawnpoint.position.x, spawnpoint.position.y, spawnpoint.position.z);
+        transform.transform.Rotate(spawnpoint.eulerAngles.x, spawnpoint.eulerAngles.y, spawnpoint.eulerAngles.z);
     }
 
     //checks the current input of the player
@@ -628,7 +641,7 @@ public class PlayerScript : MonoBehaviour
         if(ListOfInteractables.Count != 0) {
             ClosestTarget = GetClosestEnemy().GetComponent<Interaction>();
 
-            if (DistanceToClosestTarget() <= 1.5f && !ClosestTarget.getStartInteraction()) {
+            if (DistanceToClosestTarget() <= 1.5f && !ClosestTarget.getStartInteraction() && ClosestTarget.isActiveAndEnabled) {
                 InteractText.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.E)) {
                     yield return new WaitForSeconds(0.01f);
@@ -642,6 +655,11 @@ public class PlayerScript : MonoBehaviour
         else {
             InteractText.SetActive(false);
             textBubble.SetActive(false);
+        }
+        if(ListOfInteractables.Count == 0) {
+            foreach (GameObject interactable in GameObject.FindGameObjectsWithTag("Interactable")) {
+                ListOfInteractables.Add(interactable);
+            }
         }
         
         yield return null;
