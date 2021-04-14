@@ -24,9 +24,11 @@ public abstract class LevelChanger : MonoBehaviour
             transition.SetBool("Start", true);
             
             yield return new WaitForSeconds(transitionTime);
-            transition.SetBool("Start", false);
             playerScript.transform.position = new Vector3(newSpawnPoint.position.x, newSpawnPoint.position.y, newSpawnPoint.position.z);
             playerScript.transform.transform.Rotate(newSpawnPoint.eulerAngles.x, newSpawnPoint.eulerAngles.y, newSpawnPoint.eulerAngles.z);
+            
+            yield return new WaitForSeconds(0.3f);
+            transition.SetBool("Start", false);
             Invoke("ResetStartInteract", 0.1f);
 
             
