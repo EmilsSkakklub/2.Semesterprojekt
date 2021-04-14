@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Apple_Item : Item
 {
+
+    
     // Start is called before the first frame update
     void Start()
     {
+        
         initStart("Apple", true);
     }
 
@@ -16,7 +19,7 @@ public class Apple_Item : Item
         initUpdate();
     }
     public override void useItem() {
-        print("Apple, hey");
+        player.heal(3);
     }
 
 }

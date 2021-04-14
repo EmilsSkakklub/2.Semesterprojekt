@@ -13,6 +13,6 @@ public class Level_House_Loud : LevelChanger
     // Update is called once per frame
     void Update()
     {
-        ChangeLevel();
+        StartCoroutine(ChangeLevel());
     }
 }

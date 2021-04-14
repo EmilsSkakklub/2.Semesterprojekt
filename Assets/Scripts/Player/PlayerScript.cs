@@ -169,9 +169,6 @@ public class PlayerScript : MonoBehaviour
 
     //for initialization 
     private void initiate() {
-
-        
-
         inventory = GetComponent<Inventory>();
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
@@ -182,9 +179,6 @@ public class PlayerScript : MonoBehaviour
         staminaSlider = GameObject.Find("StaminaBar").GetComponent<Slider>();
         attackpoint = GameObject.Find("AttackPoint").GetComponent<Transform>();
         
-
-
-
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
         isJumpingHash = Animator.StringToHash("isJumping");
@@ -206,11 +200,13 @@ public class PlayerScript : MonoBehaviour
         setMaxStamina(10);
         setStamina(maxStamina);
     }
+   /*
     void Spawnpoint() {
         spawnpoint = GameObject.Find(CurrentSpawnpoint).GetComponent<Transform>();
         transform.position = new Vector3(spawnpoint.position.x, spawnpoint.position.y, spawnpoint.position.z);
         transform.transform.Rotate(spawnpoint.eulerAngles.x, spawnpoint.eulerAngles.y, spawnpoint.eulerAngles.z);
     }
+   */
 
     //checks the current input of the player
     private void inputManager() {
@@ -476,6 +472,13 @@ public class PlayerScript : MonoBehaviour
             if (HP > 0) {
                 HP -= damage;
             }
+        }
+    }
+
+    public void heal(int health) {
+        HP += health;
+        if(HP >= 8) {
+            HP = 8;
         }
     }
 

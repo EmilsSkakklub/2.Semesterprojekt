@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2007803505}
   - component: {fileID: 2007803507}
-  - component: {fileID: 2007803506}
   m_Layer: 0
   m_Name: door_interact
   m_TagString: Untagged
@@ -45,18 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartInteraction: 0
---- !u!114 &2007803506
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2007803504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd8b64cf08194714c97ae445c8286bc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &225622779487178089
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,7 +455,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 1157a04f203ae9f46bc89f45ebbfc7af, type: 2}
     - target: {fileID: 919132149155446097, guid: 0877d42aa9e1a0a4e9fe4dc9cc56231c, type: 3}
       propertyPath: m_Name
-      value: house_inside
+      value: HouseInside
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0877d42aa9e1a0a4e9fe4dc9cc56231c, type: 3}
