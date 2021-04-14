@@ -19,7 +19,7 @@ public abstract class LevelChanger : MonoBehaviour
         if (interaction.getStartInteraction()) {
             playerScript.transform.position = new Vector3(newSpawnPoint.position.x, newSpawnPoint.position.y, newSpawnPoint.position.z);
             playerScript.transform.transform.Rotate(newSpawnPoint.eulerAngles.x, newSpawnPoint.eulerAngles.y, newSpawnPoint.eulerAngles.z);
-            Invoke("ResetStartInteract", 0.2f);
+            Invoke("ResetStartInteract", 0.1f);
         }
     }
 
