@@ -128,7 +128,7 @@ public class PlayerScript : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        Spawnpoint();
+        //Spawnpoint();
         initiate();
     }
     private void Start() {

@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public abstract class Enemy : MonoBehaviour
 {
-    
     public string enemyName;
     public bool isDead;
     public float removeTimer;
@@ -17,7 +16,6 @@ public abstract class Enemy : MonoBehaviour
     private Transform cameraTransform;
     private CharacterController controller;
     
-
     private Vector3 velocity;
     private float gravity = -9.81f;
     public bool isGrounded;
@@ -98,8 +96,6 @@ public abstract class Enemy : MonoBehaviour
         updateVisionCone();
     }
 
-  
-    
     private void setAnimationHashCodes() {
         isWalkingHash = Animator.StringToHash("isWalking");
         isDeadHash = Animator.StringToHash("isDead");
@@ -262,11 +258,6 @@ public abstract class Enemy : MonoBehaviour
             surroundVisionRange = 2;
         }
     }
-
-    
-
-
-
 
 
     public void setHealthSlider(int health) {
