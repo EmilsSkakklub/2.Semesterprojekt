@@ -11,6 +11,7 @@ public abstract class Item : MonoBehaviour
     public PlayerScript player;
 
     public string itemName;
+    public string description;
 
     public bool isConsumable;
     public bool itemUsed;
@@ -23,9 +24,10 @@ public abstract class Item : MonoBehaviour
     Vector3 tempPos = new Vector3();
 
 
-    protected void initStart(string itemName, bool isConsumable) {
+    protected void initStart(string itemName, bool isConsumable, string description) {
         setName(itemName);
         setIsConsumable(isConsumable);
+        setDescription(description);
 
         gameObject.tag = "Item";
         interaction = GetComponentInChildren<Interaction>();
@@ -65,6 +67,14 @@ public abstract class Item : MonoBehaviour
     }
     public string getName() {
         return itemName;
+    }
+
+    public void setDescription(string description) {
+        this.description = description;
+    }
+
+    public string getDescription() {
+        return description;
     }
 
     public void setIsConsumable(bool isConsumable) {

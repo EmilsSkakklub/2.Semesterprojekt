@@ -5,15 +5,17 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class Slot : MonoBehaviour, IPointerDownHandler {
+public class Slot : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler {
     
     public int index;
     public bool isOccupied;
     public Item item;
     public Image spriteRender;
+    public Tooltip tooltip;
 
     void Awake() {
         spriteRender = gameObject.transform.Find("SpriteRender").GetComponent<Image>();
+        tooltip = GameObject.Find("Tooltip").GetComponent<Tooltip>();
     }
 
     
@@ -34,6 +36,17 @@ public class Slot : MonoBehaviour, IPointerDownHandler {
             else if (!isOccupied) {
                 print(index + " is empty");
             }
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData) {
+        if (!isOccupied) {
+            tooltip.setText1(null);
+            tooltip.setText2(null);
+        }
+        if (isOccupied) {
+            tooltip.setText1(item);
+            tooltip.setText2(item);
         }
     }
 

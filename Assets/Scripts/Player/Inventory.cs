@@ -9,6 +9,7 @@ public class Inventory : MonoBehaviour
 
     private PlayerScript player;
     private Image inventoryUI;
+    public Tooltip tooltip;
 
     public List<Item> ListInventory = new List<Item>();
     public List<Slot> ListSlots = new List<Slot>();
@@ -27,6 +28,7 @@ public class Inventory : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         player = GameObject.Find("Player").GetComponent<PlayerScript>();
         inventoryUI = GameObject.Find("InventoryUI").GetComponent<Image>();
+        tooltip = GameObject.Find("Tooltip").GetComponent<Tooltip>();
 
         inventoryUI.gameObject.SetActive(false);
 
@@ -36,11 +38,6 @@ public class Inventory : MonoBehaviour
         initializeSlots();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -62,8 +59,6 @@ public class Inventory : MonoBehaviour
 
     private void updateSlots() {
         //insert the item in the inventory slot
-        
-
         for(int i = 0; i < ListInventory.Count; i++) {
             if (ListSlots[i].getItem() == null) {
                 ListSlots[i].setItem(ListInventory[i]);
@@ -111,10 +106,12 @@ public class Inventory : MonoBehaviour
         if (player.getOpenInventory()) {
             Cursor.lockState = CursorLockMode.Confined;
             inventoryUI.gameObject.SetActive(true);
+            tooltip.gameObject.SetActive(true);
             Time.timeScale = 0f;
         }
         else if (!player.getOpenInventory()) {
             inventoryUI.gameObject.SetActive(false);
+            tooltip.gameObject.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1;
         }

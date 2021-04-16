@@ -10,7 +10,7 @@ public class Apple_Item : Item
     void Start()
     {
         
-        initStart("Apple", true);
+        initStart("Apple", true, "Consume to recover 2 full hearts");
     }
 
     // Update is called once per frame
@@ -19,7 +19,7 @@ public class Apple_Item : Item
         initUpdate();
     }
     public override void useItem() {
-        player.heal(3);
+        player.heal(4);
     }
 
 }

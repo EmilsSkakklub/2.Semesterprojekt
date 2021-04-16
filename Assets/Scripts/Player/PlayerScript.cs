@@ -64,6 +64,7 @@ public class PlayerScript : MonoBehaviour
     public float maxStamina;
     public bool isStaminaBuff;
     public float staminaRate = 1f;  //rate at which stamina is depleated
+    public float buffTimer = 60f;
     public float recoveryTimer = 1f;
     public bool animationHasStarted = false;
     public bool animationAttStarted1 = false;
@@ -770,11 +771,21 @@ public class PlayerScript : MonoBehaviour
     private void updateStamina() {
         //change stamina color
         if (!isStaminaBuff) {
+            staminaRate = 1f;
             staminaSlider.fillRect.GetComponent<Image>().color = Color.Lerp(Color.red, Color.cyan, (staminaSlider.value / staminaSlider.maxValue));
         }
         else if (isStaminaBuff) {
             staminaSlider.fillRect.GetComponent<Image>().color = Color.green;
             staminaRate = 0.3f;
+           
+            
+            if(buffTimer > 0 && isStaminaBuff) {
+                buffTimer -= Time.deltaTime;
+                if(buffTimer <= 0) {
+                    isStaminaBuff = false;
+                    buffTimer = 60f;
+                }
+            }
         }
 
 
@@ -860,6 +871,10 @@ public class PlayerScript : MonoBehaviour
     }
     public void setMaxStamina(float maxStamina) {
         this.maxStamina = maxStamina;
+    }
+
+    public bool getIsStaminaBuff() {
+        return isStaminaBuff;
     }
 
     public int getAttackDamage() {
