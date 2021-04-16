@@ -62,6 +62,8 @@ public class PlayerScript : MonoBehaviour
     //stamina System
     public float Stamina;
     public float maxStamina;
+    public bool isStaminaBuff;
+    public float staminaRate = 1f;  //rate at which stamina is depleated
     public float recoveryTimer = 1f;
     public bool animationHasStarted = false;
     public bool animationAttStarted1 = false;
@@ -71,9 +73,11 @@ public class PlayerScript : MonoBehaviour
 
     //combat system
     public int attackDamage;
+    public int bonusAttackDamage;
     public Transform attackpoint;
     public float attackRange = 0.3f;
     public LayerMask enemyLayers;
+    public Weapon equipedWeapon;
     public bool hit1 = true;
     public bool hit2 = true;
     public bool hit3 = true;
@@ -128,11 +132,10 @@ public class PlayerScript : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        //Spawnpoint();
-        initiate();
+        //initiate();
     }
     private void Start() {
-        //initiate();
+        initiate();
 
     }
     private void FixedUpdate() {
@@ -153,6 +156,7 @@ public class PlayerScript : MonoBehaviour
         StartCoroutine(Interact());
 
         attack();
+        updateWeapon();
 
         toggleInventory();
     }
@@ -169,6 +173,8 @@ public class PlayerScript : MonoBehaviour
 
     //for initialization 
     private void initiate() {
+        Cursor.lockState = CursorLockMode.Locked;
+
         inventory = GetComponent<Inventory>();
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
@@ -192,8 +198,6 @@ public class PlayerScript : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("Player");
         enemyLayers = LayerMask.GetMask("Enemy");
         groundMask = LayerMask.GetMask("Ground");
-
-        Cursor.lockState = CursorLockMode.Locked;
 
         FillHeartsArrays();
         setAttackDamage(1);
@@ -271,12 +275,8 @@ public class PlayerScript : MonoBehaviour
             }
 
             // jump
-            if (Input.GetButtonDown("Jump") && isGrounded && !rollAnimation && getStamina() > 0) {
+            if (Input.GetButtonDown("Jump") && isGrounded && !rollAnimation && getStamina() > 0 && !openInventory) {
                 StartCoroutine("Jump");
-            }
-
-            if (attackAnimation1) {
-
             }
         }
 
@@ -316,12 +316,6 @@ public class PlayerScript : MonoBehaviour
             animator.SetBool(isCrouchingHash, false);
         }
         if (!inDialog) {
-            //checks if idle / runnig / walking
-            if (idleAnimation) {
-
-
-            }
-
             //walking animation
             if ((forwardPressed || backwardPressed || leftPressed || rightPressed)) {
                 animator.SetBool(isWalkingHash, true);
@@ -340,7 +334,7 @@ public class PlayerScript : MonoBehaviour
             }
 
             //crouching animation
-            if (crouchPressed) {
+            if (crouchPressed && !openInventory) {
                 crouchingToggle = !crouchingToggle;
             }
 
@@ -362,21 +356,21 @@ public class PlayerScript : MonoBehaviour
 
             //attack animation
             //attack 1
-            if (attackPressed && !attackAnimation1 && !attackAnimation2 && !attackAnimation3 && Stamina > 0) {
+            if (attackPressed && !attackAnimation1 && !attackAnimation2 && !attackAnimation3 && Stamina > 0 && !openInventory) {
                 animator.SetBool(isAttack1Hash, true);
                 crouchingToggle = false;
             }
 
 
             //attack 2
-            if (attackPressed && attackAnimation1 && Stamina > 0) {
+            if (attackPressed && attackAnimation1 && Stamina > 0 && !openInventory) {
                 animator.SetBool(isAttack2Hash, true);
             }
 
 
 
             //attack 3
-            if (attackPressed && attackAnimation2 && Stamina > 0) {
+            if (attackPressed && attackAnimation2 && Stamina > 0 && !openInventory) {
                 animator.SetBool(isAttack3Hash, true);
             }
 
@@ -408,7 +402,7 @@ public class PlayerScript : MonoBehaviour
             }
 
             //roll animation
-            if (rollPressed && Stamina > 0 && !rollAnimation) {
+            if (rollPressed && Stamina > 0 && !rollAnimation && !openInventory) {
                 animator.SetBool(isRollingHash, true);
                 setCrouchToggle(false);
             }
@@ -425,31 +419,38 @@ public class PlayerScript : MonoBehaviour
 
     private void attack() {
         Collider[] hitEnemies = Physics.OverlapSphere(attackpoint.position, attackRange, enemyLayers);
+        
         if (attackAnimation1 && hit1) {
             foreach (Collider enemy in hitEnemies) {
-                enemy.GetComponent<Enemy>().takeDamage(attackDamage);
                 hit1 = false;
+                enemy.GetComponent<Enemy>().takeDamage(attackDamage + bonusAttackDamage);
+                print("Damage dealt: " + (attackDamage + bonusAttackDamage));
+
             }
         }
         if (attackAnimation2 && hit2) {
             foreach (Collider enemy in hitEnemies) {
-                enemy.GetComponent<Enemy>().takeDamage(attackDamage + 1);
                 hit2 = false;
+                enemy.GetComponent<Enemy>().takeDamage(attackDamage + bonusAttackDamage);
+                print("Damage dealt: " + (attackDamage + bonusAttackDamage));
+
             }
         }
         if (attackAnimation3 && hit3) {
             foreach (Collider enemy in hitEnemies) {
-                enemy.GetComponent<Enemy>().takeDamage(attackDamage + 2);
                 hit3 = false;
+                enemy.GetComponent<Enemy>().takeDamage(attackDamage + bonusAttackDamage);
+                print("Damage dealt: " + (attackDamage + bonusAttackDamage));
             }
         }
         if (attackAnimation4 && hit4) {
             foreach (Collider enemy in hitEnemies) {
-                enemy.GetComponent<Enemy>().takeDamage(attackDamage + 2);
                 hit4 = false;
+                enemy.GetComponent<Enemy>().takeDamage(attackDamage + bonusAttackDamage);
+                print("Damage dealt: " + (attackDamage + bonusAttackDamage));
             }
         }
-        if(!attackAnimation1 && !attackAnimation2 && !attackAnimation3 && !attackAnimation4) {
+        if(!attackAnimation1 && !attackAnimation2 && !attackAnimation3 && !attackAnimation4 && !hitAnimation) {
             hit1 = true;
             hit2 = true;
             hit3 = true;
@@ -463,6 +464,25 @@ public class PlayerScript : MonoBehaviour
         }
         Gizmos.DrawWireSphere(attackpoint.position, attackRange);
     }
+
+    public void equipWeapon(Weapon weapon) {
+        if(weapon != null) {
+            Instantiate(weapon, attackpoint);
+        }
+    }
+
+
+    public void updateWeapon() {
+        if (equipedWeapon == null) {
+            setBonusAttackDamage(0);
+        }
+        else if (equipedWeapon != null) {
+            setBonusAttackDamage(equipedWeapon.getDamage());
+        }
+    }
+
+
+
 
     public void takeDamage(int damage) {
         if (!rollAnimation) {
@@ -480,6 +500,11 @@ public class PlayerScript : MonoBehaviour
         if(HP >= 8) {
             HP = 8;
         }
+    }
+
+
+    public void StaminaBuff() {
+        isStaminaBuff = true;
     }
 
 
@@ -635,7 +660,7 @@ public class PlayerScript : MonoBehaviour
 
     }
 
-
+    
 
 
 
@@ -704,21 +729,20 @@ public class PlayerScript : MonoBehaviour
 
     public void loseStaminaPeriodically() {
         if(Stamina > 0) {
-            Stamina -= 2 * Time.deltaTime;
+            Stamina -= staminaRate * Time.deltaTime;
         }
         if(Stamina < 0) {
             setStamina(0);
         }
-       
     }
 
     public void loseStaminaInstantly(int staminaCost) {
-        float staminaLeft = Stamina - staminaCost;
+        float staminaLeft = Stamina - (staminaCost * staminaRate);
         if(staminaLeft <= 0) {
             setStamina(0);
         }
         else if(staminaLeft > 0){
-            Stamina -= staminaCost;
+            Stamina -= (staminaCost * staminaRate);
         }
     }
 
@@ -741,9 +765,20 @@ public class PlayerScript : MonoBehaviour
         } 
     }
 
+
     
     private void updateStamina() {
-        if(walkAnimation || idleAnimation) {
+        //change stamina color
+        if (!isStaminaBuff) {
+            staminaSlider.fillRect.GetComponent<Image>().color = Color.Lerp(Color.red, Color.cyan, (staminaSlider.value / staminaSlider.maxValue));
+        }
+        else if (isStaminaBuff) {
+            staminaSlider.fillRect.GetComponent<Image>().color = Color.green;
+            staminaRate = 0.3f;
+        }
+
+
+        if (walkAnimation || idleAnimation) {
             animationHasStarted = false;
             animationAttStarted1 = false;
             animationAttStarted2 = false;
@@ -767,7 +802,7 @@ public class PlayerScript : MonoBehaviour
         }
         if (attackAnimation3 && !animationAttStarted3) {
             animationAttStarted3 = true;
-            loseStaminaInstantly(2);
+            loseStaminaInstantly(1);
         }
         if (attackAnimation4 && !animationAttStarted1) {
             animationAttStarted1 = true;
@@ -777,8 +812,14 @@ public class PlayerScript : MonoBehaviour
             animationHasStarted = true;
             loseStaminaInstantly(1);
         }
-
+        /*
+        if (staminaSlider.value > (staminaSlider.maxValue / 2)) {
+            staminaSlider.fillRect.GetComponent<Image>().color = Color.red;
+        }
+        */
     }
+
+
 
     public void setStaminaSlider(float Stamina) {
         staminaSlider.value = Stamina;
@@ -821,12 +862,28 @@ public class PlayerScript : MonoBehaviour
         this.maxStamina = maxStamina;
     }
 
-    public float getattackDamage() {
+    public int getAttackDamage() {
         return attackDamage;
     }
     public void setAttackDamage(int attackDamage) {
         this.attackDamage = attackDamage;
     }
+
+    public int getBonusAttackDamage() {
+        return bonusAttackDamage;
+    }
+    public void setBonusAttackDamage(int bonusAttackDamage) {
+        this.bonusAttackDamage = bonusAttackDamage;
+    }
+
+    public Weapon getEquipedWeapon() {
+        return equipedWeapon;
+    }
+
+    public void setEquipedWeapon(Weapon equipedWeapon) {
+        this.equipedWeapon = equipedWeapon;
+    }
+
 
     public bool getInDialog() {
         return inDialog;

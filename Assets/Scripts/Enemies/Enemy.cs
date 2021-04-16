@@ -176,7 +176,7 @@ public abstract class Enemy : MonoBehaviour
         if (!isDead && !hitAnimation && !attackAnimation && hasDetectedPlayer) {
             if (Vector3.Distance(transform.position, playerTransform.position) >= MinDistance) {
                 animator.SetBool(isWalkingHash, true);
-                transform.position += transform.forward * moveSpeed * 2 * Time.deltaTime;
+                transform.position += transform.forward * moveSpeed * Time.deltaTime;
 
                 if (Vector3.Distance(transform.position, playerTransform.position) <= MaxDistance) {
                     animator.SetBool(isAttackingHash, true);

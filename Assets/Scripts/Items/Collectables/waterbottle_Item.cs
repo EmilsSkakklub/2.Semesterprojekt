@@ -2,17 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TreeSpirit : Enemy
+public class waterbottle_Item : Item
 {
+    
+
     // Start is called before the first frame update
     void Start()
     {
-        initStart("TreeSpirit", 1, 20, 2f);
+        initStart("Water bottle", true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        initUpdate(); 
+        initUpdate();
     }
+
+
+    public override void useItem() {
+        player.StaminaBuff();
+    }
+
+
 }
