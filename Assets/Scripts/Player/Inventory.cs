@@ -112,6 +112,8 @@ public class Inventory : MonoBehaviour
         else if (!player.getOpenInventory()) {
             inventoryUI.gameObject.SetActive(false);
             tooltip.gameObject.SetActive(false);
+            tooltip.setText1(null);
+            tooltip.setText2(null);
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1;
         }

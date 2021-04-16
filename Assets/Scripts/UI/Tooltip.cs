@@ -23,7 +23,6 @@ public class Tooltip : MonoBehaviour
         else {
             text1.text = item.getName();
         }
-        
     }
 
     public void setText2(Item item) {
