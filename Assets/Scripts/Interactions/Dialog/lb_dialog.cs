@@ -11,25 +11,50 @@ public class lb_dialog : Dialog {
 
     // Update is called once per frame
     void Update() {
-        if (gm.StoryNumber == 0f && gm.CheckStory) {
-             dialogLines.Clear();
-             moodSprites.Clear();
-             newDialogLine("Come on bro, keep up!", 3);  //0=normal 1=sad 2=angry
-             gm.CheckStory = false;
-            
-        }
-        if (gm.StoryNumber == 0.01f && gm.CheckStory) {
-            
+        if (gm.CheckStory) {
             dialogLines.Clear();
             moodSprites.Clear();
-            newDialogLine("It's not fair, you're onlder than me!", 5);  //0=normal 1=sad 2=angry
-            newDialogLine("Let's play something else then. How about hide and seek?", 0);  //0=normal 1=sad 2=angry
-            newDialogLine("Okay, I'll count to 10.", 3);  //0=normal 1=sad 2=angry
+
+            switch (gm.StoryNumber) {
+            case 0f:
+                newDialogLine("Come on bro!", 3);  //0=normal 1=sad 2=angry
+                newDialogLine("Fastest person to the grill wins!", 3);  //0=normal 1=sad 2=angry
+                break;
+
+            case 0.01f:
+                newDialogLine("It's not fair, you're onlder than me!", 5);  //0=normal 1=sad 2=angry
+                newDialogLine("Let's play something else then. How about hide and seek?", 0);  //0=normal 1=sad 2=angry
+                newDialogLine("Okay, I'll count to 10.", 3);  //0=normal 1=sad 2=angry 
+                break;
+
+            case 0.02f:
+                newDialogLine("Ready or not, here I come!", 3);
+                break;
+            case 0.03f:
+                newDialogLine("Are you in here?", 3);
+                newDialogLine("Buh!", 2);
+                newDialogLine("Arrrh!", 4);
+                newDialogLine("*cries*", 4);
+                newDialogLine("I'm sorry, please don't tell mom!", 1);
+                newDialogLine("Do you want to play some football?", 0);
+                newDialogLine("*nods*", 4);
+                newDialogLine("Ok, I will go get the ball then", 0);
+                break;
+            case 0.04f:
+                newDialogLine("Shoot here!", 3);
+                break;
+            case 0.06f:
+                newDialogLine("You go get it!", 2);
+                newDialogLine("What?! No!", 5);
+                newDialogLine("Yes! I'm the oldest!", 2);
+                newDialogLine("But, but... What about Mr. Dargon?", 4);
+                newDialogLine("Are you scared little brother?", 0);
+                newDialogLine("No!?", 4);
+                newDialogLine("I'll go get it now!", 5);
+                break;
+            }
             gm.CheckStory = false;
         }
-        
-
-
 
 
         dialog();

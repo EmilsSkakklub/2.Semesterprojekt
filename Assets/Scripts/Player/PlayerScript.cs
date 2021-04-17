@@ -11,7 +11,14 @@ public class PlayerScript : MonoBehaviour
     private Animator animator;
     private Transform cam;
     private GameManager gm;
+    private Transform player;
     public LayerMask groundMask;
+
+    //story
+    private Transform grill;
+    private Transform lb;
+    private Transform football;
+    private Transform g7;
 
     //singleton
     private static PlayerScript instance = null;
@@ -131,12 +138,7 @@ public class PlayerScript : MonoBehaviour
     private void Awake() {
         Singleton();
     }
-    void OnEnable() {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        //initiate();
-    }
+   
     private void Start() {
         initiate();
 
@@ -162,6 +164,8 @@ public class PlayerScript : MonoBehaviour
         updateWeapon();
 
         toggleInventory();
+
+        StoryChanger();
     }
 
     //Singleton pattern
@@ -187,7 +191,12 @@ public class PlayerScript : MonoBehaviour
         textBubble = GameObject.Find("TextBubble");
         staminaSlider = GameObject.Find("StaminaBar").GetComponent<Slider>();
         attackpoint = GameObject.Find("AttackPoint").GetComponent<Transform>();
-        
+        grill = GameObject.Find("grill").GetComponent<Transform>();
+        player = GetComponent<Transform>();
+        lb = GameObject.Find("LittleBro").GetComponent<Transform>();
+        football = GameObject.Find("Football").GetComponent<Transform>();
+        g7 = GameObject.Find("Goal7").GetComponent<Transform>();
+
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
         isJumpingHash = Animator.StringToHash("isJumping");
@@ -699,7 +708,23 @@ public class PlayerScript : MonoBehaviour
     }
     //finds the closest interactable target
 
-    
+    private void StoryChanger() {
+
+
+        if(gm.StoryNumber == 0 && Vector3.Distance(player.position,grill.position)<3f && Vector3.Distance(lb.position,grill.position) < 3f) {
+            gm.StoryNumber = 0.01f;
+            gm.CheckStory = true;
+        }
+        if(gm.StoryNumber == 0.01f && isStealth) {
+            gm.StoryNumber = 0.02f;
+            gm.CheckStory = true;
+        }
+
+        if(gm.StoryNumber == 0.03f && Vector3.Distance(player.position,football.position)<1) {
+            gm.StoryNumber = 0.04f;
+            gm.CheckStory = true;
+        }
+    }
     
     public GameObject GetClosestEnemy() {
         GameObject ClosestTarget = null;
