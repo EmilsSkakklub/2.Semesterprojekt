@@ -9,7 +9,7 @@ public class WoodenSword_Item : Item
     // Start is called before the first frame update
     void Awake()
     {
-        initStart("Wooden Sword",false, "My old Wooden Sword, Cool!");
+        initStart("Wooden Sword",false, "My old Wooden Sword, Cool! Damage increase: +2");
         weapon = GameObject.Find("woodenSword_weapon").GetComponent<Weapon>();
     }
 

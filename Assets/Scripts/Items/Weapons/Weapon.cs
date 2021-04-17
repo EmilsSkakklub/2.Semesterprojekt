@@ -22,15 +22,14 @@ public abstract class Weapon : MonoBehaviour
     public void equip() {
         if (isEquiped) {
             isEquiped = false;
-            //gameObject.SetActive(false);
+            gameObject.SetActive(false);
             playerScript.setEquipedWeapon(null);
         }
         else if (!isEquiped) {
             isEquiped = true;
-            //gameObject.SetActive(true);
+            gameObject.SetActive(true);
             playerScript.setEquipedWeapon(this);
         }
-        
     }
 
 

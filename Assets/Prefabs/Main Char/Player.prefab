@@ -458,6 +458,10 @@ MonoBehaviour:
   tooltip: {fileID: 0}
   ListInventory: []
   ListSlots: []
+  weaponSlot: {fileID: 0}
+  ListOfAllWeapons:
+  - {fileID: 1948068521246106787, guid: fb007f78cfae2594182ea4fb52babda8, type: 3}
+  - {fileID: -7596826751316754276, guid: ff9e5fb5c55d48246be7720977c81b0a, type: 3}
 --- !u!114 &1442566068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -508,6 +512,7 @@ MonoBehaviour:
   animationAttStarted2: 0
   animationAttStarted3: 0
   staminaSlider: {fileID: 0}
+  weapons: []
   attackDamage: 0
   bonusAttackDamage: 0
   attackpoint: {fileID: 0}

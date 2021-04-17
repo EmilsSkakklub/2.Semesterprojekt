@@ -8,7 +8,7 @@ public class Stick_Item : Item
 
 
     private void Awake() {
-        initStart("Stick", false, "This is a stick, Meh!");
+        initStart("Stick", false, "This is a stick, Meh! Damage increase: +1");
         weapon = GameObject.Find("Stick_Weapon").GetComponent<Weapon>();
     }
 

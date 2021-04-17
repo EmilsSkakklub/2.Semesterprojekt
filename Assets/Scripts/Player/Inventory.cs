@@ -7,7 +7,6 @@ using System.Linq;
 
 public class Inventory : MonoBehaviour
 {
-
     private PlayerScript player;
     private Image inventoryUI;
     public Tooltip tooltip;
@@ -16,7 +15,7 @@ public class Inventory : MonoBehaviour
     public List<Slot> ListSlots = new List<Slot>();
 
     public Slot weaponSlot;
-    
+
     GameObject backpack;
     GameObject teddybackpack;
     bool readyToPickUpBackpack;
@@ -79,8 +78,6 @@ public class Inventory : MonoBehaviour
         if(player.getEquipedWeapon() == null) {
             weaponSlot.setItem(null);
         }
-        
-
     }
 
 
@@ -148,7 +145,6 @@ public class Inventory : MonoBehaviour
             if (getGotTeddy()) {
                 backpack.SetActive(false);
                 teddybackpack.SetActive(true);
-
             }
         }
         else {
