@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3385068546817970206
+--- !u!1 &1725179496283600132
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3385068546817970207}
-  - component: {fileID: 3385068546817970194}
-  - component: {fileID: 3385068546817970193}
-  - component: {fileID: 3385068546817970192}
-  - component: {fileID: 3331687339259486490}
+  - component: {fileID: 1725179496283600133}
+  - component: {fileID: 1725179496283600136}
+  - component: {fileID: 1725179496283600139}
+  - component: {fileID: 1948068521246106787}
   m_Layer: 0
-  m_Name: Sword (prototype)
+  m_Name: Stick_Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3385068546817970207
+--- !u!4 &1725179496283600133
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3385068546817970206}
-  m_LocalRotation: {x: 0.31674883, y: -0.8075599, z: 0.42433608, w: 0.25972322}
+  m_GameObject: {fileID: 1725179496283600132}
+  m_LocalRotation: {x: 0.33981514, y: -0.8332324, z: 0.3575404, w: 0.24982877}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.00402972, y: 0.048322544, z: 0.0040297196}
+  m_LocalScale: {x: -0.0037026927, y: -0.044400983, z: -0.0037026922}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 58.199, y: 196.614, z: -33.541}
---- !u!33 &3385068546817970194
+  m_LocalEulerAnglesHint: {x: 49.962, y: 195.632, z: -37.056}
+--- !u!33 &1725179496283600136
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3385068546817970206}
+  m_GameObject: {fileID: 1725179496283600132}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &3385068546817970193
+--- !u!23 &1725179496283600139
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3385068546817970206}
+  m_GameObject: {fileID: 1725179496283600132}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -83,29 +82,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &3385068546817970192
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3385068546817970206}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 1, z: -0.00000008940697}
---- !u!114 &3331687339259486490
+--- !u!114 &1948068521246106787
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3385068546817970206}
+  m_GameObject: {fileID: 1725179496283600132}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b325d743f2b42648a994090d856d885, type: 3}
+  m_Script: {fileID: 11500000, guid: 77ed0cbeecd36b1479bc7cf1c11169b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
+  isEquiped: 0

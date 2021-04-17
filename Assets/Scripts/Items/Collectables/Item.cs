@@ -5,23 +5,22 @@ using UnityEngine;
 
 public abstract class Item : MonoBehaviour
 {
-    private Interaction interaction;
-    private Inventory inventory;
     public Sprite sprite;
     public PlayerScript player;
-
+    private Interaction interaction;
+    private Inventory inventory;
+    
     public string itemName;
     public string description;
 
-    public bool isConsumable;
-    public bool itemUsed;
+    private bool isConsumable;
+    private bool itemUsed;
 
-    public float rotationSpeed = 50;
-    public float amplitude = 0.2f;
-    public float frequency = 1f;
-
-    Vector3 posOffset = new Vector3();
-    Vector3 tempPos = new Vector3();
+    private float rotationSpeed = 50;
+    private float amplitude = 0.2f;
+    private float frequency = 1f;
+    private Vector3 posOffset = new Vector3();
+    private Vector3 tempPos = new Vector3();
 
 
     protected void initStart(string itemName, bool isConsumable, string description) {
@@ -41,6 +40,7 @@ public abstract class Item : MonoBehaviour
         collect();
         rotateItem();
     }
+
 
     private void collect() {
         if (interaction.getStartInteraction()) {

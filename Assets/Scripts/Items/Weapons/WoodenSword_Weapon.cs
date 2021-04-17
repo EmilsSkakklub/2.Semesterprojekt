@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class prototypeSword : Weapon
+public class WoodenSword_Weapon : Weapon
 {
     // Start is called before the first frame update
     void Start()
     {
-        Init(1);
+        InitStart(2);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

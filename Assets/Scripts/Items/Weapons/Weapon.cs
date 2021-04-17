@@ -4,20 +4,34 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
-    private int damage;
+    public int damage;
+    public bool isEquiped;
+
     private PlayerScript playerScript;
-    private CapsuleCollider hitBox;
 
-
-
-    protected void Init(int damage) {
+    protected void InitStart(int damage) {
         setDamage(damage);
         playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
-        hitBox = GetComponent<CapsuleCollider>();
+        gameObject.tag = "Weapon";
 
-        hitBox.isTrigger = true;
+        setIsEquiped(false);
+        gameObject.SetActive(false);
     }
 
+
+    public void equip() {
+        if (isEquiped) {
+            isEquiped = false;
+            //gameObject.SetActive(false);
+            playerScript.setEquipedWeapon(null);
+        }
+        else if (!isEquiped) {
+            isEquiped = true;
+            //gameObject.SetActive(true);
+            playerScript.setEquipedWeapon(this);
+        }
+        
+    }
 
 
 
@@ -26,19 +40,20 @@ public abstract class Weapon : MonoBehaviour
     public int getDamage() {
         return damage;
     }
-
     public void setDamage(int damage) {
         this.damage = damage;
     }
 
+    public bool getIsEquiped() {
+        return isEquiped;
+    }
+    public void setIsEquiped(bool isEquiped) {
+        this.isEquiped = isEquiped;
+    }
 
     public PlayerScript getplayerScript() {
         return playerScript;
     }
 
-
-    public CapsuleCollider getHitBox() {
-        return hitBox;
-    }
 
 }

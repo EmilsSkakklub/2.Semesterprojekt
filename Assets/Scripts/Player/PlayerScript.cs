@@ -73,6 +73,8 @@ public class PlayerScript : MonoBehaviour
     public Slider staminaSlider;
 
     //combat system
+    public List<GameObject> weapons = new List<GameObject>();
+
     public int attackDamage;
     public int bonusAttackDamage;
     public Transform attackpoint;
@@ -466,14 +468,9 @@ public class PlayerScript : MonoBehaviour
         Gizmos.DrawWireSphere(attackpoint.position, attackRange);
     }
 
-    public void equipWeapon(Weapon weapon) {
-        if(weapon != null) {
-            Instantiate(weapon, attackpoint);
-        }
-    }
 
 
-    public void updateWeapon() {
+    private void updateWeapon() {
         if (equipedWeapon == null) {
             setBonusAttackDamage(0);
         }

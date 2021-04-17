@@ -14,6 +14,8 @@ public class Inventory : MonoBehaviour
 
     public List<Item> ListInventory = new List<Item>();
     public List<Slot> ListSlots = new List<Slot>();
+
+    public Slot weaponSlot;
     
     GameObject backpack;
     GameObject teddybackpack;
@@ -30,6 +32,7 @@ public class Inventory : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<PlayerScript>();
         inventoryUI = GameObject.Find("InventoryUI").GetComponent<Image>();
         tooltip = GameObject.Find("Tooltip").GetComponent<Tooltip>();
+        weaponSlot = GameObject.Find("WeaponSlot").GetComponent<Slot>();
 
         inventoryUI.gameObject.SetActive(false);
 
@@ -71,6 +74,13 @@ public class Inventory : MonoBehaviour
                 ListSlots[i].setSpriteRender(null);
             }
         }
+
+        //update the weapon Slot
+        if(player.getEquipedWeapon() == null) {
+            weaponSlot.setItem(null);
+        }
+        
+
     }
 
 
@@ -109,11 +119,13 @@ public class Inventory : MonoBehaviour
             Cursor.lockState = CursorLockMode.Confined;
             inventoryUI.gameObject.SetActive(true);
             tooltip.gameObject.SetActive(true);
+            weaponSlot.gameObject.SetActive(true);
             Time.timeScale = 0f;
         }
         else if (!player.getOpenInventory()) {
             inventoryUI.gameObject.SetActive(false);
             tooltip.gameObject.SetActive(false);
+            weaponSlot.gameObject.SetActive(false);
             tooltip.setText1(null);
             tooltip.setText2(null);
             Cursor.lockState = CursorLockMode.Locked;
@@ -165,4 +177,10 @@ public class Inventory : MonoBehaviour
     public void setReadyToPickUpBackpack(bool value) {
         readyToPickUpBackpack = value;
     }
+    public Slot getWeaponSlot() {
+        return weaponSlot;
+    }
+    
+
+
 }
