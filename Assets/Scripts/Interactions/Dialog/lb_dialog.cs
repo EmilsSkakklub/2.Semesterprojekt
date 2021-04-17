@@ -11,14 +11,14 @@ public class lb_dialog : Dialog {
 
     // Update is called once per frame
     void Update() {
-        while (gm.StoryNumber == 0f && gm.CheckStory) {
+        if (gm.StoryNumber == 0f && gm.CheckStory) {
              dialogLines.Clear();
              moodSprites.Clear();
              newDialogLine("Come on bro, keep up!", 3);  //0=normal 1=sad 2=angry
              gm.CheckStory = false;
             
         }
-        while (gm.StoryNumber == 0.01f && gm.CheckStory) {
+        if (gm.StoryNumber == 0.01f && gm.CheckStory) {
             
             dialogLines.Clear();
             moodSprites.Clear();
