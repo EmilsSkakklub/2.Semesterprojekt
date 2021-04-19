@@ -16,6 +16,7 @@ public class lb_move : MonoBehaviour
     GameObject g4;
     GameObject g5;
     GameObject g6;
+    GameObject g10;
 
     bool check1 = false;
     bool check2 = false;
@@ -23,6 +24,7 @@ public class lb_move : MonoBehaviour
     bool check4 = false;
     bool check5 = false;
     bool check6 = false;
+    bool check7 = false;
 
 
 
@@ -41,6 +43,7 @@ public class lb_move : MonoBehaviour
         g4 = GameObject.Find("Goal4");
         g5 = GameObject.Find("Goal5");
         g6 = GameObject.Find("Goal6");
+        g10 = GameObject.Find("Goal10");
 
 
         interaction.setStartInteraction(true);
@@ -49,6 +52,10 @@ public class lb_move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        StartCoroutine(LbMoving());
+    }
+
+    IEnumerator LbMoving() {
         if (!interaction.getStartInteraction()) {
             if (gm.StoryNumber == 0) {
                 if (CalcDist1() > 1 && !check1) {
@@ -68,14 +75,14 @@ public class lb_move : MonoBehaviour
                     }
                 }
             }
-            
 
-            if(gm.StoryNumber == 0.02f) {
+
+            if (gm.StoryNumber == 0.02f) {
                 if (!check5) {
                     interaction.setStartInteraction(true);
                     check5 = true;
                 }
-                
+
 
                 if (CalcDist3() > 1 && !check2) {
                     lbTrans.transform.LookAt(g3.transform);
@@ -100,19 +107,32 @@ public class lb_move : MonoBehaviour
                 }
             }
             if (gm.StoryNumber == 0.04f) {
-                if(CalcDist6() > 1) {
+                if (CalcDist6() > 1) {
                     lbTrans.transform.LookAt(g6.transform);
                     lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 2.5f);
                 }
                 if (CalcDist6() <= 1 && !check6) {
-                    interaction.setStartInteraction(true);
+                    lbTrans.transform.LookAt(p.transform);
                     check6 = true;
                 }
             }
-            
+            if(gm.StoryNumber == 0.08) {
+                lbTrans.transform.LookAt(g10.transform);
+                lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 2.5f);
+            }
+
 
         }
+        if (gm.StoryNumber == 0.06f && !check7) {
+            interaction.setStartInteraction(true);
+            check7 = true;
+        }
+        yield return null;
     }
+
+
+
+
     float CalcDist1() {
         return Vector3.Distance(transform.position, g1.transform.position);
     }

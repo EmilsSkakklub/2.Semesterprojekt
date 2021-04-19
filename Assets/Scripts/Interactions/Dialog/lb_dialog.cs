@@ -22,9 +22,9 @@ public class lb_dialog : Dialog {
                 break;
 
             case 0.01f:
-                newDialogLine("It's not fair, you're onlder than me!", 5);  //0=normal 1=sad 2=angry
-                newDialogLine("Let's play something else then. How about hide and seek?", 0);  //0=normal 1=sad 2=angry
-                newDialogLine("Okay, I'll count to 10.", 3);  //0=normal 1=sad 2=angry 
+                newDialogLine("That was fun!", 3);  //0=normal 1=sad 2=angry
+                newDialogLine("Let's play something else. How about hide and seek?", 0);  //0=normal 1=sad 2=angry
+                newDialogLine("Okay, I'll start counting.", 3);  //0=normal 1=sad 2=angry 
                 break;
 
             case 0.02f:
@@ -40,10 +40,10 @@ public class lb_dialog : Dialog {
                 newDialogLine("*nods*", 4);
                 newDialogLine("Ok, I will go get the ball then", 0);
                 break;
-            case 0.04f:
+            case 0.06f:
                 newDialogLine("Shoot here!", 3);
                 break;
-            case 0.06f:
+            case 0.07f:              
                 newDialogLine("You go get it!", 2);
                 newDialogLine("What?! No!", 5);
                 newDialogLine("Yes! I'm the oldest!", 2);

@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     private PlayerScript playerScript;
     private Inventory inventory;
+    private Animator transition;
 
     public List<GameObject> enemies = new List<GameObject>();
     public List<GameObject> enemiesInCombat = new List<GameObject>();
@@ -14,7 +15,13 @@ public class GameManager : MonoBehaviour
     public float StoryNumber = 0;
     public bool CheckStory = true;
     private static GameManager instance = null;
-    
+
+    Camera mcam;
+    Camera fbcam;
+    GameObject tpcam;
+    Canvas canvas;
+
+    bool check1 = false;
     //singelton pattern
     private void Awake() {
         if (instance == null) {
@@ -30,17 +37,56 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
+
+
         playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
         inventory = GameObject.Find("Player").GetComponent<Inventory>();
-
+        transition = GameObject.Find("Crossfade").GetComponent<Animator>();
+        mcam = GameObject.Find("Main Camera").GetComponent<Camera>();   
+        fbcam = GameObject.Find("FootballCamera").GetComponent<Camera>();
+        tpcam = GameObject.Find("Third Person Camera");
+        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         //save the player at the start of the game
         //playerScript.savePlayer();
-    
+        mcam.enabled = true;
+        tpcam.SetActive(true);
+
+        fbcam.enabled = false;
     }
 
     private void Update() {
         updateEnemyLists();
+        StartCoroutine(Cutscene1());
+       
+    }
+    IEnumerator Cutscene1() {
+        if (StoryNumber == 0.05f || StoryNumber == 0.06f) {
+            if (transition.GetBool("Start")) {
+
+                if (!check1) {
+                    check1 = true;
+                    yield return new WaitForSeconds(1);
+                }
+                
+                mcam.enabled = false;
+                tpcam.SetActive(false);
+                fbcam.enabled = true;
+                canvas.worldCamera = fbcam;
+            }
+
+
+        } else {
+            mcam.enabled = true;
+            tpcam.SetActive(true);
+            fbcam.enabled = false;
+            canvas.worldCamera = mcam;
+        }
+        if (fbcam.enabled) {
+            playerScript.IsImmobile = true;
+        } else {
+            playerScript.IsImmobile = false;
+        }
     }
 
 

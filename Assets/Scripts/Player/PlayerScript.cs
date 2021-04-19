@@ -14,11 +14,16 @@ public class PlayerScript : MonoBehaviour
     private Transform player;
     public LayerMask groundMask;
 
-    //story
+    //story elements
     private Transform grill;
     private Transform lb;
     private Transform football;
     private Transform g7;
+    private Transform g9;
+    private Transform PlayerPosC1;
+    private Animator transition;
+    private bool kickedBall = false;
+    private bool footballMoved = false;
 
     //singleton
     private static PlayerScript instance = null;
@@ -40,6 +45,7 @@ public class PlayerScript : MonoBehaviour
     private bool crouchingToggle = false;
     public bool isStealth;
     public bool isInCombat;
+    public bool IsImmobile;
 
     //interact
     Interaction ClosestTarget;
@@ -165,7 +171,7 @@ public class PlayerScript : MonoBehaviour
 
         toggleInventory();
 
-        StoryChanger();
+        StartCoroutine(StoryChanger());
     }
 
     //Singleton pattern
@@ -196,6 +202,9 @@ public class PlayerScript : MonoBehaviour
         lb = GameObject.Find("LittleBro").GetComponent<Transform>();
         football = GameObject.Find("Football").GetComponent<Transform>();
         g7 = GameObject.Find("Goal7").GetComponent<Transform>();
+        transition = GameObject.Find("Crossfade").GetComponent<Animator>();
+        PlayerPosC1 = GameObject.Find("Goal8").GetComponent<Transform>();
+        g9 = GameObject.Find("Goal9").GetComponent<Transform>();
 
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
@@ -263,7 +272,7 @@ public class PlayerScript : MonoBehaviour
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
         //player can't move while hit or death animation is playing
-        if (!hitAnimation && !deathAnimation && !inDialog ) {
+        if (!hitAnimation && !deathAnimation && !inDialog && !IsImmobile) {
             //move
             if (direction.magnitude >= 0.1f) {
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
@@ -708,7 +717,7 @@ public class PlayerScript : MonoBehaviour
     }
     //finds the closest interactable target
 
-    private void StoryChanger() {
+    private IEnumerator StoryChanger() {
 
 
         if(gm.StoryNumber == 0 && Vector3.Distance(player.position,grill.position)<3f && Vector3.Distance(lb.position,grill.position) < 3f) {
@@ -719,11 +728,63 @@ public class PlayerScript : MonoBehaviour
             gm.StoryNumber = 0.02f;
             gm.CheckStory = true;
         }
-
         if(gm.StoryNumber == 0.03f && Vector3.Distance(player.position,football.position)<1) {
             gm.StoryNumber = 0.04f;
             gm.CheckStory = true;
         }
+        if (gm.StoryNumber == 0.04f && Vector3.Distance(player.position, g7.position) < 10 && Vector3.Distance(football.position, g7.position) < 10) {
+            gm.StoryNumber = 0.05f;
+            gm.CheckStory = true;
+        }
+        if(gm.StoryNumber == 0.05f) {
+            player.transform.LookAt(lb.transform);
+            lb.transform.LookAt(player.transform);
+            football.LookAt(g9.transform);
+
+            if (Vector3.Distance(player.position, PlayerPosC1.position) > 1) {
+
+                transition.SetBool("Start", true);
+                
+                yield return new WaitForSeconds(1);
+
+                player.transform.position = new Vector3(PlayerPosC1.position.x, PlayerPosC1.position.y, PlayerPosC1.position.z);
+                football.transform.position = new Vector3(PlayerPosC1.position.x - 1, PlayerPosC1.position.y, PlayerPosC1.position.z);
+
+                
+                yield return new WaitForSeconds(1f);
+                transition.SetBool("Start", false);
+                yield return new WaitForSeconds(1.5f);
+                gm.StoryNumber = 0.06f;
+                gm.CheckStory = true;
+            }
+            
+        }
+        if(gm.StoryNumber == 0.06f) {
+            player.transform.LookAt(lb.transform);
+            lb.transform.LookAt(player.transform);
+            if(Vector3.Distance(football.position, g9.transform.position) > 1) {
+                football.LookAt(g9.transform);
+            }
+            
+            if (Input.GetKeyDown(KeyCode.E) && !kickedBall) {
+                kickedBall = true;
+                football.gameObject.GetComponent<Rigidbody>().AddForce(football.transform.forward * 15);
+                yield return new WaitForSeconds(2f);
+                transition.SetBool("Start", true);
+                yield return new WaitForSeconds(1);
+                transition.SetBool("Start", false);
+                gm.StoryNumber = 0.07f;
+                gm.CheckStory = true;
+            }
+
+        }
+        if(gm.StoryNumber == 0.07f) {
+            if (lb.gameObject.GetComponentInChildren<Interaction>().getStartInteraction()) {
+                gm.StoryNumber = 0.08f;
+                gm.CheckStory = true;
+            }
+        }
+
     }
     
     public GameObject GetClosestEnemy() {
