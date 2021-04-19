@@ -90,12 +90,14 @@ public class lb_move : MonoBehaviour
                     lbTrans.transform.LookAt(g3.transform);
                     lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 2.5f);
                     if (CalcDist3() <= 1) {
+                        yield return new WaitForSeconds(1.5f);
                         check2 = true;
                     }
                 } else if (check2 && !check3 && CalcDist4() > 1) {
                     lbTrans.transform.LookAt(g4.transform);
                     lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 2.5f);
                     if (CalcDist4() <= 1) {
+                        yield return new WaitForSeconds(1.5f);
                         check3 = true;
                     }
                 } else if (check2 && check3 && !check4 && CalcDist5() > 0.2f) {

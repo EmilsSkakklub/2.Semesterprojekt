@@ -63,12 +63,7 @@ public class GameManager : MonoBehaviour
     IEnumerator Cutscene1() {
         if (StoryNumber == 0.05f || StoryNumber == 0.06f) {
             if (transition.GetBool("Start")) {
-
-                if (!check1) {
-                    check1 = true;
-                    yield return new WaitForSeconds(1);
-                }
-                
+                yield return new WaitForSeconds(1);            
                 mcam.enabled = false;
                 tpcam.SetActive(false);
                 fbcam.enabled = true;
