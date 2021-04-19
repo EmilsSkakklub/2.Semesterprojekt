@@ -62,6 +62,20 @@ public abstract class Item : MonoBehaviour
 
     public abstract void useItem();
 
+    public void toggleWeapon(Weapon weapon) {
+        if (player.getEquipedWeapon() == null) {
+            weapon.equip();
+            player.getInventory().getWeaponSlot().setItem(this);
+        }
+        else if (player.getEquipedWeapon() == weapon) {
+            weapon.dequip();
+            player.getInventory().getWeaponSlot().setItem(null);
+        }
+        else if (player.getEquipedWeapon() != weapon) {
+            player.getEquipedWeapon().dequip();
+            player.getInventory().getWeaponSlot().setItem(null);
+        }
+    }
 
     //getters and setters
     public void setName(string itemName) {

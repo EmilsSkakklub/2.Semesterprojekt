@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WoodenSword_Item : Item
+public class EnegyBottle_Item : Item
 {
-    public Weapon weapon;
+
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        initStart("Wooden Sword",false, true, "My old Wooden Sword, Cool! Damage increase: +2");
-        weapon = GameObject.Find("woodenSword_weapon").GetComponent<Weapon>();
+        initStart("Peak Dew", true, false, "Consume to gain a +2 damage boost for 60 seconds");
     }
 
     // Update is called once per frame
@@ -19,8 +18,7 @@ public class WoodenSword_Item : Item
         initUpdate();
     }
 
-
     public override void useItem() {
-        toggleWeapon(weapon);
+        player.EnergyBuff();
     }
 }

@@ -19,14 +19,7 @@ public class Stick_Item : Item
     }
 
     public override void useItem() {
-        if (player.getEquipedWeapon() == null) {
-            weapon.equip();
-            player.getInventory().getWeaponSlot().setItem(this);
-        }
-        else if (player.getEquipedWeapon() == weapon) {
-            weapon.dequip();
-            player.getInventory().getWeaponSlot().setItem(null);
-        }
+        toggleWeapon(weapon);
     }
 }
 

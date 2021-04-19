@@ -77,7 +77,7 @@ public class PlayerScript : MonoBehaviour
     public float maxStamina;
     public bool isStaminaBuff;
     public float staminaRate = 1f;  //rate at which stamina is depleated
-    public float buffTimer = 60f;
+    public float staminabuffTimer = 60f;
     public float recoveryTimer = 1f;
     public bool animationHasStarted = false;
     public bool animationAttStarted1 = false;
@@ -90,6 +90,8 @@ public class PlayerScript : MonoBehaviour
 
     public int attackDamage;
     public int bonusAttackDamage;
+    public bool isEnegyBuff;
+    public float energyBuffTimer = 60f;
     public Transform attackpoint;
     public float attackRange = 0.3f;
     public LayerMask enemyLayers;
@@ -160,7 +162,8 @@ public class PlayerScript : MonoBehaviour
         inputManager();
         
         updateHealth();
-        
+        updateDamage();
+
         updateStamina();
         recoverStamina(3);
         setStaminaSlider(Stamina);
@@ -296,7 +299,7 @@ public class PlayerScript : MonoBehaviour
             }
 
             // jump
-            if (Input.GetButtonDown("Jump") && isGrounded && !rollAnimation && getStamina() > 0 && !openInventory) {
+            if (Input.GetButtonDown("Jump") && isGrounded && !rollAnimation && getStamina() > 0 && !openInventory && !attackAnimation1 && !attackAnimation2 && !attackAnimation3 && !attackAnimation4) {
                 StartCoroutine("Jump");
             }
         }
@@ -461,14 +464,14 @@ public class PlayerScript : MonoBehaviour
             foreach (Collider enemy in hitEnemies) {
                 hit3 = false;
                 enemy.GetComponent<Enemy>().takeDamage(attackDamage + bonusAttackDamage);
-                print("Damage dealt: " + (attackDamage + bonusAttackDamage));
+                print("Damage dealt: " + (attackDamage + bonusAttackDamage + 1));
             }
         }
         if (attackAnimation4 && hit4) {
             foreach (Collider enemy in hitEnemies) {
                 hit4 = false;
                 enemy.GetComponent<Enemy>().takeDamage(attackDamage + bonusAttackDamage);
-                print("Damage dealt: " + (attackDamage + bonusAttackDamage));
+                print("Damage dealt: " + (attackDamage + bonusAttackDamage + 1));
             }
         }
         if(!attackAnimation1 && !attackAnimation2 && !attackAnimation3 && !attackAnimation4 && !hitAnimation) {
@@ -521,6 +524,26 @@ public class PlayerScript : MonoBehaviour
 
     public void StaminaBuff() {
         isStaminaBuff = true;
+    }
+
+    public void EnergyBuff() {
+        isEnegyBuff = true;
+    }
+
+    private void updateDamage() {
+        if (!isEnegyBuff) {
+            attackDamage = 1;
+        }
+        else if (isEnegyBuff) {
+            attackDamage = 3;
+            if (energyBuffTimer > 0 && isEnegyBuff) {
+                energyBuffTimer -= Time.deltaTime;
+                if (energyBuffTimer <= 0) {
+                    isEnegyBuff = false;
+                    energyBuffTimer = 60f;
+                }
+            }
+        }
     }
 
 
@@ -857,11 +880,11 @@ public class PlayerScript : MonoBehaviour
             staminaRate = 0.3f;
            
             
-            if(buffTimer > 0 && isStaminaBuff) {
-                buffTimer -= Time.deltaTime;
-                if(buffTimer <= 0) {
+            if(staminabuffTimer > 0 && isStaminaBuff) {
+                staminabuffTimer -= Time.deltaTime;
+                if(staminabuffTimer <= 0) {
                     isStaminaBuff = false;
-                    buffTimer = 60f;
+                    staminabuffTimer = 60f;
                 }
             }
         }
@@ -901,11 +924,6 @@ public class PlayerScript : MonoBehaviour
             animationHasStarted = true;
             loseStaminaInstantly(1);
         }
-        /*
-        if (staminaSlider.value > (staminaSlider.maxValue / 2)) {
-            staminaSlider.fillRect.GetComponent<Image>().color = Color.red;
-        }
-        */
     }
 
 
@@ -953,6 +971,10 @@ public class PlayerScript : MonoBehaviour
 
     public bool getIsStaminaBuff() {
         return isStaminaBuff;
+    }
+
+    public bool getIsEnegyBuff() {
+        return isEnegyBuff;
     }
 
     public int getAttackDamage() {
