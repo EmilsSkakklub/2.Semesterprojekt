@@ -12,6 +12,7 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler {
     public Item item;
     public Image spriteRender;
     public Tooltip tooltip;
+    public PlayerScript player;
 
     void Awake() {
         spriteRender = gameObject.transform.Find("SpriteRender").GetComponent<Image>();
@@ -21,12 +22,12 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler {
     
 
 
-    private void Update() {
+    void Update() {
         checkSlot();
     }
 
 
-    public void OnPointerDown(PointerEventData eventData) {
+    public virtual void OnPointerDown(PointerEventData eventData) {
         //left click in the inventory
         if(eventData.button == PointerEventData.InputButton.Left) {
             if (isOccupied) {
@@ -51,7 +52,7 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler {
     }
 
 
-    private void checkSlot() {
+    protected void checkSlot() {
         if(item == null) {
             setIsOccupied(false);
             spriteRender.enabled = false;

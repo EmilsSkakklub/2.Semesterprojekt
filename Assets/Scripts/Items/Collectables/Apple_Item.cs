@@ -10,7 +10,7 @@ public class Apple_Item : Item
     void Start()
     {
         
-        initStart("Apple", true, "Consume to recover 2 full hearts");
+        initStart("Apple", true, false, "Consume to recover 2 full hearts");
     }
 
     // Update is called once per frame

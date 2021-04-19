@@ -9,7 +9,7 @@ public class WoodenSword_Item : Item
     // Start is called before the first frame update
     void Awake()
     {
-        initStart("Wooden Sword",false, "My old Wooden Sword, Cool! Damage increase: +2");
+        initStart("Wooden Sword",false, true, "My old Wooden Sword, Cool! Damage increase: +2");
         weapon = GameObject.Find("woodenSword_weapon").GetComponent<Weapon>();
     }
 
@@ -21,7 +21,15 @@ public class WoodenSword_Item : Item
 
 
     public override void useItem() {
-        weapon.equip();
-        player.getInventory().getWeaponSlot().setItem(this);
+        //if no weapon is equiped
+        if (player.getEquipedWeapon() == null) {
+            weapon.equip();
+            player.getInventory().getWeaponSlot().setItem(this);
+        }
+        
+        else if(player.getEquipedWeapon() == weapon) {
+            weapon.dequip();
+            player.getInventory().getWeaponSlot().setItem(null);
+        }
     }
 }

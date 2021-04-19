@@ -14,6 +14,7 @@ public abstract class Item : MonoBehaviour
     public string description;
 
     private bool isConsumable;
+    private bool isWeapon;
     private bool itemUsed;
 
     private float rotationSpeed = 50;
@@ -23,9 +24,10 @@ public abstract class Item : MonoBehaviour
     private Vector3 tempPos = new Vector3();
 
 
-    protected void initStart(string itemName, bool isConsumable, string description) {
+    protected void initStart(string itemName, bool isConsumable, bool isWeapon, string description) {
         setName(itemName);
         setIsConsumable(isConsumable);
+        setIsWeapon(isWeapon);
         setDescription(description);
 
         gameObject.tag = "Item";
@@ -72,7 +74,6 @@ public abstract class Item : MonoBehaviour
     public void setDescription(string description) {
         this.description = description;
     }
-
     public string getDescription() {
         return description;
     }
@@ -82,6 +83,13 @@ public abstract class Item : MonoBehaviour
     }
     public bool getIsConsumable() {
         return isConsumable;
+    }
+
+    public void setIsWeapon(bool isWeapon) {
+        this.isWeapon = isWeapon;
+    }
+    public bool getIsWeapon() {
+        return isWeapon;
     }
 
     public void setItemUsed(bool itemUsed) {
@@ -98,7 +106,6 @@ public abstract class Item : MonoBehaviour
     public Sprite getSprite() {
         return sprite;
     }
-
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
     }

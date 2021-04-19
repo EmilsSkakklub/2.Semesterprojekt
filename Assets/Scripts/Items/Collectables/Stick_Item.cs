@@ -8,7 +8,7 @@ public class Stick_Item : Item
 
 
     private void Awake() {
-        initStart("Stick", false, "This is a stick, Meh! Damage increase: +1");
+        initStart("Stick", false, true, "This is a stick, Meh! Damage increase: +1");
         weapon = GameObject.Find("Stick_Weapon").GetComponent<Weapon>();
     }
 
@@ -19,7 +19,14 @@ public class Stick_Item : Item
     }
 
     public override void useItem() {
-        weapon.equip();
-        player.getInventory().getWeaponSlot().setItem(this);
+        if (player.getEquipedWeapon() == null) {
+            weapon.equip();
+            player.getInventory().getWeaponSlot().setItem(this);
+        }
+        else if (player.getEquipedWeapon() == weapon) {
+            weapon.dequip();
+            player.getInventory().getWeaponSlot().setItem(null);
+        }
     }
 }
+
