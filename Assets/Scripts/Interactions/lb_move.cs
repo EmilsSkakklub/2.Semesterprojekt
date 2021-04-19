@@ -9,6 +9,7 @@ public class lb_move : MonoBehaviour
     Transform p;
     GameManager gm;
     Transform lbTrans;
+    Animator animator;
 
     GameObject g1;
     GameObject g2;
@@ -28,6 +29,11 @@ public class lb_move : MonoBehaviour
     bool check8 = false;
     bool switchNow = false;
 
+    public bool walkingAnimation;
+    public bool runningAnimation;
+
+    public int isWalkingHash;
+    public int isRunningHash;
 
 
     // Start is called before the first frame update
@@ -38,6 +44,7 @@ public class lb_move : MonoBehaviour
         p = GameObject.Find("Player").GetComponent<Transform>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         lbTrans = GameObject.Find("LittleBro").GetComponent<Transform>();
+        animator = GameObject.Find("LB@Idle").GetComponent<Animator>();
 
         g1 = GameObject.Find("Goal1");
         g2 = GameObject.Find("Goal2");
@@ -47,6 +54,8 @@ public class lb_move : MonoBehaviour
         g6 = GameObject.Find("Goal6");
         g10 = GameObject.Find("Goal10");
 
+        isWalkingHash = Animator.StringToHash("Walking");
+        isRunningHash = Animator.StringToHash("Running");
 
         interaction.setStartInteraction(true);
     }
@@ -55,6 +64,8 @@ public class lb_move : MonoBehaviour
     void Update()
     {
         StartCoroutine(LbMoving());
+        walkingAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Walking");
+        runningAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Running");
     }
 
     IEnumerator LbMoving() {
@@ -63,6 +74,7 @@ public class lb_move : MonoBehaviour
                 if (CalcDist1() > 1 && !check1) {
                     lbTrans.transform.LookAt(g1.transform);
                     lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 2.5f);
+                    animator.SetBool(isRunningHash, true);
                     if (CalcDist1() <= 1) {
                         check1 = true;
                     }
@@ -74,10 +86,10 @@ public class lb_move : MonoBehaviour
                     }
                     if (CalcDist2() <= 1) {
                         lbTrans.transform.LookAt(p);
+                        animator.SetBool(isRunningHash, false);
                     }
                 }
             }
-
 
             if (gm.StoryNumber == 0.02f) {
                 if (!check5) {
@@ -89,21 +101,27 @@ public class lb_move : MonoBehaviour
                 if (CalcDist3() > 1 && !check2) {
                     lbTrans.transform.LookAt(g3.transform);
                     lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 2.5f);
+                    animator.SetBool(isWalkingHash, true);
                     if (CalcDist3() <= 1) {
+                        animator.SetBool(isWalkingHash, false);
                         yield return new WaitForSeconds(1.5f);
                         check2 = true;
                     }
                 } else if (check2 && !check3 && CalcDist4() > 1) {
                     lbTrans.transform.LookAt(g4.transform);
                     lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 2.5f);
+                    animator.SetBool(isWalkingHash, true);
                     if (CalcDist4() <= 1) {
+                        animator.SetBool(isWalkingHash, false);
                         yield return new WaitForSeconds(1.5f);
                         check3 = true;
                     }
                 } else if (check2 && check3 && !check4 && CalcDist5() > 0.2f) {
                     lbTrans.transform.LookAt(g5.transform);
                     lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 2.5f);
+                    animator.SetBool(isWalkingHash, true);
                     if (CalcDist5() <= 0.2f && gm.StoryNumber == 0.02f) {
+                        animator.SetBool(isWalkingHash, false);
                         gm.StoryNumber = 0.03f;
                         gm.CheckStory = true;
                         check4 = true;
@@ -114,9 +132,11 @@ public class lb_move : MonoBehaviour
                 if (CalcDist6() > 1) {
                     lbTrans.transform.LookAt(g6.transform);
                     lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 2.5f);
+                    animator.SetBool(isWalkingHash, true);
                 }
                 if (CalcDist6() <= 1 && !check6) {
                     lbTrans.transform.LookAt(p.transform);
+                    animator.SetBool(isWalkingHash, false);
                     check6 = true;
                 }
             }
@@ -126,8 +146,10 @@ public class lb_move : MonoBehaviour
                 if(CalcDist10() > 1) {
                     lbTrans.transform.LookAt(g10.transform);
                     lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 2.5f);
+                    animator.SetBool(isWalkingHash, true);
                 }
                 if(CalcDist10() < 1 && !check8) {
+                    animator.SetBool(isWalkingHash, false);
                     gm.StoryNumber = 0.09f;
                     gm.CheckStory = true;
                     check8 = true;
