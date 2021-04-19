@@ -14,7 +14,7 @@ public class Level_1_Load : LevelChanger
     void Update()
     {
         if(gm.StoryNumber == 0.09f && inventory.getGotTeddy()) {
-            gameObject.GetComponent<hedgehole_dialog>().enabled = false;
+            gameObject.GetComponent<hedgehole_dialog>().enabled = false;    
             StartCoroutine(ChangeLevel());
         }
         
