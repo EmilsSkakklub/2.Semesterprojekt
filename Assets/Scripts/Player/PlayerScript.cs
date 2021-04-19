@@ -11,7 +11,7 @@ public class PlayerScript : MonoBehaviour
     private Animator animator;
     private Transform cam;
     private GameManager gm;
-    private Transform player;
+    private Transform playerTrans;
     public LayerMask groundMask;
 
     //story elements
@@ -23,7 +23,8 @@ public class PlayerScript : MonoBehaviour
     private Transform PlayerPosC1;
     private Animator transition;
     private bool kickedBall = false;
-    private bool footballMoved = false;
+    private Interaction interaction;
+    private bool check1 = false;
 
     //singleton
     private static PlayerScript instance = null;
@@ -198,13 +199,14 @@ public class PlayerScript : MonoBehaviour
         staminaSlider = GameObject.Find("StaminaBar").GetComponent<Slider>();
         attackpoint = GameObject.Find("AttackPoint").GetComponent<Transform>();
         grill = GameObject.Find("grill").GetComponent<Transform>();
-        player = GetComponent<Transform>();
+        playerTrans = GetComponent<Transform>();
         lb = GameObject.Find("LittleBro").GetComponent<Transform>();
         football = GameObject.Find("Football").GetComponent<Transform>();
         g7 = GameObject.Find("Goal7").GetComponent<Transform>();
         transition = GameObject.Find("Crossfade").GetComponent<Animator>();
         PlayerPosC1 = GameObject.Find("Goal8").GetComponent<Transform>();
         g9 = GameObject.Find("Goal9").GetComponent<Transform>();
+        interaction = GameObject.Find("monolog").GetComponent<Interaction>();
 
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
@@ -720,7 +722,7 @@ public class PlayerScript : MonoBehaviour
     private IEnumerator StoryChanger() {
 
 
-        if(gm.StoryNumber == 0 && Vector3.Distance(player.position,grill.position)<3f && Vector3.Distance(lb.position,grill.position) < 3f) {
+        if(gm.StoryNumber == 0 && Vector3.Distance(playerTrans.position,grill.position)<3f && Vector3.Distance(lb.position,grill.position) < 3f) {
             gm.StoryNumber = 0.01f;
             gm.CheckStory = true;
         }
@@ -728,26 +730,26 @@ public class PlayerScript : MonoBehaviour
             gm.StoryNumber = 0.02f;
             gm.CheckStory = true;
         }
-        if(gm.StoryNumber == 0.03f && Vector3.Distance(player.position,football.position)<1) {
+        if(gm.StoryNumber == 0.03f && Vector3.Distance(playerTrans.position,football.position)<1) {
             gm.StoryNumber = 0.04f;
             gm.CheckStory = true;
         }
-        if (gm.StoryNumber == 0.04f && Vector3.Distance(player.position, g7.position) < 10 && Vector3.Distance(football.position, g7.position) < 10) {
+        if (gm.StoryNumber == 0.04f && Vector3.Distance(playerTrans.position, g7.position) < 10 && Vector3.Distance(football.position, g7.position) < 10) {
             gm.StoryNumber = 0.05f;
             gm.CheckStory = true;
         }
         if(gm.StoryNumber == 0.05f) {
-            player.transform.LookAt(lb.transform);
-            lb.transform.LookAt(player.transform);
+            playerTrans.transform.LookAt(lb.transform);
+            lb.transform.LookAt(playerTrans.transform);
             football.LookAt(g9.transform);
 
-            if (Vector3.Distance(player.position, PlayerPosC1.position) > 1) {
+            if (Vector3.Distance(playerTrans.position, PlayerPosC1.position) > 1) {
 
                 transition.SetBool("Start", true);
                 
                 yield return new WaitForSeconds(1);
 
-                player.transform.position = new Vector3(PlayerPosC1.position.x, PlayerPosC1.position.y, PlayerPosC1.position.z);
+                playerTrans.transform.position = new Vector3(PlayerPosC1.position.x, PlayerPosC1.position.y, PlayerPosC1.position.z);
                 football.transform.position = new Vector3(PlayerPosC1.position.x - 1, PlayerPosC1.position.y, PlayerPosC1.position.z);
 
                 
@@ -760,8 +762,8 @@ public class PlayerScript : MonoBehaviour
             
         }
         if(gm.StoryNumber == 0.06f) {
-            player.transform.LookAt(lb.transform);
-            lb.transform.LookAt(player.transform);
+            playerTrans.transform.LookAt(lb.transform);
+            lb.transform.LookAt(playerTrans.transform);
             if(Vector3.Distance(football.position, g9.transform.position) > 1) {
                 football.LookAt(g9.transform);
             }
@@ -777,6 +779,14 @@ public class PlayerScript : MonoBehaviour
                 gm.CheckStory = true;
             }
 
+        }
+        if(gm.StoryNumber == 0.09f && !check1) {
+            transition.SetBool("Start", true);
+            yield return new WaitForSeconds(1);
+            transition.SetBool("Start", false);
+            yield return new WaitForSeconds(1);
+            interaction.setStartInteraction(true);
+            check1 = true;
         }
         
 

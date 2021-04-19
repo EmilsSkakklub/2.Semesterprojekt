@@ -13,10 +13,10 @@ public class backpack_dialog : Dialog {
 
     // Update is called once per frame
     void Update() {
-        if (!inventory.getReadyToPickUpBackpack()) {
+        if (gm.StoryNumber != 0.09f) {
             dialog();
         }
-        if (interaction.getStartInteraction() && inventory.getReadyToPickUpBackpack()) {
+        if (interaction.getStartInteraction() && gm.StoryNumber == 0.09f) {
             inventory.setGotBackPack(true);
             backpack.SetActive(false);
         }

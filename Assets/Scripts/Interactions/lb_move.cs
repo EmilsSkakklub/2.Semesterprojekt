@@ -25,6 +25,7 @@ public class lb_move : MonoBehaviour
     bool check5 = false;
     bool check6 = false;
     bool check7 = false;
+    bool check8 = false;
     bool switchNow = false;
 
 
@@ -120,11 +121,15 @@ public class lb_move : MonoBehaviour
             
 
             if (gm.StoryNumber == 0.08f) {
-                if(CalcDist7() > 1) {
+                if(CalcDist10() > 1) {
                     lbTrans.transform.LookAt(g10.transform);
                     lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 2.5f);
                 }
-                
+                if(CalcDist10() < 1 && !check8) {
+                    gm.StoryNumber = 0.09f;
+                    gm.CheckStory = true;
+                    check8 = true;
+                }
             }
 
 
@@ -167,7 +172,7 @@ public class lb_move : MonoBehaviour
     float CalcDist6() {
         return Vector3.Distance(transform.position, g6.transform.position);
     }
-    float CalcDist7() {
+    float CalcDist10() {
         return Vector3.Distance(transform.position, g10.transform.position);
     }
 }

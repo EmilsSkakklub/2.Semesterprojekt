@@ -8,6 +8,8 @@ public abstract class LevelChanger : MonoBehaviour
     private Interaction interaction;
     private Transform newSpawnPoint;
     private Animator transition;
+    protected GameManager gm;
+    protected Inventory inventory;
 
     private float transitionTime = 1f;
 
@@ -15,8 +17,10 @@ public abstract class LevelChanger : MonoBehaviour
     protected void InitStart(string spawnPointName) {
         playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
         transition = GameObject.Find("Crossfade").GetComponent<Animator>();
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         interaction = GetComponent<Interaction>();
         newSpawnPoint = GameObject.Find(spawnPointName).GetComponent<Transform>();
+        inventory = GameObject.Find("Player").GetComponent<Inventory>();
     }
 
     protected IEnumerator ChangeLevel() {

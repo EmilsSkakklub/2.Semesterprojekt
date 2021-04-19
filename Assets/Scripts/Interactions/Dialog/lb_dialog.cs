@@ -58,9 +58,6 @@ public class lb_dialog : Dialog {
 
 
         dialog();
-        if (interaction.getStartInteraction()) {
-            inventory.setReadyToPickUpBackpack(true);
-        }
     }
 
 

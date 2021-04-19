@@ -13,6 +13,10 @@ public class Level_1_Load : LevelChanger
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(ChangeLevel());
+        if(gm.StoryNumber == 0.09f && inventory.getGotTeddy()) {
+            gameObject.GetComponent<hedgehole_dialog>().enabled = false;
+            StartCoroutine(ChangeLevel());
+        }
+        
     }
 }
