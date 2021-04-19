@@ -25,6 +25,7 @@ public class lb_move : MonoBehaviour
     bool check5 = false;
     bool check6 = false;
     bool check7 = false;
+    bool switchNow = false;
 
 
 
@@ -116,12 +117,27 @@ public class lb_move : MonoBehaviour
                     check6 = true;
                 }
             }
-            if(gm.StoryNumber == 0.08) {
-                lbTrans.transform.LookAt(g10.transform);
-                lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 2.5f);
+            
+
+            if (gm.StoryNumber == 0.08f) {
+                if(CalcDist7() > 1) {
+                    lbTrans.transform.LookAt(g10.transform);
+                    lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 2.5f);
+                }
+                
             }
 
 
+        }
+        if (gm.StoryNumber == 0.07f) {
+            if (interaction.getStartInteraction()) {
+                switchNow = true;
+                while (interaction.getStartInteraction()) yield return null;
+            }
+            if (switchNow) {
+                gm.StoryNumber = 0.08f;
+                gm.CheckStory = true;
+            }
         }
         if (gm.StoryNumber == 0.06f && !check7) {
             interaction.setStartInteraction(true);
@@ -150,5 +166,8 @@ public class lb_move : MonoBehaviour
     }
     float CalcDist6() {
         return Vector3.Distance(transform.position, g6.transform.position);
+    }
+    float CalcDist7() {
+        return Vector3.Distance(transform.position, g10.transform.position);
     }
 }

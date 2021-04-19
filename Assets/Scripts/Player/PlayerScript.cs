@@ -778,12 +778,7 @@ public class PlayerScript : MonoBehaviour
             }
 
         }
-        if(gm.StoryNumber == 0.07f) {
-            if (lb.gameObject.GetComponentInChildren<Interaction>().getStartInteraction()) {
-                gm.StoryNumber = 0.08f;
-                gm.CheckStory = true;
-            }
-        }
+        
 
     }
     
