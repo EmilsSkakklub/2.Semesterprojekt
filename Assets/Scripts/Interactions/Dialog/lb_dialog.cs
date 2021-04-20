@@ -18,7 +18,7 @@ public class lb_dialog : Dialog {
             switch (gm.StoryNumber) {
             case 0f:
                 newDialogLine("Come on bro!", 3);  //0=normal 1=sad 2=angry
-                newDialogLine("Fastest person to the grill wins!", 3);  //0=normal 1=sad 2=angry
+                newDialogLine("Fastest one to the grill wins!", 3);  //0=normal 1=sad 2=angry
                 break;
 
             case 0.01f:
@@ -38,7 +38,7 @@ public class lb_dialog : Dialog {
                 newDialogLine("I'm sorry, please don't tell mom!", 1);
                 newDialogLine("Do you want to play some football?", 0);
                 newDialogLine("*nods*", 4);
-                newDialogLine("Ok, I will go get the ball then", 0);
+                newDialogLine("Ok, I will go get the ball then.", 0);
                 break;
             case 0.06f:
                 newDialogLine("Shoot here!", 3);

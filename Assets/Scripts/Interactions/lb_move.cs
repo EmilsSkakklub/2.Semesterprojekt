@@ -29,6 +29,9 @@ public class lb_move : MonoBehaviour
     bool check8 = false;
     bool switchNow = false;
 
+    private Vector3 currentPos;
+    private Vector3 oldPos;
+
     public bool walkingAnimation;
     public bool runningAnimation;
 
@@ -66,9 +69,20 @@ public class lb_move : MonoBehaviour
         StartCoroutine(LbMoving());
         walkingAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Walking");
         runningAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Running");
+
+        
     }
 
     IEnumerator LbMoving() {
+        //checks if object is moving and stops animation of not
+        currentPos = gameObject.transform.position;
+        if (currentPos == oldPos) {
+            animator.SetBool(isWalkingHash, false);
+            animator.SetBool(isRunningHash, false);
+        }
+        oldPos = currentPos;
+
+
         if (!interaction.getStartInteraction()) {
             if (gm.StoryNumber == 0) {
                 if (CalcDist1() > 1 && !check1) {
@@ -76,6 +90,7 @@ public class lb_move : MonoBehaviour
                     lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 2.5f);
                     animator.SetBool(isRunningHash, true);
                     if (CalcDist1() <= 1) {
+                        
                         check1 = true;
                     }
                 } else {
@@ -90,7 +105,6 @@ public class lb_move : MonoBehaviour
                     }
                 }
             }
-
             if (gm.StoryNumber == 0.02f) {
                 if (!check5) {
                     interaction.setStartInteraction(true);
@@ -100,7 +114,7 @@ public class lb_move : MonoBehaviour
 
                 if (CalcDist3() > 1 && !check2) {
                     lbTrans.transform.LookAt(g3.transform);
-                    lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 2.5f);
+                    lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 1.5f);
                     animator.SetBool(isWalkingHash, true);
                     if (CalcDist3() <= 1) {
                         animator.SetBool(isWalkingHash, false);
@@ -109,7 +123,7 @@ public class lb_move : MonoBehaviour
                     }
                 } else if (check2 && !check3 && CalcDist4() > 1) {
                     lbTrans.transform.LookAt(g4.transform);
-                    lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 2.5f);
+                    lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 1.5f);
                     animator.SetBool(isWalkingHash, true);
                     if (CalcDist4() <= 1) {
                         animator.SetBool(isWalkingHash, false);
@@ -118,7 +132,7 @@ public class lb_move : MonoBehaviour
                     }
                 } else if (check2 && check3 && !check4 && CalcDist5() > 0.2f) {
                     lbTrans.transform.LookAt(g5.transform);
-                    lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 2.5f);
+                    lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 1.5f);
                     animator.SetBool(isWalkingHash, true);
                     if (CalcDist5() <= 0.2f && gm.StoryNumber == 0.02f) {
                         animator.SetBool(isWalkingHash, false);
@@ -132,11 +146,11 @@ public class lb_move : MonoBehaviour
                 if (CalcDist6() > 1) {
                     lbTrans.transform.LookAt(g6.transform);
                     lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 2.5f);
-                    animator.SetBool(isWalkingHash, true);
+                    animator.SetBool(isRunningHash, true);
                 }
                 if (CalcDist6() <= 1 && !check6) {
                     lbTrans.transform.LookAt(p.transform);
-                    animator.SetBool(isWalkingHash, false);
+                    animator.SetBool(isRunningHash, false);
                     check6 = true;
                 }
             }
@@ -145,7 +159,7 @@ public class lb_move : MonoBehaviour
             if (gm.StoryNumber == 0.08f) {
                 if(CalcDist10() > 1) {
                     lbTrans.transform.LookAt(g10.transform);
-                    lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 2.5f);
+                    lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 1.5f);
                     animator.SetBool(isWalkingHash, true);
                 }
                 if(CalcDist10() < 1 && !check8) {
