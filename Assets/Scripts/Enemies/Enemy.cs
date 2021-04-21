@@ -62,7 +62,7 @@ public abstract class Enemy : MonoBehaviour
 
 
 
-    protected void initStart(string enemyName, int attackDamage, int maxHealth, float moveSpeed) {
+    protected void initStart(string enemyName, int attackDamage, int maxHealth, float moveSpeed, float attackRange) {
 
         gameObject.tag = "Enemy";
         gameObject.layer = LayerMask.NameToLayer("Enemy");
@@ -73,6 +73,7 @@ public abstract class Enemy : MonoBehaviour
         setMaxHealth(maxHealth);
         setHealth(maxHealth);
         setMoveSpeed(moveSpeed);
+        setAttackRange(attackRange);
         setRemoveTimer(3);
 
         player = GameObject.Find("Player").GetComponent<PlayerScript>();
@@ -292,6 +293,9 @@ public abstract class Enemy : MonoBehaviour
         this.attackDamage = attackDamage;
     }
 
+    public void setAttackRange(float attackRange) {
+        this.attackRange = attackRange;
+    }
 
 
     public string getEnemyName() {

@@ -898,10 +898,10 @@ public class PlayerScript : MonoBehaviour
         //change stamina color
         if (!isStaminaBuff) {
             staminaRate = 1f;
-            staminaSlider.fillRect.GetComponent<Image>().color = Color.Lerp(Color.red, Color.cyan, (staminaSlider.value / staminaSlider.maxValue));
+            staminaSlider.fillRect.GetComponent<Image>().color = Color.Lerp(Color.red, Color.green, (staminaSlider.value / staminaSlider.maxValue));
         }
         else if (isStaminaBuff) {
-            staminaSlider.fillRect.GetComponent<Image>().color = Color.green;
+            staminaSlider.fillRect.GetComponent<Image>().color = Color.cyan;
             staminaRate = 0.3f;
            
             
