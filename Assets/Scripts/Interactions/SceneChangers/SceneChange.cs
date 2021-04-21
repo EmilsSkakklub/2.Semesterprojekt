@@ -29,7 +29,7 @@ public class SceneChange : MonoBehaviour
 
     protected IEnumerator SceneChanger(string spawnpoint) {
         if (interaction.getStartInteraction()) {
-            ps.CurrentSpawnpoint = spawnpoint;
+            ps.spawnPointName = spawnpoint;
             ps.ListOfInteractables.Clear();
             transition.SetTrigger("Start");
 

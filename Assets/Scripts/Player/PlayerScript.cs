@@ -103,8 +103,10 @@ public class PlayerScript : MonoBehaviour
     public bool hit4 = true;
 
     //spawnpoint
-    private Transform spawnpoint;
-    public string CurrentSpawnpoint;
+    public bool isDead;
+    public Respawn respawner;
+    public string spawnPointName;
+    public Transform spawnPoint;
 
     //input booleans
     private bool forwardPressed;
@@ -164,6 +166,7 @@ public class PlayerScript : MonoBehaviour
         
         updateHealth();
         updateDamage();
+        Die();
 
         updateStamina();
         recoverStamina(3);
@@ -210,6 +213,7 @@ public class PlayerScript : MonoBehaviour
         PlayerPosC1 = GameObject.Find("Goal8").GetComponent<Transform>();
         g9 = GameObject.Find("Goal9").GetComponent<Transform>();
         interaction = GameObject.Find("monolog").GetComponent<Interaction>();
+        respawner = GameObject.Find("GameManager").GetComponent<Respawn>();
 
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
@@ -229,6 +233,9 @@ public class PlayerScript : MonoBehaviour
         setAttackDamage(1);
         setMaxStamina(10);
         setStamina(maxStamina);
+
+        setSpawnPointName("L0S1");
+        setSpawnPoint(GameObject.Find(getSpawnPointName()).GetComponent<Transform>());
     }
    /*
     void Spawnpoint() {
@@ -422,6 +429,7 @@ public class PlayerScript : MonoBehaviour
             //die animation
             if (HP <= 0 && !hitAnimation) {
                 animator.SetBool(isDeadHash, true);
+                isDead = true;
                 if (deathAnimation) {
                     animator.SetBool(isDeadHash, false);
                 }
@@ -513,6 +521,13 @@ public class PlayerScript : MonoBehaviour
             if (HP > 0) {
                 HP -= damage;
             }
+        }
+    }
+
+
+    public void Die() {
+        if(HP <= 0) {
+            respawner.respawnPlayer();
         }
     }
 
@@ -1041,6 +1056,21 @@ public class PlayerScript : MonoBehaviour
         this.isInCombat = isInCombat;
     }
 
+    public string getSpawnPointName() {
+        return spawnPointName;
+    }
+
+    public void setSpawnPointName(string spawnPointName) {
+        this.spawnPointName = spawnPointName;
+    }
+
+    public Transform getSpawnPoint() {
+        return spawnPoint;
+    }
+
+    public void setSpawnPoint(Transform spawnPoint) {
+        this.spawnPoint = spawnPoint;
+    }
 
 
     public bool getOpenInventory() {
@@ -1049,6 +1079,7 @@ public class PlayerScript : MonoBehaviour
     public void setOpenInventory(bool openInventory) {
         this.openInventory = openInventory;
     }
+
 
 }
 

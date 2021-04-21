@@ -4,10 +4,11 @@ using UnityEngine;
 
 public abstract class LevelChanger : MonoBehaviour
 {
-    private PlayerScript playerScript;
-    private Interaction interaction;
-    private Transform newSpawnPoint;
-    private Animator transition;
+    public PlayerScript playerScript;
+    public Interaction interaction;
+    public string spawnPointName;
+    public Transform newSpawnPoint;
+    public Animator transition;
     protected GameManager gm;
     protected Inventory inventory;
 
@@ -21,6 +22,9 @@ public abstract class LevelChanger : MonoBehaviour
         interaction = GetComponent<Interaction>();
         newSpawnPoint = GameObject.Find(spawnPointName).GetComponent<Transform>();
         inventory = GameObject.Find("Player").GetComponent<Inventory>();
+
+        setSpawnPointName(spawnPointName);
+        
     }
 
     protected IEnumerator ChangeLevel() {
@@ -30,17 +34,21 @@ public abstract class LevelChanger : MonoBehaviour
             yield return new WaitForSeconds(transitionTime);
             playerScript.transform.position = new Vector3(newSpawnPoint.position.x, newSpawnPoint.position.y, newSpawnPoint.position.z);
             playerScript.transform.transform.Rotate(newSpawnPoint.eulerAngles.x, newSpawnPoint.eulerAngles.y, newSpawnPoint.eulerAngles.z);
-            
+            playerScript.setSpawnPointName(spawnPointName);
+            playerScript.setSpawnPoint(newSpawnPoint);
+
             yield return new WaitForSeconds(0.3f);
             transition.SetBool("Start", false);
             Invoke("ResetStartInteract", 0.1f);
-
-            
         }
     }
 
     private void ResetStartInteract() {
         interaction.setStartInteraction(false);
+    }
+
+    public void setSpawnPointName(string spawnPointName) {
+        this.spawnPointName = spawnPointName;
     }
 
 }
