@@ -16,8 +16,12 @@ public class Respawn : MonoBehaviour
 
 
     private IEnumerator respawnPlayerEnumerator() {
-        yield return new WaitForSeconds(2f);
+        if(player.HP > 0) {
+            player.HP = 0;
+            
+        }
         if (player.isDead) {
+            yield return new WaitForSeconds(2f);
             transition.SetBool("Start", true);
 
             yield return new WaitForSeconds(1f);
@@ -28,7 +32,9 @@ public class Respawn : MonoBehaviour
             yield return new WaitForSeconds(1f);
             transition.SetBool("Start", false);
             player.isDead = false;
+            player.respawnTimer = 0;
         }
+         
     }
 
     public void respawnPlayer() {

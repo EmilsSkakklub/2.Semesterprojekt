@@ -104,6 +104,7 @@ public class PlayerScript : MonoBehaviour
 
     //spawnpoint
     public bool isDead;
+    public float respawnTimer;
     public Respawn respawner;
     public string spawnPointName;
     public Transform spawnPoint;
@@ -166,6 +167,7 @@ public class PlayerScript : MonoBehaviour
         
         updateHealth();
         updateDamage();
+        RestartGame();
         Die();
 
         updateStamina();
@@ -524,6 +526,22 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+
+    
+    void RestartGame() {
+        if (Input.GetKey(KeyCode.R) && !isDead) {
+            respawnTimer += Time.deltaTime;
+            if (respawnTimer > 2f) {
+                respawner.respawnPlayer();
+            }
+        }   
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if(other.tag == "Spikes") {
+            respawner.respawnPlayer();
+        }
+    }
 
     public void Die() {
         if(HP <= 0) {

@@ -11,6 +11,7 @@ TagManager:
   - Enemy
   - Item
   - Football
+  - Spikes
   layers:
   - Default
   - TransparentFX

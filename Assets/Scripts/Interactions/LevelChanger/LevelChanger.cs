@@ -40,6 +40,7 @@ public abstract class LevelChanger : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
             transition.SetBool("Start", false);
             Invoke("ResetStartInteract", 0.1f);
+            
         }
     }
 
