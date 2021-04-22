@@ -54,6 +54,7 @@ public class PlayerScript : MonoBehaviour
     GameObject textBubble;
     public List<GameObject> ListOfInteractables;
     private bool inDialog;
+    GameObject keybinds;
 
     //HP System
     public int HP = 8;
@@ -175,6 +176,8 @@ public class PlayerScript : MonoBehaviour
         setStaminaSlider(Stamina);
         StartCoroutine(Interact());
 
+        ToggleKeybinds();
+
         attack();
         updateWeapon();
 
@@ -216,6 +219,7 @@ public class PlayerScript : MonoBehaviour
         g9 = GameObject.Find("Goal9").GetComponent<Transform>();
         interaction = GameObject.Find("monolog").GetComponent<Interaction>();
         respawner = GameObject.Find("GameManager").GetComponent<Respawn>();
+        keybinds = GameObject.Find("KeybindsImg");
 
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
@@ -238,6 +242,8 @@ public class PlayerScript : MonoBehaviour
 
         setSpawnPointName("L0S1");
         setSpawnPoint(GameObject.Find(getSpawnPointName()).GetComponent<Transform>());
+
+        keybinds.SetActive(false);
     }
    /*
     void Spawnpoint() {
@@ -774,7 +780,13 @@ public class PlayerScript : MonoBehaviour
         return dist;
     }
     //finds the closest interactable target
-
+    void ToggleKeybinds() {
+        if (Input.GetKeyDown(KeyCode.F1) && !keybinds.activeInHierarchy) {
+            keybinds.SetActive(true);
+        } else if (Input.GetKeyDown(KeyCode.F1) && keybinds.activeInHierarchy) {
+            keybinds.SetActive(false);
+        }
+    }
     private IEnumerator StoryChanger() {
 
 
