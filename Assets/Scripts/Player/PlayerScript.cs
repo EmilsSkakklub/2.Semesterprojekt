@@ -25,6 +25,9 @@ public class PlayerScript : MonoBehaviour
     private bool kickedBall = false;
     private Interaction interaction;
     private bool check1 = false;
+    private Interaction teddy;
+    bool check2 = false;
+    bool nextNum = false;
 
     //singleton
     private static PlayerScript instance = null;
@@ -220,6 +223,7 @@ public class PlayerScript : MonoBehaviour
         interaction = GameObject.Find("monolog").GetComponent<Interaction>();
         respawner = GameObject.Find("GameManager").GetComponent<Respawn>();
         keybinds = GameObject.Find("KeybindsImg");
+        teddy = GameObject.Find("teddy_interact").GetComponent<Interaction>();
 
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
@@ -547,6 +551,13 @@ public class PlayerScript : MonoBehaviour
         if(other.tag == "Spikes") {
             respawner.respawnPlayer();
         }
+        if(other.tag == "StoryChanger") {
+            switch (gm.StoryNumber) {
+            case 0.09f:
+                gm.StoryNumber = 1.00f;
+                break;
+            }
+        }
     }
 
     public void Die() {
@@ -857,9 +868,15 @@ public class PlayerScript : MonoBehaviour
             check1 = true;
         }
         
+        if (gm.StoryNumber == 1f && !check2) {
+            teddy.setStartInteraction(true);
+            check2 = true;
+            while (interaction.getStartInteraction()) yield return null;
+            
+        }
+        
 
     }
-    
     public GameObject GetClosestEnemy() {
         GameObject ClosestTarget = null;
         float closestDistanceSqr = Mathf.Infinity;

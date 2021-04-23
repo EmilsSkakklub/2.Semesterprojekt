@@ -33,11 +33,11 @@ public abstract class LevelChanger : MonoBehaviour
             
             yield return new WaitForSeconds(transitionTime);
             playerScript.transform.position = new Vector3(newSpawnPoint.position.x, newSpawnPoint.position.y, newSpawnPoint.position.z);
-            playerScript.transform.transform.Rotate(newSpawnPoint.eulerAngles.x, newSpawnPoint.eulerAngles.y, newSpawnPoint.eulerAngles.z);
+            playerScript.transform.transform.eulerAngles = new Vector3(newSpawnPoint.eulerAngles.x, newSpawnPoint.eulerAngles.y, newSpawnPoint.eulerAngles.z);
             playerScript.setSpawnPointName(spawnPointName);
             playerScript.setSpawnPoint(newSpawnPoint);
 
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(2f);
             transition.SetBool("Start", false);
             Invoke("ResetStartInteract", 0.1f);
             

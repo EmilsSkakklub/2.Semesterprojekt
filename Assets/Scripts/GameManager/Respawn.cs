@@ -26,13 +26,13 @@ public class Respawn : MonoBehaviour
 
             yield return new WaitForSeconds(1f);
             player.transform.position = new Vector3(player.getSpawnPoint().position.x, player.getSpawnPoint().position.y, player.getSpawnPoint().position.z);
-            player.transform.transform.Rotate(player.getSpawnPoint().eulerAngles.x, player.getSpawnPoint().eulerAngles.y, player.getSpawnPoint().eulerAngles.z);
+            player.transform.transform.eulerAngles = new Vector3(player.getSpawnPoint().eulerAngles.x, player.getSpawnPoint().eulerAngles.y, player.getSpawnPoint().eulerAngles.z);
             player.heal(8);
-
-            yield return new WaitForSeconds(1f);
-            transition.SetBool("Start", false);
             player.isDead = false;
             player.respawnTimer = 0;
+            yield return new WaitForSeconds(2f);
+            transition.SetBool("Start", false);
+  
         }
          
     }
