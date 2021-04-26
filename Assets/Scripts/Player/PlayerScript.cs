@@ -13,6 +13,7 @@ public class PlayerScript : MonoBehaviour
     private GameManager gm;
     private Transform playerTrans;
     public LayerMask groundMask;
+    public BoxCollider colliderLegs;
 
     //story elements
     private Transform grill;
@@ -187,6 +188,7 @@ public class PlayerScript : MonoBehaviour
         toggleInventory();
 
         StartCoroutine(StoryChanger());
+
     }
 
     //Singleton pattern
@@ -224,6 +226,7 @@ public class PlayerScript : MonoBehaviour
         respawner = GameObject.Find("GameManager").GetComponent<Respawn>();
         keybinds = GameObject.Find("KeybindsImg");
         teddy = GameObject.Find("teddy_interact").GetComponent<Interaction>();
+        colliderLegs = GameObject.Find("mixamorig:Hips").GetComponent<BoxCollider>();
 
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
@@ -800,8 +803,15 @@ public class PlayerScript : MonoBehaviour
     }
     private IEnumerator StoryChanger() {
 
+        if (gm.StoryNumber < 1.0f) {
+            colliderLegs.gameObject.SetActive(true);
+        }
+        else {
+            colliderLegs.gameObject.SetActive(false);
+        }
 
-        if(gm.StoryNumber == 0 && Vector3.Distance(playerTrans.position,grill.position)<3f && Vector3.Distance(lb.position,grill.position) < 3f) {
+
+        if (gm.StoryNumber == 0 && Vector3.Distance(playerTrans.position,grill.position)<3f && Vector3.Distance(lb.position,grill.position) < 3f) {
             gm.StoryNumber = 0.01f;
             gm.CheckStory = true;
         }
@@ -903,14 +913,14 @@ public class PlayerScript : MonoBehaviour
 
     public void loseStaminaPeriodically() {
         if(Stamina > 0) {
-            Stamina -= staminaRate * Time.deltaTime;
+            Stamina -= staminaRate * 0.5f * Time.deltaTime;
         }
         if(Stamina < 0) {
             setStamina(0);
         }
     }
 
-    public void loseStaminaInstantly(int staminaCost) {
+    public void loseStaminaInstantly(float staminaCost) {
         float staminaLeft = Stamina - (staminaCost * staminaRate);
         if(staminaLeft <= 0) {
             setStamina(0);
@@ -974,7 +984,7 @@ public class PlayerScript : MonoBehaviour
         }
         if (jumpAnimation && !animationHasStarted) {
             animationHasStarted = true;
-            loseStaminaInstantly(1);
+            loseStaminaInstantly(0.5f);
         }
         if (attackAnimation1 && !animationAttStarted1) {
             animationAttStarted1 = true;
