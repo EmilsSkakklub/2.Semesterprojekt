@@ -101,6 +101,7 @@ public class PlayerScript : MonoBehaviour
     public Transform attackpoint;
     public float attackRange = 0.3f;
     public LayerMask enemyLayers;
+    public LayerMask bushLayer;
     public Weapon equipedWeapon;
     public bool hit1 = true;
     public bool hit2 = true;
@@ -240,6 +241,7 @@ public class PlayerScript : MonoBehaviour
         isRollingHash = Animator.StringToHash("isRolling");
         gameObject.layer = LayerMask.NameToLayer("Player");
         enemyLayers = LayerMask.GetMask("Enemy");
+        bushLayer = LayerMask.GetMask("Bush");
         groundMask = LayerMask.GetMask("Ground");
 
         FillHeartsArrays();
@@ -482,7 +484,6 @@ public class PlayerScript : MonoBehaviour
                 hit2 = false;
                 enemy.GetComponent<Enemy>().takeDamage(attackDamage + bonusAttackDamage);
                 print("Damage dealt: " + (attackDamage + bonusAttackDamage));
-
             }
         }
         if (attackAnimation3 && hit3) {
@@ -500,6 +501,49 @@ public class PlayerScript : MonoBehaviour
             }
         }
         if(!attackAnimation1 && !attackAnimation2 && !attackAnimation3 && !attackAnimation4 && !hitAnimation) {
+            hit1 = true;
+            hit2 = true;
+            hit3 = true;
+            hit4 = true;
+        }
+
+
+        //hitting bush
+        Collider[] hitBush = Physics.OverlapSphere(attackpoint.position, attackRange, bushLayer); 
+        if (attackAnimation1 && hit1 && equipedWeapon != null) {
+            if(equipedWeapon.name == "woodenSword_weapon") {
+                foreach (Collider bush in hitBush) {
+                    hit1 = false;
+                    bush.GetComponent<GreatBush>().takeDamage();
+                }
+            }
+        }
+        if (attackAnimation2 && hit2 && equipedWeapon != null) {
+            if (equipedWeapon.name == "woodenSword_weapon") {
+                foreach (Collider bush in hitBush) {
+                    hit2 = false;
+                    bush.GetComponent<GreatBush>().takeDamage();
+                }
+            }
+        }
+    
+        if (attackAnimation3 && hit3 && equipedWeapon != null) {
+            if (equipedWeapon.name == "woodenSword_weapon") {
+                foreach (Collider bush in hitBush) {
+                    hit3 = false;
+                    bush.GetComponent<GreatBush>().takeDamage();
+                }
+            }
+        }
+        if (attackAnimation4 && hit4 && equipedWeapon != null) {
+            if (equipedWeapon.name == "woodenSword_weapon") {
+                foreach (Collider bush in hitBush) {
+                    hit4 = false;
+                    bush.GetComponent<GreatBush>().takeDamage();
+                }
+            }
+        }
+        if (!attackAnimation1 && !attackAnimation2 && !attackAnimation3 && !attackAnimation4 && !hitAnimation) {
             hit1 = true;
             hit2 = true;
             hit3 = true;
