@@ -12,14 +12,14 @@ public class teddy_interact : Dialog {
 
     // Update is called once per frame
     void Update() {
-            if (gm.StoryNumber == 1f) {
-                dialogLines.Clear();
-                moodSprites.Clear();
-                newDialogLine("Woah! It's a big maze.", 3);  //0=normal 1=sad 2=angry
-                newDialogLine("You talk?", 0);
-                newDialogLine("Hush! We need to find your brother.", 3);  //0=normal 1=sad 2=angry
-                checkOnce = true;
-            }
+        if (gm.StoryNumber == 1f) {
+            dialogLines.Clear();
+            moodSprites.Clear();
+            newDialogLine("Woah! It's a big maze.", 3);  //0=normal 1=sad 2=angry
+            newDialogLine("You talk?", 0);
+            newDialogLine("Hush! We need to find your brother.", 3);  //0=normal 1=sad 2=angry
+            checkOnce = true;
+        }
         if (gm.StoryNumber == 1.01f) {
             dialogLines.Clear();
             moodSprites.Clear();
