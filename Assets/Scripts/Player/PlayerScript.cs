@@ -600,7 +600,7 @@ public class PlayerScript : MonoBehaviour
         }
         if(other.tag == "StoryChanger") {
             switch (gm.StoryNumber) {
-            case 0.09f:
+            case float sn when gm.StoryNumber <= 0.09f:
                 gm.StoryNumber = 1.00f;
                 teddy.setStartInteraction(true);
                 Destroy(other.gameObject);
