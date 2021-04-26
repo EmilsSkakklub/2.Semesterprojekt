@@ -53,8 +53,9 @@ public abstract class Enemy : MonoBehaviour
     public Slider healthSlider;
 
     //vision cone
-    private float visionRange = 5;
-    private float visionConeAngle = 30;
+    public float visionRange;
+    public float newVisionRange;
+    public float visionConeAngle = 30;
 
     private float surroundVisionRange = 2f;
     private float surroundVisionConeAngle = 360;
@@ -62,7 +63,7 @@ public abstract class Enemy : MonoBehaviour
 
 
 
-    protected void initStart(string enemyName, int attackDamage, int maxHealth, float moveSpeed, float attackRange) {
+    protected void initStart(string enemyName, int attackDamage, int maxHealth, float moveSpeed, float attackRange, float visionRange) {
 
         gameObject.tag = "Enemy";
         gameObject.layer = LayerMask.NameToLayer("Enemy");
@@ -74,6 +75,7 @@ public abstract class Enemy : MonoBehaviour
         setHealth(maxHealth);
         setMoveSpeed(moveSpeed);
         setAttackRange(attackRange);
+        setVisionRange(visionRange);
         setRemoveTimer(3);
 
         player = GameObject.Find("Player").GetComponent<PlayerScript>();
@@ -231,7 +233,7 @@ public abstract class Enemy : MonoBehaviour
     public void updateVisionCone() {
         Vector3 vectorToPlayer = playerTransform.position - transform.position;
         if (hasDetectedPlayer) {
-            visionRange = 10;
+            newVisionRange = visionRange * 2;
             surroundVisionRange = 4;
         }
 
@@ -245,7 +247,7 @@ public abstract class Enemy : MonoBehaviour
             }
         }
         //forward vision
-        else if (Vector3.Distance(transform.position, playerTransform.position) <= visionRange && !player.getIsStealth()) {
+        else if (Vector3.Distance(transform.position, playerTransform.position) <= newVisionRange && !player.getIsStealth()) {
             if (Vector3.Angle(transform.forward, vectorToPlayer) <= visionConeAngle) {
                 setDetectedPlayer(true);
             }
@@ -255,7 +257,7 @@ public abstract class Enemy : MonoBehaviour
         }
         else {
             setDetectedPlayer(false);
-            visionRange = 5;
+            newVisionRange = visionRange;
             surroundVisionRange = 2;
         }
     }
@@ -325,6 +327,10 @@ public abstract class Enemy : MonoBehaviour
 
     public void setDetectedPlayer(bool isDetected) {
         this.hasDetectedPlayer = isDetected;
+    }
+
+    public void setVisionRange(float visionRange) {
+        this.visionRange = visionRange;
     }
 
     

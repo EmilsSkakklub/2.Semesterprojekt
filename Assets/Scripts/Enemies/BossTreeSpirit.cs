@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TreeSpirit : Enemy
+public class BossTreeSpirit : Enemy
 {
     // Start is called before the first frame update
     void Start()
     {
-        initStart("TreeSpirit", 1, 20, 2f, 0.8f, 5f);
+        initStart("BossTree",2, 100, 1, 1.5f, 10f);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        initUpdate(); 
+        initUpdate();
+
     }
 }
