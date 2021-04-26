@@ -26,7 +26,7 @@ public class PlayerScript : MonoBehaviour
     private bool kickedBall = false;
     private Interaction interaction;
     private bool check1 = false;
-    private Interaction teddy;
+    public Interaction teddy;
     bool check2 = false;
     bool nextNum = false;
 
@@ -225,7 +225,7 @@ public class PlayerScript : MonoBehaviour
         interaction = GameObject.Find("monolog").GetComponent<Interaction>();
         respawner = GameObject.Find("GameManager").GetComponent<Respawn>();
         keybinds = GameObject.Find("KeybindsImg");
-        teddy = GameObject.Find("teddy_interact").GetComponent<Interaction>();
+        teddy = GameObject.Find("teddyInBag_interact").GetComponent<Interaction>();
         colliderLegs = GameObject.Find("mixamorig:Hips").GetComponent<BoxCollider>();
 
         isWalkingHash = Animator.StringToHash("isWalking");
@@ -558,8 +558,22 @@ public class PlayerScript : MonoBehaviour
             switch (gm.StoryNumber) {
             case 0.09f:
                 gm.StoryNumber = 1.00f;
+                teddy.setStartInteraction(true);
+                Destroy(other.gameObject);
                 break;
+            case 1.00f:
+                gm.StoryNumber = 1.01f;
+                teddy.setStartInteraction(true);
+                Destroy(other.gameObject);
+                break;
+            case 1.01f:
+                gm.StoryNumber = 1.02f;
+                teddy.setStartInteraction(true);
+                Destroy(other.gameObject);
+                break;
+
             }
+            
         }
     }
 
@@ -804,10 +818,10 @@ public class PlayerScript : MonoBehaviour
     private IEnumerator StoryChanger() {
 
         if (gm.StoryNumber < 1.0f) {
-            colliderLegs.gameObject.SetActive(true);
+            colliderLegs.enabled = true;
         }
         else {
-            colliderLegs.gameObject.SetActive(false);
+            colliderLegs.enabled = false;
         }
 
 
@@ -881,10 +895,18 @@ public class PlayerScript : MonoBehaviour
         if (gm.StoryNumber == 1f && !check2) {
             teddy.setStartInteraction(true);
             check2 = true;
-            while (interaction.getStartInteraction()) yield return null;
+            while (teddy.getStartInteraction()) yield return null;
             
         }
-        
+        if (gm.StoryNumber == 1.01f) {
+            setSpawnPointName("L1S2");
+            setSpawnPoint(GameObject.Find(getSpawnPointName()).GetComponent<Transform>());
+        }
+        if (gm.StoryNumber == 1.02f) {
+            setSpawnPointName("L1S3");
+            setSpawnPoint(GameObject.Find(getSpawnPointName()).GetComponent<Transform>());
+        }
+
 
     }
     public GameObject GetClosestEnemy() {
