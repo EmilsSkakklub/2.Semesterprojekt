@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class BossTreeSpirit : Enemy
 {
+    public Item theKey;
+
     // Start is called before the first frame update
     void Start()
     {
+        theKey = GameObject.Find("key").GetComponent<Item>();
         initStart("BossTree",2, 100, 2f, 1.5f, 10f);
-        
     }
 
     // Update is called once per frame
     void Update()
     {
         initUpdate();
-
+        if (!isDead) {
+            theKey.gameObject.SetActive(false);
+        }
+        else if (isDead) {
+            theKey.gameObject.SetActive(true);
+        }
     }
 }

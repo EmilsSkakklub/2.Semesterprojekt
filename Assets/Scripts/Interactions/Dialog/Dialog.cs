@@ -105,4 +105,8 @@ public abstract class Dialog : MonoBehaviour {
     public void setIsNPC(bool isNPC) {
         this.isNPC = isNPC;
     }
+
+    public PlayerScript GetPlayerScript() {
+        return playerScript;
+    }
 }
