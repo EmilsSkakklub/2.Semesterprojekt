@@ -9,13 +9,16 @@ public abstract class LevelChanger : MonoBehaviour
     public string spawnPointName;
     public Transform newSpawnPoint;
     public Animator transition;
+    public Light directLight;
     protected GameManager gm;
     protected Inventory inventory;
+
 
     private float transitionTime = 1f;
 
 
     protected void InitStart(string spawnPointName) {
+        directLight = GameObject.Find("Directional Light").GetComponent<Light>();
         playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
         transition = GameObject.Find("Crossfade").GetComponent<Animator>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -27,7 +30,7 @@ public abstract class LevelChanger : MonoBehaviour
         
     }
 
-    protected IEnumerator ChangeLevel() {
+    protected IEnumerator ChangeLevel(float lightIntensity) {
         if (interaction.getStartInteraction()) {
             transition.SetBool("Start", true);
             
@@ -39,8 +42,8 @@ public abstract class LevelChanger : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
             transition.SetBool("Start", false);
+            directLight.intensity = lightIntensity;
             Invoke("ResetStartInteract", 0.1f);
-            
         }
     }
 

@@ -17,7 +17,7 @@ public class GreatBush : MonoBehaviour
     {
         gameObject.layer = LayerMask.NameToLayer("Bush");
         posOffset = transform.position;
-        health = 4;
+        health = 3;
     }
 
     public void takeDamage() {

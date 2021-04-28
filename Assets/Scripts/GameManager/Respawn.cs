@@ -20,7 +20,7 @@ public class Respawn : MonoBehaviour
             player.HP = 0;
             
         }
-        if (player.isDead) {
+        if (player.getIsDead()) {
             yield return new WaitForSeconds(2f);
             transition.SetBool("Start", true);
 
@@ -28,8 +28,8 @@ public class Respawn : MonoBehaviour
             player.transform.position = new Vector3(player.getSpawnPoint().position.x, player.getSpawnPoint().position.y, player.getSpawnPoint().position.z);
             player.transform.transform.eulerAngles = new Vector3(player.getSpawnPoint().eulerAngles.x, player.getSpawnPoint().eulerAngles.y, player.getSpawnPoint().eulerAngles.z);
             player.heal(8);
-            player.isDead = false;
-            player.respawnTimer = 0;
+            player.setIsDead(false);
+            player.setRespawnTimer(0);
             yield return new WaitForSeconds(2f);
             transition.SetBool("Start", false);
   

@@ -20,7 +20,7 @@ public abstract class Enemy : MonoBehaviour
     private float gravity = -9.81f;
     public bool isGrounded;
 
-    public float moveSpeed;
+    private float moveSpeed;
     private float MaxDistance = 2f;
     private float MinDistance = 1f;
 
@@ -179,7 +179,7 @@ public abstract class Enemy : MonoBehaviour
         if (!isDead && !hitAnimation && !attackAnimation && hasDetectedPlayer) {
             if (Vector3.Distance(transform.position, playerTransform.position) >= MinDistance) {
                 animator.SetBool(isWalkingHash, true);
-                transform.position += transform.forward * moveSpeed * Time.deltaTime;
+                transform.position += transform.forward * moveSpeed * 2 * Time.deltaTime;
 
                 if (Vector3.Distance(transform.position, playerTransform.position) <= MaxDistance) {
                     animator.SetBool(isAttackingHash, true);

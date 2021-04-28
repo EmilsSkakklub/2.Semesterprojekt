@@ -5,45 +5,50 @@ using UnityEngine;
 public class ChestScript : MonoBehaviour
 {
 
+    private PlayerScript player;
     private GameObject ChestClosed;
     private GameObject ChestOpen;
     private Interaction Interaction;
     private GameObject Sword;
-    private GameObject WaterBottle;
-    private GameObject Apple;
 
-    private List<GameObject> itempool = new List<GameObject>();
+
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-
+        player = GameObject.Find("Player").GetComponent<PlayerScript>();
         Sword = GameObject.Find("cSword");
-        
         ChestClosed = GameObject.Find("Chest Closed Prefab");
         ChestOpen = GameObject.Find("Chest Open Prefab");
-
         Interaction = GameObject.Find("Chest_interact").GetComponent<Interaction>();
-
-        itempool.Add(Sword);
-
-        Sword.SetActive(false);
         ChestOpen.SetActive(false);
-        
 
+        Invoke("lol", 1);
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        if(Interaction.getStartInteraction())
-        {
-            ChestClosed.SetActive(false);
-            ChestOpen.SetActive(true);
+        openChest();
+    }
 
-            itempool[0].SetActive(true);
+    public void openChest() {
 
+        if (ChestClosed.activeInHierarchy) {
+            if (Interaction.getStartInteraction()) {
+                ChestClosed.SetActive(false);
+                ChestOpen.SetActive(true);
+
+                Sword.SetActive(true);
+            }
         }
     }
+
+    public void lol() {
+        Sword.SetActive(false);
+    }
+
 }

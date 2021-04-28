@@ -1303,7 +1303,6 @@ MonoBehaviour:
   removeTimer: 0
   player: {fileID: 0}
   isGrounded: 0
-  moveSpeed: 0
   attackpoint: {fileID: 6148552698535017331}
   attackDamage: 0
   playerLayers:
@@ -1313,6 +1312,9 @@ MonoBehaviour:
   health: 0
   maxHealth: 0
   healthSlider: {fileID: 5222595271146566093}
+  visionRange: 0
+  newVisionRange: 0
+  visionConeAngle: 30
   hasDetectedPlayer: 0
 --- !u!1001 &2835973182519275603
 PrefabInstance:
@@ -1451,11 +1453,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8007686216626143646, guid: 5f3d8d65fa2e12c4ea9bcdfb62a0e2c1, type: 3}
       propertyPath: m_Value
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8007686216626143646, guid: 5f3d8d65fa2e12c4ea9bcdfb62a0e2c1, type: 3}
       propertyPath: m_MaxValue
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8007686216626143646, guid: 5f3d8d65fa2e12c4ea9bcdfb62a0e2c1, type: 3}
       propertyPath: m_WholeNumbers

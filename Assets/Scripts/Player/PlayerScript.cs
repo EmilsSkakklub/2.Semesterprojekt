@@ -12,8 +12,8 @@ public class PlayerScript : MonoBehaviour
     private Transform cam;
     private GameManager gm;
     private Transform playerTrans;
-    public LayerMask groundMask;
-    public BoxCollider colliderLegs;
+    private LayerMask groundMask;
+    private BoxCollider colliderLegs;
 
     //story elements
     private Transform grill;
@@ -26,22 +26,21 @@ public class PlayerScript : MonoBehaviour
     private bool kickedBall = false;
     private Interaction interaction;
     private bool check1 = false;
-    public Interaction teddy;
-    bool check2 = false;
-    bool nextNum = false;
+    private bool check2 = false;
+    private Interaction teddy;
+
 
     //singleton
     private static PlayerScript instance = null;
 
     //inventory
-    public Inventory inventory;
-    public bool openInventory = false;
-    public List<string> stringInventory = new List<string>();
+    private Inventory inventory;
+    private bool openInventory = false;
 
     //movement
     Vector3 velocity;
-    public bool isGrounded;
-    public bool jumpNotReady;
+    private bool isGrounded;
+    private bool jumpNotReady;
     private float jumpHeight = .75f;
     private float gravity = -9.81f;
     private float speed = 2f;
@@ -53,67 +52,65 @@ public class PlayerScript : MonoBehaviour
     public bool IsImmobile;
 
     //interact
-    Interaction ClosestTarget;
-    GameObject InteractText;
-    GameObject textBubble;
-    public List<GameObject> ListOfInteractables;
+    private Interaction ClosestTarget;
+    private GameObject InteractText;
+    private GameObject textBubble;
+    private List<GameObject> ListOfInteractables;
     private bool inDialog;
-    GameObject keybinds;
+    private GameObject keybinds;
 
     //HP System
     public int HP = 8;
-    public GameObject[] FullHearts = new GameObject[4];
-    public GameObject[] HalfHearts = new GameObject[4];
-    public GameObject[] EmptyHearts = new GameObject[4];
-    GameObject H1E;
-    GameObject H2E;
-    GameObject H3E;
-    GameObject H4E;
-    GameObject H1H;
-    GameObject H2H;
-    GameObject H3H;
-    GameObject H4H;
-    GameObject H1F;
-    GameObject H2F;
-    GameObject H3F;
-    GameObject H4F;
+    private GameObject[] FullHearts = new GameObject[4];
+    private GameObject[] HalfHearts = new GameObject[4];
+    private GameObject[] EmptyHearts = new GameObject[4];
+    private GameObject H1E;
+    private GameObject H2E;
+    private GameObject H3E;
+    private GameObject H4E;
+    private GameObject H1H;
+    private GameObject H2H;
+    private GameObject H3H;
+    private GameObject H4H;
+    private GameObject H1F;
+    private GameObject H2F;
+    private GameObject H3F;
+    private GameObject H4F;
 
     //stamina System
     public float Stamina;
-    public float maxStamina;
-    public bool isStaminaBuff;
-    public float staminaRate = 1f;  //rate at which stamina is depleated
-    public float staminabuffTimer = 60f;
-    public float recoveryTimer = 1f;
-    public bool animationHasStarted = false;
-    public bool animationAttStarted1 = false;
-    public bool animationAttStarted2 = false;
-    public bool animationAttStarted3 = false;
-    public Slider staminaSlider;
+    private float maxStamina;
+    private bool isStaminaBuff;
+    private float staminaRate = 1f;  //rate at which stamina is depleated
+    private float staminabuffTimer = 60f;
+    private float recoveryTimer = 1f;
+    private bool animationHasStarted = false;
+    private bool animationAttStarted1 = false;
+    private bool animationAttStarted2 = false;
+    private bool animationAttStarted3 = false;
+    private Slider staminaSlider;
 
     //combat system
-    public List<GameObject> weapons = new List<GameObject>();
-
     public int attackDamage;
     public int bonusAttackDamage;
-    public bool isEnegyBuff;
-    public float energyBuffTimer = 60f;
-    public Transform attackpoint;
-    public float attackRange = 0.3f;
-    public LayerMask enemyLayers;
-    public LayerMask bushLayer;
-    public Weapon equipedWeapon;
-    public bool hit1 = true;
-    public bool hit2 = true;
-    public bool hit3 = true;
-    public bool hit4 = true;
+    private bool isEnegyBuff;
+    private float energyBuffTimer = 60f;
+    private Transform attackpoint;
+    private float attackRange = 0.3f;
+    private LayerMask enemyLayers;
+    private LayerMask bushLayer;
+    private Weapon equipedWeapon;
+    private bool hit1 = true;
+    private bool hit2 = true;
+    private bool hit3 = true;
+    private bool hit4 = true;
 
     //spawnpoint
-    public bool isDead;
-    public float respawnTimer;
-    public Respawn respawner;
-    public string spawnPointName;
-    public Transform spawnPoint;
+    private bool isDead;
+    private float respawnTimer;
+    private Respawn respawner;
+    private string spawnPointName;
+    private Transform spawnPoint;
 
     //input booleans
     private bool forwardPressed;
@@ -131,13 +128,13 @@ public class PlayerScript : MonoBehaviour
     private bool idleAnimation;
     private bool walkAnimation;
     private bool runningAnimation;
-    public bool attackAnimation1;
-    public bool attackAnimation2;
-    public bool attackAnimation3;
-    public bool attackAnimation4;
+    private bool attackAnimation1;
+    private bool attackAnimation2;
+    private bool attackAnimation3;
+    private bool attackAnimation4;
     private bool deathAnimation;
     private bool hitAnimation;
-    public bool rollAnimation;
+    private bool rollAnimation;
     private bool jumpAnimation;
 
 
@@ -228,6 +225,8 @@ public class PlayerScript : MonoBehaviour
         keybinds = GameObject.Find("KeybindsImg");
         teddy = GameObject.Find("teddyInBag_interact").GetComponent<Interaction>();
         colliderLegs = GameObject.Find("mixamorig:Hips").GetComponent<BoxCollider>();
+
+        ListOfInteractables = new List<GameObject>();
 
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
@@ -1203,7 +1202,21 @@ public class PlayerScript : MonoBehaviour
         this.openInventory = openInventory;
     }
 
+    public bool getIsDead() {
+        return isDead;
+    }
 
+    public void setIsDead(bool isDead) {
+        this.isDead = isDead;
+    }
+
+    public void setRespawnTimer(float respawnTimer) {
+        this.respawnTimer = respawnTimer;
+    }
+
+    public List<GameObject> getListOfInteractables() {
+        return ListOfInteractables;
+    }
 }
 
 

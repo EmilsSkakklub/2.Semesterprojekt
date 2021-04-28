@@ -29,8 +29,8 @@ public class SceneChange : MonoBehaviour
 
     protected IEnumerator SceneChanger(string spawnpoint) {
         if (interaction.getStartInteraction()) {
-            ps.spawnPointName = spawnpoint;
-            ps.ListOfInteractables.Clear();
+            ps.setSpawnPointName(spawnpoint);
+            ps.getListOfInteractables().Clear();
             transition.SetTrigger("Start");
 
             yield return new WaitForSeconds(transitionTime);
