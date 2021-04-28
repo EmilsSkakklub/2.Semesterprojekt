@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class teddy_interact : Dialog {
+
     bool checkOnce = false;
     // Start is called before the first frame update
     void Awake() {
@@ -12,6 +9,12 @@ public class teddy_interact : Dialog {
 
     // Update is called once per frame
     void Update() {
+        TEDTalk();
+        dialog();
+    }
+
+
+    private void TEDTalk() {
         if (gm.StoryNumber == 1f) {
             dialogLines.Clear();
             moodSprites.Clear();
@@ -34,8 +37,9 @@ public class teddy_interact : Dialog {
             newDialogLine("Hmm.. The road seems to split in two.", 0);  //0=normal 1=sad 2=angry
             checkOnce = true;
         }
-        dialog();
     }
 
-
 }
+
+
+

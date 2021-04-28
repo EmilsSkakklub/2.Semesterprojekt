@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
         updateEnemyLists();
         StartCoroutine(Cutscene1());
         ObjectiveChanger();
-       
+        ImmobilizePlayer();
     }
     IEnumerator Cutscene1() {
         if (StoryNumber == 0.05f || StoryNumber == 0.06f) {
@@ -80,20 +80,19 @@ public class GameManager : MonoBehaviour
                 fbcam.enabled = true;
                 canvas.worldCamera = fbcam;
             }
-
-
         } else {
             mcam.enabled = true;
             tpcam.SetActive(true);
             fbcam.enabled = false;
             canvas.worldCamera = mcam;
         }
+
         if (fbcam.enabled) {
             playerScript.IsImmobile = true;
             hp.SetActive(false);
             stamina.SetActive(false);
             objective.SetActive(false);
-        } else {
+        } else if(!fbcam.enabled && StoryNumber != 0.02f && StoryNumber != 0.08f) {
             playerScript.IsImmobile = false;
             hp.SetActive(true);
             stamina.SetActive(true);
@@ -101,6 +100,22 @@ public class GameManager : MonoBehaviour
         }
         yield return null;
     }
+
+    public void ImmobilizePlayer() {
+        if(StoryNumber == 0.02f) {
+            playerScript.IsImmobile = true;
+            playerScript.getAnimator().SetBool("isWalking", false);
+            playerScript.getAnimator().SetBool("isRunning", false);
+            playerScript.getAnimator().SetBool("isCrouching", true);
+        }
+        else if (StoryNumber == 0.08f) {
+            playerScript.IsImmobile = true;
+            playerScript.getAnimator().SetBool("isWalking", false);
+            playerScript.getAnimator().SetBool("isRunning", false);
+            playerScript.getAnimator().SetBool("isCrouching", false);
+        }
+    }
+
 
     void ObjectiveChanger() {
         switch (StoryNumber) {
@@ -114,7 +129,7 @@ public class GameManager : MonoBehaviour
             obText.text = "- Stay hidden.";
             break;
         case 0.03f:
-            obText.text = "- Find the ball.";
+            obText.text = "- Spook your brother.";
             break;
         case 0.04f:
             obText.text = "- Get the ball to your brother.";
@@ -124,6 +139,15 @@ public class GameManager : MonoBehaviour
             break;
         case 0.09f:
             obText.text = "- Go check on your brother.";
+            break;
+        case 1.00f:
+            obText.text = "- Go through the maze.";
+            break;
+        case 1.01f:
+            obText.text = "- Go through the maze.";
+            break;
+        case 1.02f:
+            obText.text = "- Go through the maze.";
             break;
         default:
             obText.text = "";

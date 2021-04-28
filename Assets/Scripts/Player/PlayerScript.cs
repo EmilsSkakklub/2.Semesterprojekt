@@ -263,16 +263,18 @@ public class PlayerScript : MonoBehaviour
 
     //checks the current input of the player
     private void inputManager() {
-        forwardPressed = Input.GetKey(KeyCode.W);
-        runPressed = Input.GetKey(KeyCode.LeftShift);
-        backwardPressed = Input.GetKey(KeyCode.S);
-        leftPressed = Input.GetKey(KeyCode.A);
-        rightPressed = Input.GetKey(KeyCode.D);
-        jumpPressed = Input.GetKeyDown(KeyCode.Space);
-        attackPressed = Input.GetMouseButtonDown(0);
-        crouchPressed = Input.GetKeyDown(KeyCode.C);
-        rollPressed = Input.GetMouseButtonDown(1);
-        inventoryPressed = Input.GetKeyDown(KeyCode.Tab);
+        if (!IsImmobile) {
+            forwardPressed = Input.GetKey(KeyCode.W);
+            runPressed = Input.GetKey(KeyCode.LeftShift);
+            backwardPressed = Input.GetKey(KeyCode.S);
+            leftPressed = Input.GetKey(KeyCode.A);
+            rightPressed = Input.GetKey(KeyCode.D);
+            jumpPressed = Input.GetKeyDown(KeyCode.Space);
+            attackPressed = Input.GetMouseButtonDown(0);
+            crouchPressed = Input.GetKeyDown(KeyCode.C);
+            rollPressed = Input.GetMouseButtonDown(1);
+            inventoryPressed = Input.GetKeyDown(KeyCode.Tab);
+        }
     }
 
     //checks which animation is running 
