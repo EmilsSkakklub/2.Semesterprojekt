@@ -11,10 +11,6 @@ public class ChestScript : MonoBehaviour
     private Interaction Interaction;
     private GameObject Sword;
 
-
-
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +21,7 @@ public class ChestScript : MonoBehaviour
         Interaction = GameObject.Find("Chest_interact").GetComponent<Interaction>();
         ChestOpen.SetActive(false);
 
-        Invoke("lol", 1);
+        Invoke("swordMethod", 1);
     }
 
 
@@ -47,8 +43,9 @@ public class ChestScript : MonoBehaviour
         }
     }
 
-    public void lol() {
+    public void swordMethod() {
         Sword.SetActive(false);
     }
+
 
 }

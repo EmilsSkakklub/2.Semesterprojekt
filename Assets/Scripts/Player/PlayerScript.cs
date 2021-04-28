@@ -616,7 +616,6 @@ public class PlayerScript : MonoBehaviour
                 teddy.setStartInteraction(true);
                 Destroy(other.gameObject);
                 break;
-
             }
             
         }

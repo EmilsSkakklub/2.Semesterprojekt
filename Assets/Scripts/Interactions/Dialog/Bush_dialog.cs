@@ -10,9 +10,8 @@ public class Bush_dialog : Dialog
         initStart(false);
         newDialogLine("That's one big bush!", 0);
         newDialogLine("I wonder whats behind it", 1);
-        newDialogLine("Maybe I can cut it down with something...", 0);
-
-        
+        newDialogLine("We probably need something sharp to cut it down", 3);
+        newDialogLine("Hmm, maybe I can find something usefull around here...", 1);
     }
 
     // Update is called once per frame
