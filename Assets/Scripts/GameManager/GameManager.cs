@@ -120,10 +120,11 @@ public class GameManager : MonoBehaviour
     void ObjectiveChanger() {
         switch (StoryNumber) {
         case 0f:
-            obText.text = "- Run to the grill!";
+            obText.text = "- Press E to interact" +
+                          "\n- Run to the grill!";
             break;
         case 0.01f:
-            obText.text = "- Talk to your brother.\n- Go hide.\n\n\nTip: Find some tall grass to sit in.";
+            obText.text = "- Talk to your brother.\n- Go hide.\n\n\nTip: Find some tall grass to crouch in (Press C)";
             break;
         case 0.02f:
             obText.text = "- Stay hidden.";

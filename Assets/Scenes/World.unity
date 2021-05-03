@@ -31954,6 +31954,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar triumf (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8112690717763375569, guid: 449336eafbc8ece4a97f30deacd2f78f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.7701
+      objectReference: {fileID: 0}
+    - target: {fileID: 8112690717763375569, guid: 449336eafbc8ece4a97f30deacd2f78f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8112690717763375569, guid: 449336eafbc8ece4a97f30deacd2f78f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 13.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8112690717763375569, guid: 449336eafbc8ece4a97f30deacd2f78f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 449336eafbc8ece4a97f30deacd2f78f, type: 3}
 --- !u!4 &783275495 stripped
@@ -84287,6 +84303,18 @@ PrefabInstance:
     - target: {fileID: 8512650846742186641, guid: 7cce39884c54cff47947efcc5ae35c5a, type: 3}
       propertyPath: m_Intensity
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512650846897343524, guid: 7cce39884c54cff47947efcc5ae35c5a, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512650846897343524, guid: 7cce39884c54cff47947efcc5ae35c5a, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512650846897343524, guid: 7cce39884c54cff47947efcc5ae35c5a, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8512650846897343524, guid: 7cce39884c54cff47947efcc5ae35c5a, type: 3}
       propertyPath: m_Enabled

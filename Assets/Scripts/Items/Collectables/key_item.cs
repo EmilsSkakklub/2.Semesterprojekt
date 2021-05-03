@@ -26,6 +26,7 @@ public class key_item : Item
     public override void useItem() {
         if (useKey.isIntheBox) {
             bigDoor.SetActive(false);
+            setIsConsumable(true);
         }
     }
 }
