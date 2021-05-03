@@ -8,7 +8,7 @@ public class BoxL2N2 : BoxDialog
     void Start()
     {
         initStart(false);
-        newDialogLine("These walking trees sure are scary", 1);
+        newDialogLine("These walking trees sure are scary!", 1);
         newDialogLine("Fear not, for I am by your side!", 3);
         newDialogLine("Thanks Teddy, I can always count on you", 0);
     }

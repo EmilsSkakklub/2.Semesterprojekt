@@ -9,7 +9,7 @@ public class BoxChest : BoxDialog
     void Start()
     {
         initStart(false);
-        newDialogLine("Cool, a chest! I wonder whats inside.", 0);
+        newDialogLine("Cool, a chest! I wonder what's inside.", 0);
     }
 
     // Update is called once per frame

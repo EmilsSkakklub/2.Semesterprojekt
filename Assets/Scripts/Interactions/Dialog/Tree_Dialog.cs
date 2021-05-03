@@ -7,7 +7,7 @@ public class Tree_Dialog : Dialog {
     void Awake() {
         initStart(false);
         newDialogLine("I wish i could climb up there...",0);  //0=normal 1=sad 2=angry
-        newDialogLine("But I'm afaid of heights",1); //0=normal 1=sad 2=angry
+        newDialogLine("But I'm afraid of heights",1); //0=normal 1=sad 2=angry
     }
 
     // Update is called once per frame
