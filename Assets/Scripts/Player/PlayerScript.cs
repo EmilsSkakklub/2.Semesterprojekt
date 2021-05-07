@@ -662,20 +662,7 @@ public class PlayerScript : MonoBehaviour
 
     private void updateHealth() {
         //First [i] = 4. i.e. the array goes from 4 - 3 - 2 - 1 - 0.
-        
-        if (Input.GetKeyDown(KeyCode.R) && HP > 0) {
-            animator.SetBool(isHitHash, true);
-            HP--;
-        }
-        else {
-            animator.SetBool(isHitHash, false);
-        }
-
-        if (Input.GetKeyDown(KeyCode.T) && HP < 8) {
-            HP++;
-        }
-
-        
+  
         //First
         if(HP == 8) {
             FullHearts[3].gameObject.SetActive(true);
@@ -1087,7 +1074,7 @@ public class PlayerScript : MonoBehaviour
 
 
     public void toggleInventory() {
-        if (inventoryPressed /*&& inventory.getGotBackPack()*/) {
+        if (inventoryPressed && inventory.getGotBackPack()) {
             openInventory = !openInventory;
         }
     }
