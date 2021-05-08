@@ -14,5 +14,6 @@ public class Level_3_load : LevelChanger
     void Update()
     {
         StartCoroutine(ChangeLevel(0.1f));
+
     }
 }

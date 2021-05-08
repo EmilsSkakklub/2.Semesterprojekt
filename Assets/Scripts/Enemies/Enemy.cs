@@ -15,7 +15,9 @@ public abstract class Enemy : MonoBehaviour
     private Transform playerTransform;
     private Transform cameraTransform;
     private CharacterController controller;
-    
+
+    private AudioManager audioManager;
+
     private Vector3 velocity;
     private float gravity = -9.81f;
     public bool isGrounded;
@@ -83,11 +85,13 @@ public abstract class Enemy : MonoBehaviour
         playerTransform = GameObject.Find("Player").GetComponent<Transform>();
         cameraTransform = GameObject.Find("Main Camera").GetComponent<Transform>();
         controller = GetComponent<CharacterController>();
+        audioManager = GameObject.Find("GameManager").GetComponent<AudioManager>();
 
         setAnimationHashCodes();
     }
 
     protected void initUpdate() {
+
         getCurrentAnimationPlaying();
         updateGravity();
         groundCheck();
@@ -145,7 +149,16 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    private bool hitSound;
+
+
     public void takeDamage(int damage) {
+        if (!hitSound) {
+            audioManager.Play("HitWood", false,0.5f, Random.Range(0.8f, 3));
+            hitSound = true;
+        }
+        hitSound = false;
+
         if (!isDead) {
             setDetectedPlayer(true);
             animator.SetBool(isHitHash, true);
@@ -267,7 +280,6 @@ public abstract class Enemy : MonoBehaviour
         healthSlider.value = health;
         healthSlider.transform.rotation = cameraTransform.transform.rotation;
     }
-
 
 
     //getters and setters

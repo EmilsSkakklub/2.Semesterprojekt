@@ -11,8 +11,10 @@ public abstract class LevelChanger : MonoBehaviour
     public Animator transition;
     public Light directLight;
     protected GameManager gm;
+    protected AudioManager audioManager;
     protected Inventory inventory;
 
+    public bool soundPlayer;
 
     private float transitionTime = 1f;
 
@@ -22,6 +24,7 @@ public abstract class LevelChanger : MonoBehaviour
         playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
         transition = GameObject.Find("Crossfade").GetComponent<Animator>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        audioManager = GameObject.Find("GameManager").GetComponent<AudioManager>();
         interaction = GetComponent<Interaction>();
         newSpawnPoint = GameObject.Find(spawnPointName).GetComponent<Transform>();
         inventory = GameObject.Find("Player").GetComponent<Inventory>();
@@ -44,15 +47,24 @@ public abstract class LevelChanger : MonoBehaviour
             transition.SetBool("Start", false);
             directLight.intensity = lightIntensity;
             Invoke("ResetStartInteract", 0.1f);
+            
         }
     }
 
     private void ResetStartInteract() {
         interaction.setStartInteraction(false);
+        soundPlayer = false;
     }
 
     public void setSpawnPointName(string spawnPointName) {
         this.spawnPointName = spawnPointName;
     }
 
+
+    public void PlayerSound(string name) {
+        if (interaction.getStartInteraction() && !soundPlayer) {
+            audioManager.Play(name, false, 1, 1);
+            soundPlayer = true;
+        }
+    }
 }

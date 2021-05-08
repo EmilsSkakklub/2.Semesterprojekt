@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
 
     private PlayerScript playerScript;
-    private Inventory inventory;
+    private AudioManager audioManager;
     private Animator transition;
 
     public List<GameObject> enemies = new List<GameObject>();
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
-        inventory = GameObject.Find("Player").GetComponent<Inventory>();
+        audioManager = GetComponent<AudioManager>();
         transition = GameObject.Find("Crossfade").GetComponent<Animator>();
         mcam = GameObject.Find("Main Camera").GetComponent<Camera>();   
         fbcam = GameObject.Find("FootballCamera").GetComponent<Camera>();
@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(Cutscene1());
         ObjectiveChanger();
         ImmobilizePlayer();
+        MusicManager();
     }
     IEnumerator Cutscene1() {
         if (StoryNumber == 0.05f || StoryNumber == 0.06f) {
@@ -211,5 +212,16 @@ public class GameManager : MonoBehaviour
     }
 
 
+    public bool musicPlaying;
+
+
+    public void MusicManager() {
+        string level = playerScript.getSpawnPointName();
+        if (level.Contains("L3") && !musicPlaying) {
+            audioManager.Play("Level3Music", true, 0.3f, 0.75f);
+            musicPlaying = true;
+        }
+
+    }
 
 }
