@@ -150,6 +150,8 @@ public class PlayerScript : MonoBehaviour
     private int isDeadHash;
     private int isRollingHash;
 
+    public AudioManager audioManager;
+
     private void Awake() {
         Singleton();
     }
@@ -187,6 +189,8 @@ public class PlayerScript : MonoBehaviour
 
         StartCoroutine(StoryChanger());
 
+        SoundManager();
+
     }
 
     //Singleton pattern
@@ -208,6 +212,7 @@ public class PlayerScript : MonoBehaviour
         animator = GetComponent<Animator>();
         cam = GameObject.Find("Main Camera").GetComponent<Transform>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        audioManager = GameObject.Find("GameManager").GetComponent<AudioManager>();
         InteractText = GameObject.Find("InteractText");
         textBubble = GameObject.Find("TextBubble");
         staminaSlider = GameObject.Find("StaminaBar").GetComponent<Slider>();
@@ -313,6 +318,7 @@ public class PlayerScript : MonoBehaviour
 
                 //move a little faster while rolling
                 if (rollAnimation) {
+                    
                     controller.Move(moveDir.normalized * speed* 1.5f * Time.deltaTime);
                 }
                 //move slower when attacking
@@ -1079,7 +1085,41 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    //bools for only playing sounds once
+    public bool walkSound;
+    public bool runSound;
 
+
+    private void SoundManager() {
+        //walking sound
+        if (walkAnimation && !walkSound) {
+            audioManager.Stop("FootstepsRun");
+            audioManager.Play("FootstepsWalk", true, 0.4f, 1);
+            walkSound = true;
+        }
+        else if (!walkAnimation) {
+            audioManager.Stop("FootstepsWalk");
+            walkSound = false;
+        }
+
+        //running sound
+        if (runningAnimation && !runSound) {
+            audioManager.Stop("FootstepsWalk");
+            audioManager.Play("FootstepsRun", true, 0.4f, 1.5f);
+            runSound = true;
+        }
+        else if (!runningAnimation) {
+            audioManager.Stop("FootstepsRun");
+            runSound = false;
+        }
+
+
+
+
+
+
+
+    }
 
     //getters and setters
     public Animator getAnimator() {
