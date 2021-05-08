@@ -4443,6 +4443,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
+  - name: Level3Music
+    clip: {fileID: 8300000, guid: d791fec6eb7c4e04e818a8210a64d2c2, type: 3}
+    volume: 0.436
+    pitch: 1.39
+    source: {fileID: 0}
+    loop: 0
   - name: FootstepsWalk
     clip: {fileID: 8300000, guid: 2950bcec6d9fc7d4e84b324378715c92, type: 3}
     volume: 0.436
@@ -4461,12 +4467,6 @@ MonoBehaviour:
     pitch: 1.39
     source: {fileID: 0}
     loop: 0
-  - name: Level3Music
-    clip: {fileID: 8300000, guid: d791fec6eb7c4e04e818a8210a64d2c2, type: 3}
-    volume: 0.436
-    pitch: 1.39
-    source: {fileID: 0}
-    loop: 0
   - name: Collect
     clip: {fileID: 8300000, guid: 66089a4c4101ecc4ab3e62c8b8e925f5, type: 3}
     volume: 0.436
@@ -4475,6 +4475,12 @@ MonoBehaviour:
     loop: 0
   - name: HitWood
     clip: {fileID: 8300000, guid: b0d21409dc711d1429e811eb0c49e105, type: 3}
+    volume: 0.436
+    pitch: 1.39
+    source: {fileID: 0}
+    loop: 0
+  - name: TreeSpiritGrunt
+    clip: {fileID: 8300000, guid: 08cceacaa38c5774d962ce8ad0aee660, type: 3}
     volume: 0.436
     pitch: 1.39
     source: {fileID: 0}
