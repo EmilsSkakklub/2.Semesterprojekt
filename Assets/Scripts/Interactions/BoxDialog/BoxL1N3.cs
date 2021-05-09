@@ -15,5 +15,6 @@ public class BoxL1N3 : BoxDialog
     void Update()
     {
         initUpdate();
+        SetNewSpawnPoint(transform);
     }
 }

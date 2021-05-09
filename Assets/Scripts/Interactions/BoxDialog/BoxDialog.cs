@@ -20,4 +20,11 @@ public abstract class BoxDialog : Dialog
             gameObject.SetActive(false);
         }
     }
+
+
+    protected void SetNewSpawnPoint(Transform transform) {
+        if (interaction.getStartInteraction()) {
+            GetPlayerScript().setSpawnPoint(transform);
+        }
+    }
 }

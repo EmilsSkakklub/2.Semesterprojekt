@@ -21,7 +21,13 @@ public class BossTreeSpirit : Enemy
             theKey.gameObject.SetActive(false);
         }
         else if (isDead) {
-            theKey.gameObject.SetActive(true);
+            Invoke("SpawnKey", 3);
         }
     }
+
+
+    private void SpawnKey() {
+        theKey.gameObject.SetActive(true);
+    }
+
 }
