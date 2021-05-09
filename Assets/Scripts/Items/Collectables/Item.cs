@@ -7,8 +7,10 @@ public abstract class Item : MonoBehaviour
 {
     public Sprite sprite;
     public PlayerScript player;
+    public AudioManager audioManager;
     private Interaction interaction;
     private Inventory inventory;
+    
     
     public string itemName;
     public string description;
@@ -16,6 +18,7 @@ public abstract class Item : MonoBehaviour
     private bool isConsumable;
     private bool isWeapon;
     private bool itemUsed;
+    private bool soundPlayed;
 
     private float rotationSpeed = 50;
     private float amplitude = 0.2f;
@@ -34,6 +37,7 @@ public abstract class Item : MonoBehaviour
         interaction = GetComponentInChildren<Interaction>();
         inventory = GameObject.Find("Player").GetComponent<Inventory>();
         player = GameObject.Find("Player").GetComponent<PlayerScript>();
+        audioManager = GameObject.Find("GameManager").GetComponent<AudioManager>();
 
         posOffset = transform.position;
     }
@@ -46,6 +50,11 @@ public abstract class Item : MonoBehaviour
 
     private void collect() {
         if (interaction.getStartInteraction()) {
+            if (!soundPlayed) {
+                audioManager.Play("Collect", false, 0.5f, 2);
+                soundPlayed = true;
+            }
+
             inventory.addItem(this);
             gameObject.SetActive(false);
         }

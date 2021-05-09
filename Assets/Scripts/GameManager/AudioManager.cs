@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
+    public bool soundPlayer;
 
     // Start is called before the first frame update
     void Awake()

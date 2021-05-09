@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Level_House_Loud : LevelChanger
 {
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +16,6 @@ public class Level_House_Loud : LevelChanger
     void Update()
     {
         StartCoroutine(ChangeLevel(2f));
+        PlayerSound("OpenDoor");
     }
 }

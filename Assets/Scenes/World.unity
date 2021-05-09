@@ -4448,6 +4448,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
+  - name: Level3Music
+    clip: {fileID: 8300000, guid: d791fec6eb7c4e04e818a8210a64d2c2, type: 3}
+    volume: 0.436
+    pitch: 1.39
+    source: {fileID: 0}
+    loop: 0
   - name: FootstepsWalk
     clip: {fileID: 8300000, guid: 2950bcec6d9fc7d4e84b324378715c92, type: 3}
     volume: 0.436
@@ -4460,6 +4466,31 @@ MonoBehaviour:
     pitch: 1.39
     source: {fileID: 0}
     loop: 0
+  - name: OpenDoor
+    clip: {fileID: 8300000, guid: cad61e32ca5237647a8a070ebd1eed27, type: 3}
+    volume: 0.436
+    pitch: 1.39
+    source: {fileID: 0}
+    loop: 0
+  - name: Collect
+    clip: {fileID: 8300000, guid: 66089a4c4101ecc4ab3e62c8b8e925f5, type: 3}
+    volume: 0.436
+    pitch: 1.39
+    source: {fileID: 0}
+    loop: 0
+  - name: HitWood
+    clip: {fileID: 8300000, guid: b0d21409dc711d1429e811eb0c49e105, type: 3}
+    volume: 0.436
+    pitch: 1.39
+    source: {fileID: 0}
+    loop: 0
+  - name: TreeSpiritGrunt
+    clip: {fileID: 8300000, guid: 08cceacaa38c5774d962ce8ad0aee660, type: 3}
+    volume: 0.436
+    pitch: 1.39
+    source: {fileID: 0}
+    loop: 0
+  soundPlayer: 0
 --- !u!1001 &83838172
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6646,6 +6677,7 @@ MonoBehaviour:
   newSpawnPoint: {fileID: 0}
   transition: {fileID: 0}
   directLight: {fileID: 0}
+  soundPlayer: 0
 --- !u!1 &136091010
 GameObject:
   m_ObjectHideFlags: 0
@@ -20170,6 +20202,7 @@ MonoBehaviour:
   newSpawnPoint: {fileID: 0}
   transition: {fileID: 0}
   directLight: {fileID: 0}
+  soundPlayer: 0
 --- !u!114 &414471890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42949,6 +42982,7 @@ MonoBehaviour:
   newSpawnPoint: {fileID: 0}
   transition: {fileID: 0}
   directLight: {fileID: 0}
+  soundPlayer: 0
 --- !u!114 &955642181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82637,6 +82671,7 @@ MonoBehaviour:
   newSpawnPoint: {fileID: 0}
   transition: {fileID: 0}
   directLight: {fileID: 0}
+  soundPlayer: 0
 --- !u!4 &1863289152 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 266398232276667096, guid: d0356f94efb9114419f281d14e215a07, type: 3}
@@ -85343,6 +85378,7 @@ MonoBehaviour:
   newSpawnPoint: {fileID: 0}
   transition: {fileID: 0}
   directLight: {fileID: 0}
+  soundPlayer: 0
 --- !u!1 &1928783455
 GameObject:
   m_ObjectHideFlags: 0
@@ -89633,6 +89669,7 @@ MonoBehaviour:
   newSpawnPoint: {fileID: 0}
   transition: {fileID: 0}
   directLight: {fileID: 0}
+  soundPlayer: 0
 --- !u!1 &2007171617
 GameObject:
   m_ObjectHideFlags: 0

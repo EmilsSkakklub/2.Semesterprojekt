@@ -14,5 +14,6 @@ public class Level_0_Loud2 : LevelChanger
     void Update()
     {
         StartCoroutine(ChangeLevel(2f));
+        PlayerSound("OpenDoor");
     }
 }
