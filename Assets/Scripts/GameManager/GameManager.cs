@@ -220,7 +220,7 @@ public class GameManager : MonoBehaviour
     public void MusicManager() {
         string level = playerScript.getSpawnPointName();
         if (level.Contains("L0") && !music0Playing) {
-            audioManager.Play("Level0Music", true, 0.05f, 1f);
+            audioManager.Play("Level0Music", true, 0.01f, 1f);
             music0Playing = true;
         }
         else if (!level.Contains("L0")) {
