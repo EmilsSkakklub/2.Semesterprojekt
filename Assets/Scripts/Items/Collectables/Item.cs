@@ -51,7 +51,7 @@ public abstract class Item : MonoBehaviour
     private void collect() {
         if (interaction.getStartInteraction()) {
             if (!soundPlayed) {
-                audioManager.Play("Collect", false, 0.5f, 2);
+                audioManager.Play("Collect", false, 0.1f, 2);
                 soundPlayed = true;
             }
 
