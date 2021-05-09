@@ -16,6 +16,7 @@ public class BoxL2N1 : BoxDialog
     // Update is called once per frame
     void Update()
     {
+
         initUpdate();
     }
 }

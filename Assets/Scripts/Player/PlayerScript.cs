@@ -109,7 +109,7 @@ public class PlayerScript : MonoBehaviour
     private bool isDead;
     private float respawnTimer;
     private Respawn respawner;
-    private string spawnPointName;
+    public string spawnPointName;
     private Transform spawnPoint;
 
     //input booleans
@@ -943,6 +943,10 @@ public class PlayerScript : MonoBehaviour
             setSpawnPointName("L1S3");
             setSpawnPoint(GameObject.Find(getSpawnPointName()).GetComponent<Transform>());
         }
+        if (gm.StoryNumber >= 2f && gm.StoryNumber < 3f) {
+            setSpawnPointName("L2S1");
+            setSpawnPoint(GameObject.Find(getSpawnPointName()).GetComponent<Transform>());
+        }
 
 
     }
@@ -1094,7 +1098,7 @@ public class PlayerScript : MonoBehaviour
         //walking sound
         if (walkAnimation && !walkSound) {
             audioManager.Stop("FootstepsRun");
-            audioManager.Play("FootstepsWalk", true, 0.4f, 1);
+            audioManager.Play("FootstepsWalk", true, 0.01f, 1);
             walkSound = true;
         }
         else if (!walkAnimation) {
@@ -1105,7 +1109,7 @@ public class PlayerScript : MonoBehaviour
         //running sound
         if (runningAnimation && !runSound) {
             audioManager.Stop("FootstepsWalk");
-            audioManager.Play("FootstepsRun", true, 0.4f, 1.5f);
+            audioManager.Play("FootstepsRun", true, 0.03f, 1.5f);
             runSound = true;
         }
         else if (!runningAnimation) {
