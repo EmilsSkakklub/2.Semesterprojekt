@@ -33,8 +33,22 @@ public class AudioManager : MonoBehaviour
         s.source.Play();
     }
 
+    public void PlayOneShot(string name, bool loop, float volume, float pitch, AudioClip clip) {
+        Sound s = Array.Find(sounds, sounds => sounds.name == name);
+        s.source.volume = volume;
+        s.source.pitch = pitch;
+        s.source.loop = loop;
+        s.source.PlayOneShot(clip);
+    }
+
     public void Stop(string name) {
         Sound s = Array.Find(sounds, sounds => sounds.name == name);
         s.source.Stop();
     }
+
+    public Sound GetSound(string name) {
+        Sound s = Array.Find(sounds, sounds => sounds.name == name);
+        return s;
+    }
+
 }

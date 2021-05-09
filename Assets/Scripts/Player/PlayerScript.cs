@@ -128,6 +128,7 @@ public class PlayerScript : MonoBehaviour
     private bool idleAnimation;
     private bool walkAnimation;
     private bool runningAnimation;
+    public bool crouchWalkAnimation;
     private bool attackAnimation1;
     private bool attackAnimation2;
     private bool attackAnimation3;
@@ -287,6 +288,7 @@ public class PlayerScript : MonoBehaviour
         idleAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Idle");
         walkAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Walk");
         runningAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Run");
+        crouchWalkAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("CrouchWalk");
         deathAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Death");
         hitAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Hit");
         
@@ -1092,11 +1094,17 @@ public class PlayerScript : MonoBehaviour
     //bools for only playing sounds once
     public bool walkSound;
     public bool runSound;
+    public bool crouchSound;
+    public bool punch1Sound;
+    public bool punch2Sound;
+    public bool punch3Sound;
+    public bool punch4Sound;
 
 
     private void SoundManager() {
         //walking sound
         if (walkAnimation && !walkSound) {
+            audioManager.Stop("FootstepsCrouch");
             audioManager.Stop("FootstepsRun");
             audioManager.Play("FootstepsWalk", true, 0.01f, 1);
             walkSound = true;
@@ -1108,6 +1116,7 @@ public class PlayerScript : MonoBehaviour
 
         //running sound
         if (runningAnimation && !runSound) {
+            audioManager.Stop("FootstepsCrouch");
             audioManager.Stop("FootstepsWalk");
             audioManager.Play("FootstepsRun", true, 0.03f, 1.5f);
             runSound = true;
@@ -1116,14 +1125,59 @@ public class PlayerScript : MonoBehaviour
             audioManager.Stop("FootstepsRun");
             runSound = false;
         }
+        
+        //crouch sound
+        if(crouchWalkAnimation && !crouchSound) {
+            audioManager.Stop("FootstepsRun");
+            audioManager.Stop("FootstepsWalk");
+            audioManager.Play("FootstepsCrouch", true, 0.01f, 0.75f);
+            crouchSound = true;
+        }
+        else if (!crouchWalkAnimation) {
+            audioManager.Stop("FootstepsCrouch");
+            crouchSound = false;
+        }
 
 
 
 
+        if((attackAnimation1) && !punch1Sound) {
+            audioManager.Play("Punch1", true, 0.05f, 0.75f);
+            punch1Sound = true;
+        }
+        else if (!attackAnimation1) {
+            audioManager.Stop("Punch1");
+            punch1Sound = false;
+        }
 
+        if(attackAnimation2 && !punch2Sound) {
+            audioManager.Play("Punch2", true, 0.05f, 0.9f);
+            punch2Sound = true;
+        }
+        else if (!attackAnimation2) {
+            audioManager.Stop("Punch2");
+            punch2Sound = false;
+        }
 
+        if (attackAnimation3 && !punch3Sound) {
+            audioManager.Play("Punch3", true, 0.05f, 0.65f);
+            punch3Sound = true;
+        }
+        else if (!attackAnimation3) {
+            audioManager.Stop("Punch3");
+            punch3Sound = false;
+        }
 
+        if (attackAnimation4 && !punch4Sound) {
+            audioManager.Play("Punch4", true, 0.05f, 0.6f);
+            punch4Sound = true;
+        }
+        else if (!attackAnimation4) {
+            audioManager.Stop("Punch4");
+            punch4Sound = false;
+        }
     }
+
 
     //getters and setters
     public Animator getAnimator() {

@@ -19,4 +19,10 @@ public class Sound
     public AudioSource source;
 
     public bool loop;
+
+    public void SetSoundSettings(bool loop, float volume, float pitch) {
+        source.loop = loop;
+        source.volume = volume;
+        source.pitch = pitch;
+    }
 }

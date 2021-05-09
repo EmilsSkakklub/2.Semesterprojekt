@@ -728,7 +728,7 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 557a7928189d9fb4188d2b0ddcf184a8, type: 2}
-  m_Tag: 
+  m_Tag: CrouchWalk
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 

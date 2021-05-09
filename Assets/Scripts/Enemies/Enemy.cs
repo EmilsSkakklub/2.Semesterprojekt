@@ -16,7 +16,7 @@ public abstract class Enemy : MonoBehaviour
     private Transform cameraTransform;
     private CharacterController controller;
 
-    private AudioManager audioManager;
+    protected AudioManager audioManager;
 
     private Vector3 velocity;
     private float gravity = -9.81f;
@@ -27,7 +27,7 @@ public abstract class Enemy : MonoBehaviour
     private float MinDistance = 1f;
 
     //indicate what animation is playing
-    private bool walkAnimation;
+    public bool walkAnimation;
     private bool deadAnimation;
     private bool attackAnimation;
     private bool hitAnimation;
@@ -45,6 +45,7 @@ public abstract class Enemy : MonoBehaviour
     private float attackRange = 0.8f;
     public LayerMask playerLayers;
     public bool hit = true;
+    public bool isHit;
     private float attackTimer = 0;
     private float attackStart = 0.5f;
     private float attackEnd = 1f;
@@ -88,6 +89,7 @@ public abstract class Enemy : MonoBehaviour
         audioManager = GameObject.Find("GameManager").GetComponent<AudioManager>();
 
         setAnimationHashCodes();
+
     }
 
     protected void initUpdate() {
@@ -101,6 +103,8 @@ public abstract class Enemy : MonoBehaviour
         attack();
         die();
         updateVisionCone();
+
+        SoundManager();
     }
 
     private void setAnimationHashCodes() {
@@ -149,21 +153,29 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    private bool hitSound;
 
+
+
+
+    public bool hitSound;
 
     public void takeDamage(int damage) {
         if (!hitSound) {
-            audioManager.Play("HitWood", false,0.1f, Random.Range(0.8f, 3));
+            audioManager.Play("HitWood", false, 0.05f, Random.Range(0.8f, 3));
             hitSound = true;
         }
         hitSound = false;
+
 
         if (!isDead) {
             setDetectedPlayer(true);
             animator.SetBool(isHitHash, true);
             health -= damage;
         }
+    }
+
+    public void ResetIsHit() {
+        isHit = false;
     }
 
     private void die() {
@@ -280,6 +292,25 @@ public abstract class Enemy : MonoBehaviour
         healthSlider.value = health;
         healthSlider.transform.rotation = cameraTransform.transform.rotation;
     }
+
+
+
+
+
+    public bool walkingSound;
+    
+
+    protected void SoundManager() {
+
+    }
+
+
+
+
+
+
+
+
 
 
     //getters and setters

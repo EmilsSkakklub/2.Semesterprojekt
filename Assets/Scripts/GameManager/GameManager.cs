@@ -211,17 +211,49 @@ public class GameManager : MonoBehaviour
         enemies.Clear();
     }
 
-
-    public bool musicPlaying;
+    public bool music0Playing;
+    public bool music1Playing;
+    public bool music2Playing;
+    public bool music3Playing;
 
 
     public void MusicManager() {
         string level = playerScript.getSpawnPointName();
-        if (level.Contains("L3") && !musicPlaying) {
-            audioManager.Play("Level3Music", true, 0.1f, 0.75f);
-            musicPlaying = true;
+        if (level.Contains("L0") && !music0Playing) {
+            audioManager.Play("Level0Music", true, 0.05f, 1f);
+            music0Playing = true;
+        }
+        else if (!level.Contains("L0")) {
+            audioManager.Stop("Level0Music");
+            music0Playing = false;
         }
 
+        if (level.Contains("L1") && !music1Playing) {
+            audioManager.Play("Level1Music", true, 0.1f, 1f);
+            music1Playing = true;
+        }
+        else if (!level.Contains("L1")) {
+            audioManager.Stop("Level1Music");
+            music1Playing = false;
+        }
+
+        if (level.Contains("L2") && !music2Playing) {
+            audioManager.Play("Level2Music", true, 0.1f, 1f);
+            music2Playing = true;
+        }
+        else if (!level.Contains("L2")) {
+            audioManager.Stop("Level2Music");
+            music2Playing = false;
+        }
+
+        if (level.Contains("L3") && !music3Playing) {
+            audioManager.Play("Level3Music", true, 0.1f, 0.75f);
+            music3Playing = true;
+        }
+        else if (!level.Contains("L3")) {
+            audioManager.Stop("Level3Music");
+            music3Playing = false;
+        }
     }
 
 }
