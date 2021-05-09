@@ -63,7 +63,7 @@ public abstract class LevelChanger : MonoBehaviour
 
     public void PlayerSound(string name) {
         if (interaction.getStartInteraction() && !soundPlayer) {
-            audioManager.Play(name, false, 1, 1);
+            audioManager.Play(name, false, 0.1f, 1);
             soundPlayer = true;
         }
     }

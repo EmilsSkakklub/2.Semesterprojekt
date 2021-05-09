@@ -154,7 +154,7 @@ public abstract class Enemy : MonoBehaviour
 
     public void takeDamage(int damage) {
         if (!hitSound) {
-            audioManager.Play("HitWood", false,0.5f, Random.Range(0.8f, 3));
+            audioManager.Play("HitWood", false,0.1f, Random.Range(0.8f, 3));
             hitSound = true;
         }
         hitSound = false;

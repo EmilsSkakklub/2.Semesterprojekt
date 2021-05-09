@@ -218,7 +218,7 @@ public class GameManager : MonoBehaviour
     public void MusicManager() {
         string level = playerScript.getSpawnPointName();
         if (level.Contains("L3") && !musicPlaying) {
-            audioManager.Play("Level3Music", true, 0.3f, 0.75f);
+            audioManager.Play("Level3Music", true, 0.1f, 0.75f);
             musicPlaying = true;
         }
 
