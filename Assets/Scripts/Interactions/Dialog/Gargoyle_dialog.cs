@@ -14,7 +14,7 @@ public class Gargoyle_dialog : Dialog
         newDialogLine("Who dares to enter my domain?", 4);
         newDialogLine("Ahhh! It talks!", 1); 
         newDialogLine("Who are you?", 4);
-        newDialogLine("It is I, Dio!!!", 2);
+        newDialogLine("M- my name is Arthur.", 1);
         newDialogLine("Tell me, what do you want?", 4);
         newDialogLine("I'm looking for my brother.", 0);
         newDialogLine("He's a bit shorter than me and has brown hair.", 0);
