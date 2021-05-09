@@ -10,6 +10,7 @@ public class lb_move : MonoBehaviour
     GameManager gm;
     Transform lbTrans;
     Animator animator;
+    AudioManager audioManager;
 
     GameObject g1;
     GameObject g2;
@@ -48,6 +49,7 @@ public class lb_move : MonoBehaviour
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         lbTrans = GameObject.Find("LittleBro").GetComponent<Transform>();
         animator = GameObject.Find("LB@Idle").GetComponent<Animator>();
+        audioManager = GameObject.Find("GameManager").GetComponent<AudioManager>();
 
         g1 = GameObject.Find("Goal1");
         g2 = GameObject.Find("Goal2");
@@ -67,6 +69,8 @@ public class lb_move : MonoBehaviour
     void Update()
     {
         StartCoroutine(LbMoving());
+        SoundManager();
+
         walkingAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Walking");
         runningAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Running");
 
@@ -187,6 +191,34 @@ public class lb_move : MonoBehaviour
             check7 = true;
         }
         yield return null;
+    }
+
+
+
+    private bool walkingSound;
+    private bool runningSound;
+
+
+    private void SoundManager() {
+        if(walkingAnimation && !walkingSound) {
+            audioManager.Play("LBWalk", true, 0.01f, 1f);
+            audioManager.Stop("LBRun");
+            walkingSound = true;
+        }
+        else if (!walkingAnimation) {
+            audioManager.Stop("LBWalk");
+            walkingSound = false;
+        }
+
+        if(runningAnimation && !runningSound) {
+            audioManager.Play("LBRun", true, 0.03f, 1.5f);
+            audioManager.Stop("LBWalk");
+            runningSound = true;
+        }
+        else if (!runningAnimation) {
+            audioManager.Stop("LBRun");
+            runningSound = false;
+        }
     }
 
 

@@ -856,7 +856,7 @@ public class PlayerScript : MonoBehaviour
     }
     private IEnumerator StoryChanger() {
 
-        if (gm.StoryNumber < 1.0f) {
+        if (spawnPointName.Contains("L0")) {
             colliderLegs.enabled = true;
         }
         else {
