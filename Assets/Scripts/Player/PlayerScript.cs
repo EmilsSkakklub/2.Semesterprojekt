@@ -277,9 +277,9 @@ public class PlayerScript : MonoBehaviour
             rightPressed = Input.GetKey(KeyCode.D);
             jumpPressed = Input.GetKeyDown(KeyCode.Space);
             attackPressed = Input.GetMouseButtonDown(0);
-            crouchPressed = Input.GetKeyDown(KeyCode.C);
+            crouchPressed = Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.LeftControl);
             rollPressed = Input.GetMouseButtonDown(1);
-            inventoryPressed = Input.GetKeyDown(KeyCode.Tab);
+            inventoryPressed = Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.B);
         }
     }
 
