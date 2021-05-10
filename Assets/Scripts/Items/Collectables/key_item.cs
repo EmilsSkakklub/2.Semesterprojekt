@@ -24,7 +24,9 @@ public class key_item : Item
     }
 
     public override void useItem() {
+        print("KEY USED");
         if (useKey.isIntheBox) {
+            print("it worked!");
             bigDoor.SetActive(false);
             setIsConsumable(true);
         }
