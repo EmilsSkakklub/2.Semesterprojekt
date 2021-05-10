@@ -27,6 +27,9 @@ EditorBuildSettings:
     path: Assets/Scenes/LevelHouse.unity
     guid: 01ce4094efd769c49b70319996fce732
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: f3bd34e4f8e77db4c99d5b095dc5309d
+  - enabled: 1
     path: Assets/Scenes/World.unity
     guid: 220d761de09f99349a2ff3949507a277
   m_configObjects: {}

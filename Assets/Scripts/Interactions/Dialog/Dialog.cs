@@ -60,7 +60,7 @@ public abstract class Dialog : MonoBehaviour {
             playerScript.lookAtTarget(this.transform);
             if (Input.GetKeyDown(KeyCode.E)) {
                 incrementDialogNumber();
-                audioManager.Play("InteractSound", false, 0.5f, 1); //play the sound
+                audioManager.Play("InteractSound", false, 0.1f, 1); //play the sound
             }
             if (dialogNumber < maxNumber) {
                 dialogText.text = dialogLines[dialogNumber];
