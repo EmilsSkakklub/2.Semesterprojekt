@@ -11,6 +11,7 @@ public abstract class Dialog : MonoBehaviour {
     private GameObject textBubble;
     private Text dialogText;
     private PlayerScript playerScript;
+    private AudioManager audioManager;
 
     public Sprite[] sprites;
     public List<string> dialogLines = new List<string>();
@@ -33,6 +34,7 @@ public abstract class Dialog : MonoBehaviour {
         spriteRenderer = GameObject.Find("TextBubble").GetComponent<SpriteRenderer>();
         dialogText = GameObject.Find("DialogText").GetComponent<Text>();
         playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
+        audioManager = GameObject.Find("GameManager").GetComponent<AudioManager>();
 
         player = GameObject.Find("Player").GetComponent<Transform>();
         NPC = transform.parent.gameObject.transform;
@@ -58,6 +60,7 @@ public abstract class Dialog : MonoBehaviour {
             playerScript.lookAtTarget(this.transform);
             if (Input.GetKeyDown(KeyCode.E)) {
                 incrementDialogNumber();
+                audioManager.Play("InteractSound", false, 0.5f, 1); //play the sound
             }
             if (dialogNumber < maxNumber) {
                 dialogText.text = dialogLines[dialogNumber];

@@ -20,5 +20,6 @@ public class EnegyBottle_Item : Item
 
     public override void useItem() {
         player.EnergyBuff();
+        audioManager.Play("EnergySound", false, 0.5f, 1);
     }
 }

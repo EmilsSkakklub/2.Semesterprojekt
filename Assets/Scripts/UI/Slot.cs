@@ -35,11 +35,10 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler {
             if (isOccupied) {
                 item.useItem();
                 item.setItemUsed(true);
-                audioManager.Play("UIClick", false, 0.025f, 1f);
             }
             else if (!isOccupied) {
                 print(index + " is empty");
-                audioManager.Play("UIClick", false, 0.025f, 1f);
+                audioManager.Play("UIClick", false, 0.1f, 1f);
             }
         }
     }

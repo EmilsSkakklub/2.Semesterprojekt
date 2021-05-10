@@ -20,6 +20,7 @@ public class Apple_Item : Item
     }
     public override void useItem() {
         player.heal(4);
+        audioManager.Play("AppleSound", false, 0.5f, 1);
     }
 
 }
