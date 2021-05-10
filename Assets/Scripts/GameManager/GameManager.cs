@@ -27,6 +27,10 @@ public class GameManager : MonoBehaviour
     GameObject stamina;
     GameObject objective;
 
+    public Material SkyLvl0;
+    public Material SkyLvl2;
+    public Material SkyLvl3;
+
     Text obText;
 
     //singelton pattern
@@ -220,6 +224,7 @@ public class GameManager : MonoBehaviour
     public void MusicManager() {
         string level = playerScript.getSpawnPointName();
         if (level.Contains("L0") && !music0Playing) {
+            RenderSettings.skybox = SkyLvl0;
             audioManager.Play("Level0Music", true, 0.01f, 1f);
             music0Playing = true;
         }
@@ -239,6 +244,7 @@ public class GameManager : MonoBehaviour
 
         if (level.Contains("L2") && !music2Playing) {
             audioManager.Play("Level2Music", true, 0.1f, 1f);
+            RenderSettings.skybox = SkyLvl2;
             music2Playing = true;
         }
         else if (!level.Contains("L2")) {
@@ -247,6 +253,7 @@ public class GameManager : MonoBehaviour
         }
 
         if (level.Contains("L3") && !music3Playing) {
+            RenderSettings.skybox = SkyLvl3;
             audioManager.Play("Level3Music", true, 0.1f, 0.75f);
             music3Playing = true;
         }
