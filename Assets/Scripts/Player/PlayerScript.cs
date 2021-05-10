@@ -629,9 +629,19 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    private bool deathSound;
+
     public void Die() {
         if(HP <= 0) {
+            if (!deathSound) {
+                audioManager.Play("PlayerDeathSound", false, 0.1f, 1);
+                deathSound = true;
+            }
             respawner.respawnPlayer();
+        }
+
+        if(HP == 8) {
+            deathSound = false;
         }
     }
 

@@ -10,7 +10,7 @@ public class BossTreeSpirit : Enemy
     void Start()
     {
         theKey = GameObject.Find("key").GetComponent<Item>();
-        initStart("BossTree",2, 100, 2f, 1.5f, 10f);
+        initStart("BossTree",2, 100, 2f, 1.5f, 10f, "HitWood");
     }
 
     // Update is called once per frame
