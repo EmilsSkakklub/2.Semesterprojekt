@@ -13,10 +13,12 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler {
     public Image spriteRender;
     public Tooltip tooltip;
     public PlayerScript player;
+    private AudioManager audioManager;
 
     void Awake() {
         spriteRender = gameObject.transform.Find("SpriteRender").GetComponent<Image>();
         tooltip = GameObject.Find("Tooltip").GetComponent<Tooltip>();
+        audioManager = GameObject.Find("GameManager").GetComponent<AudioManager>();
     }
 
     
@@ -33,9 +35,11 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler {
             if (isOccupied) {
                 item.useItem();
                 item.setItemUsed(true);
+                audioManager.Play("UIClick", false, 0.025f, 1f);
             }
             else if (!isOccupied) {
                 print(index + " is empty");
+                audioManager.Play("UIClick", false, 0.025f, 1f);
             }
         }
     }
@@ -44,6 +48,7 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler {
         if (!isOccupied) {
             tooltip.setText1(null);
             tooltip.setText2(null);
+            
         }
         if (isOccupied) {
             tooltip.setText1(item);
