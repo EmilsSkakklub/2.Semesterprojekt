@@ -13,7 +13,7 @@ public class key_item : Item
     {
         inventory = GameObject.Find("Player").GetComponent<Inventory>();
         useKey = GameObject.Find("UseTheKey").GetComponent<UseKeyAtBigDoor>();
-        bigDoor = GameObject.Find("BigDoor");
+        bigDoor = GameObject.Find("BigGate");
         initStart("Golden key",false, false, "A golden key. Maybe it opens something?");
     }
 
