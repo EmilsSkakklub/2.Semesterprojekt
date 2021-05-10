@@ -13,7 +13,7 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler {
     public Image spriteRender;
     public Tooltip tooltip;
     public PlayerScript player;
-    private AudioManager audioManager;
+    public AudioManager audioManager;
 
     void Awake() {
         spriteRender = gameObject.transform.Find("SpriteRender").GetComponent<Image>();
