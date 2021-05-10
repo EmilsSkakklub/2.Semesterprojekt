@@ -17,7 +17,7 @@ public class CreepyTwitch : MonoBehaviour
     void Start()
     {
         posOffset = transform.position;
-        InvokeRepeating("GetRandomNumber", 0f, 0.5f);
+        InvokeRepeating("GetRandomNumber", 0f, 0.05f);
     }
 
     // Update is called once per frame
@@ -29,7 +29,7 @@ public class CreepyTwitch : MonoBehaviour
 
     private void Twitch() {
        
-        if(randomNum <= 2) {
+        if(randomNum <= 5) {
             startTwitching = true;
         }
 
@@ -47,6 +47,6 @@ public class CreepyTwitch : MonoBehaviour
     }
 
     private void GetRandomNumber() {
-        randomNum = Random.Range(0, 15);
+        randomNum = Random.Range(0, 1000);
     }
 }
