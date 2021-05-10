@@ -74,10 +74,12 @@ public abstract class Item : MonoBehaviour
     public void toggleWeapon(Weapon weapon) {
         if (player.getEquipedWeapon() == null) {
             weapon.equip();
+            audioManager.Play("EquipSound", false, 0.25f, 1);
             player.getInventory().getWeaponSlot().setItem(this);
         }
         else if (player.getEquipedWeapon() == weapon) {
             weapon.dequip();
+            audioManager.Play("EquipSound", false, 0.25f, 1);
             player.getInventory().getWeaponSlot().setItem(null);
         }
         else if (player.getEquipedWeapon() != weapon) {

@@ -22,7 +22,7 @@ public class waterbottle_Item : Item
     public override void useItem() {
         player.StaminaBuff();
         player.setStamina(10);
-        audioManager.Play("WaterBottleSound", false, 0.1f, 1.2f);
+        audioManager.Play("WaterBottleSound", false, 0.3f, 1.2f);
     }
 
 
