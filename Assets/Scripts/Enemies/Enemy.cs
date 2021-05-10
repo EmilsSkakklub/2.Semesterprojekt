@@ -64,9 +64,9 @@ public abstract class Enemy : MonoBehaviour
     private float surroundVisionConeAngle = 360;
     public bool hasDetectedPlayer;
 
+    public string theHitSound;
 
-
-    protected void initStart(string enemyName, int attackDamage, int maxHealth, float moveSpeed, float attackRange, float visionRange) {
+    protected void initStart(string enemyName, int attackDamage, int maxHealth, float moveSpeed, float attackRange, float visionRange, string theHitSound) {
 
         gameObject.tag = "Enemy";
         gameObject.layer = LayerMask.NameToLayer("Enemy");
@@ -80,6 +80,7 @@ public abstract class Enemy : MonoBehaviour
         setAttackRange(attackRange);
         setVisionRange(visionRange);
         setRemoveTimer(3);
+        setTheHitSound(theHitSound);
 
         player = GameObject.Find("Player").GetComponent<PlayerScript>();
         animator = GetComponent<Animator>();
@@ -161,7 +162,7 @@ public abstract class Enemy : MonoBehaviour
 
     public void takeDamage(int damage) {
         if (!hitSound) {
-            audioManager.Play("HitWood", false, 0.05f, Random.Range(0.8f, 3));
+            audioManager.Play(theHitSound, false, 0.05f, Random.Range(0.8f, 2));
             hitSound = true;
         }
         hitSound = false;
@@ -374,6 +375,10 @@ public abstract class Enemy : MonoBehaviour
 
     public void setVisionRange(float visionRange) {
         this.visionRange = visionRange;
+    }
+
+    public void setTheHitSound(string theHitSound) {
+        this.theHitSound = theHitSound;
     }
 
     

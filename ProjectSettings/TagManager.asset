@@ -13,6 +13,9 @@ TagManager:
   - Football
   - Spikes
   - StoryChanger
+  - Play
+  - Quit
+  - Resume
   layers:
   - Default
   - TransparentFX
