@@ -8,7 +8,7 @@ public class shelf_dialog : Dialog
     void Start()
     {
         initStart(false);
-        newDialogLine("Nothing usefull here", 0);
+        newDialogLine("Nothing useful here.", 0);
     }
 
     // Update is called once per frame
