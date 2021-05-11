@@ -5,7 +5,7 @@ using UnityEngine;
 public class Racecar_item : Item
 {
     public override void useItem() {
-        print("A toy car");
+        print("Toy Car");
     }
 
     // Start is called before the first frame update

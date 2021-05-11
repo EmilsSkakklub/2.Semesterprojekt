@@ -104,6 +104,7 @@ public abstract class Enemy : MonoBehaviour
         attack();
         die();
         updateVisionCone();
+        removeCanvas();
 
         SoundManager();
     }
@@ -116,6 +117,13 @@ public abstract class Enemy : MonoBehaviour
         walkSpeedHash = Animator.StringToHash("walkSpeed");
     }
 
+    private void removeCanvas() {
+        if (health <= 0 || Vector3.Distance(transform.position, player.transform.position) > 10) {
+            GetComponentInChildren<Canvas>().enabled = false;
+        } else {
+            GetComponentInChildren<Canvas>().enabled = true;
+        }
+    }
     private void getCurrentAnimationPlaying() {
         walkAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Walk");
         deadAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Dead");

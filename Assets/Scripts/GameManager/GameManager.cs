@@ -8,8 +8,10 @@ public class GameManager : MonoBehaviour
 {
 
     private PlayerScript playerScript;
+    private GameObject player;
     private AudioManager audioManager;
     private Animator transition;
+    
 
     public List<GameObject> enemies = new List<GameObject>();
     public List<GameObject> enemiesInCombat = new List<GameObject>();
@@ -48,6 +50,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("Player");
         playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
         audioManager = GetComponent<AudioManager>();
         transition = GameObject.Find("Crossfade").GetComponent<Animator>();
@@ -160,7 +163,6 @@ public class GameManager : MonoBehaviour
             break;
         }
 }
-
     private void updateEnemyLists() {
         //add enemies to list when loading new scene
         if (enemies.Count == 0) {

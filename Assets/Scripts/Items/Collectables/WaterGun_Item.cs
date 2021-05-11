@@ -11,7 +11,7 @@ public class WaterGun_Item : Item
     // Start is called before the first frame update
     void Start()
     {
-        initStart("Water Gun", false, false, "My old water gun. Pew Pew!");
+        initStart("Water Gun", false, false, "My old water gun. There's still water in it! Pew Pew.");
     }
 
     // Update is called once per frame

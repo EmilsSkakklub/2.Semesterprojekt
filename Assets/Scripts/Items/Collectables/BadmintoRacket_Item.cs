@@ -11,7 +11,7 @@ public class BadmintoRacket_Item : Item
     // Start is called before the first frame update
     void Start()
     {
-        initStart("Badminton Racket", false, false, "I haven't played badminton for a while.");
+        initStart("Racket", false, false, "I haven't played badminton for a while.");
     }
 
     // Update is called once per frame

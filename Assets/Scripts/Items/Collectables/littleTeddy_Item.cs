@@ -11,7 +11,7 @@ public class littleTeddy_Item : Item
     // Start is called before the first frame update
     void Start()
     {
-        initStart("Little Brothers Teddy", false, false, "My little Brothers Teddy.");
+        initStart("Cuddles", false, false, "My little brother's teddy bear.");
     }
 
     // Update is called once per frame
