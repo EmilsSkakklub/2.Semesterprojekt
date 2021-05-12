@@ -194,7 +194,6 @@ public abstract class Enemy : MonoBehaviour
             if (deadAnimation) {
                 animator.SetBool(isDeadHash, false);
                 removeTimer -= Time.deltaTime;
-                
             }
             if(removeTimer <= 0) {
                 Destroy(gameObject);
