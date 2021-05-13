@@ -15,6 +15,6 @@ public class GoToLvl2 : LevelChanger
     void Update()
     {
         StartCoroutine(ChangeLevel(0.1f));
-        
+        ChangeStoryNumber(11);
     }
 }

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class WaterGun_Item : Item
 {
+
+    
     public override void useItem() {
-        throw new System.NotImplementedException();
+        
     }
 
     // Start is called before the first frame update
@@ -17,6 +19,6 @@ public class WaterGun_Item : Item
     // Update is called once per frame
     void Update()
     {
-        initUpdate();   
+        initUpdate();
     }
 }

@@ -206,6 +206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: eacb6223aaf87714b9b1e405b4dd201e, type: 3}
   player: {fileID: 0}
+  audioManager: {fileID: 0}
   itemName: 
   description: 
   weapon: {fileID: 1948068521246106787, guid: fb007f78cfae2594182ea4fb52babda8, type: 3}

@@ -22,6 +22,8 @@ public class Inventory : MonoBehaviour
     bool GotTeddy;
     bool GotBackPack;
 
+    public Item waterGun;
+
     void OnEnable() {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
@@ -41,6 +43,9 @@ public class Inventory : MonoBehaviour
         initializeSlots();
     }
 
+    private void Start() {
+        waterGun = GameObject.Find("waterGun").GetComponent<Item>();
+    }
 
     // Update is called once per frame
     void Update()

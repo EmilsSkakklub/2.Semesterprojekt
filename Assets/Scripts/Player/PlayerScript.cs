@@ -11,6 +11,7 @@ public class PlayerScript : MonoBehaviour
     private Animator animator;
     private Transform cam;
     private GameManager gm;
+    private ObjectiveChanger objectiveChanger;
     private Transform playerTrans;
     private LayerMask groundMask;
     private BoxCollider colliderLegs;
@@ -213,6 +214,7 @@ public class PlayerScript : MonoBehaviour
         animator = GetComponent<Animator>();
         cam = GameObject.Find("Main Camera").GetComponent<Transform>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        objectiveChanger = GameObject.Find("GameManager").GetComponent<ObjectiveChanger>();
         audioManager = GameObject.Find("GameManager").GetComponent<AudioManager>();
         InteractText = GameObject.Find("InteractText");
         textBubble = GameObject.Find("TextBubble");
@@ -875,18 +877,22 @@ public class PlayerScript : MonoBehaviour
 
 
         if (gm.StoryNumber == 0 && Vector3.Distance(playerTrans.position,grill.position)<3f && Vector3.Distance(lb.position,grill.position) < 3f) {
+            objectiveChanger.SetStoryNumber(1);
             gm.StoryNumber = 0.01f;
             gm.CheckStory = true;
         }
         if(gm.StoryNumber == 0.01f && isStealth) {
+            objectiveChanger.SetStoryNumber(2);
             gm.StoryNumber = 0.02f;
             gm.CheckStory = true;
         }
         if(gm.StoryNumber == 0.03f && Vector3.Distance(playerTrans.position,football.position)<1) {
+            objectiveChanger.SetStoryNumber(4);
             gm.StoryNumber = 0.04f;
             gm.CheckStory = true;
         }
         if (gm.StoryNumber == 0.04f && Vector3.Distance(playerTrans.position, g7.position) < 10 && Vector3.Distance(football.position, g7.position) < 10) {
+            objectiveChanger.SetStoryNumber(5);
             gm.StoryNumber = 0.05f;
             gm.CheckStory = true;
         }
@@ -908,6 +914,7 @@ public class PlayerScript : MonoBehaviour
                 yield return new WaitForSeconds(1f);
                 transition.SetBool("Start", false);
                 yield return new WaitForSeconds(1.5f);
+                objectiveChanger.SetStoryNumber(6);
                 gm.StoryNumber = 0.06f;
                 gm.CheckStory = true;
             }
@@ -927,6 +934,7 @@ public class PlayerScript : MonoBehaviour
                 transition.SetBool("Start", true);
                 yield return new WaitForSeconds(1);
                 transition.SetBool("Start", false);
+                objectiveChanger.SetStoryNumber(7);
                 gm.StoryNumber = 0.07f;
                 gm.CheckStory = true;
             }
