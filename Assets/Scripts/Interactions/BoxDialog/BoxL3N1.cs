@@ -12,7 +12,7 @@ public class BoxL3N1 : BoxDialog
         newDialogLine("He must be around here somewhere!", 3);
         newDialogLine("Arthur, I sense that this place is filled with some of our old toys.", 3);
         newDialogLine("We should find them all, this might help us find him.", 3);
-        newDialogLine("Hmm, you're ´probably right teddy.", 0);
+        newDialogLine("Hmm, you're probably right Teddy.", 0);
     }
 
     // Update is called once per frame
