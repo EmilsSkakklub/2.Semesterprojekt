@@ -5,6 +5,9 @@ using UnityEngine;
 
 public abstract class Item : MonoBehaviour
 {
+
+    public bool isInInventory;
+
     public Sprite sprite;
     public PlayerScript player;
     public AudioManager audioManager;
@@ -54,9 +57,9 @@ public abstract class Item : MonoBehaviour
                 audioManager.Play("Collect", false, 0.1f, 2);
                 soundPlayed = true;
             }
-
             inventory.addItem(this);
             gameObject.SetActive(false);
+            isInInventory = true;
         }
     }
 

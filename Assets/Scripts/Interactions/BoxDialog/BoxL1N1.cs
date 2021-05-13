@@ -17,6 +17,6 @@ public class BoxL1N1 : BoxDialog
     void Update()
     {
         initUpdate();
-
+        ChangeStoryNumber(10);
     }
 }

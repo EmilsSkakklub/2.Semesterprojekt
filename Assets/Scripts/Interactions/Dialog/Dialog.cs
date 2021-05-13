@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public abstract class Dialog : MonoBehaviour {
     protected Interaction interaction;
     protected GameManager gm;
+    protected ObjectiveChanger objectiveChanger;
     protected Inventory inventory;
     private SpriteRenderer spriteRenderer;
     private GameObject textBubble;
@@ -28,6 +29,7 @@ public abstract class Dialog : MonoBehaviour {
 
     protected void initStart(bool isNPC) {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        objectiveChanger = GameObject.Find("GameManager").GetComponent<ObjectiveChanger>();
         inventory = GameObject.Find("Player").GetComponent<Inventory>();
         interaction = GetComponent<Interaction>();
         textBubble = GameObject.Find("TextBubble");

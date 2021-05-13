@@ -61,10 +61,8 @@ public class GameManager : MonoBehaviour
         hp = GameObject.Find("HP");
         stamina = GameObject.Find("Stamina");
         objective = GameObject.Find("Objective");
-        obText = GameObject.Find("ObjectiveText").GetComponent<Text>();
+        //obText = GameObject.Find("ObjectiveText").GetComponent<Text>();
 
-        //save the player at the start of the game
-        //playerScript.savePlayer();
 
 
 
@@ -76,7 +74,7 @@ public class GameManager : MonoBehaviour
     private void Update() {
         updateEnemyLists();
         StartCoroutine(Cutscene1());
-        ObjectiveChanger();
+        //ObjectiveChanger();
         ImmobilizePlayer();
         MusicManager();
     }
@@ -124,7 +122,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
+    /*
     void ObjectiveChanger() {
         switch (StoryNumber) {
         case 0f:
@@ -162,7 +160,8 @@ public class GameManager : MonoBehaviour
             obText.text = "";
             break;
         }
-}
+    }
+    */
     private void updateEnemyLists() {
         //add enemies to list when loading new scene
         if (enemies.Count == 0) {

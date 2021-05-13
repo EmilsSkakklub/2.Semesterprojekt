@@ -10,13 +10,15 @@ public class BoxL3N1 : BoxDialog
         initStart(false);
         newDialogLine("This place really creeps me out.", 1);
         newDialogLine("He must be around here somewhere!", 3);
-        newDialogLine("Be brave!", 3);
-        newDialogLine("I'll try I guess...", 1);
+        newDialogLine("Arthur, I sense that this place is filled with some of our old toys.", 3);
+        newDialogLine("We should find them all, this might help us find him.", 3);
+        newDialogLine("Hmm, you're ´probably right teddy.", 0);
     }
 
     // Update is called once per frame
     void Update()
     {
         initUpdate();
+        
     }
 }

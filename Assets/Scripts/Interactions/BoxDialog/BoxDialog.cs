@@ -27,4 +27,11 @@ public abstract class BoxDialog : Dialog
             GetPlayerScript().setSpawnPoint(transform);
         }
     }
-}
+
+    protected void ChangeStoryNumber(int newStoryNumber) {
+        if (interaction.getStartInteraction()) {
+            objectiveChanger.SetStoryNumber(newStoryNumber);
+        }
+    }
+
+} 

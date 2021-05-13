@@ -8,6 +8,7 @@ public class lb_move : MonoBehaviour
     PlayerScript ps;
     Transform p;
     GameManager gm;
+    ObjectiveChanger objectiveChanger;
     Transform lbTrans;
     Animator animator;
     AudioManager audioManager;
@@ -47,6 +48,7 @@ public class lb_move : MonoBehaviour
         ps = GameObject.Find("Player").GetComponent<PlayerScript>();
         p = GameObject.Find("Player").GetComponent<Transform>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        objectiveChanger = GameObject.Find("GameManager").GetComponent<ObjectiveChanger>();
         lbTrans = GameObject.Find("LittleBro").GetComponent<Transform>();
         animator = GameObject.Find("LB@Idle").GetComponent<Animator>();
         audioManager = GameObject.Find("GameManager").GetComponent<AudioManager>();
@@ -89,6 +91,7 @@ public class lb_move : MonoBehaviour
 
         if (!interaction.getStartInteraction()) {
             if (gm.StoryNumber == 0) {
+                objectiveChanger.SetStoryNumber(0);
                 if (CalcDist1() > 1 && !check1) {
                     lbTrans.transform.LookAt(g1.transform);
                     lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 2.5f);
@@ -110,6 +113,7 @@ public class lb_move : MonoBehaviour
                 }
             }
             if (gm.StoryNumber == 0.02f) {
+                objectiveChanger.SetStoryNumber(2);
                 if (!check5) {
                     interaction.setStartInteraction(true);
                     check5 = true;
@@ -140,6 +144,7 @@ public class lb_move : MonoBehaviour
                     animator.SetBool(isWalkingHash, true);
                     if (CalcDist5() <= 0.2f && gm.StoryNumber == 0.02f) {
                         animator.SetBool(isWalkingHash, false);
+                        objectiveChanger.SetStoryNumber(3);
                         gm.StoryNumber = 0.03f;
                         gm.CheckStory = true;
                         check4 = true;
@@ -147,6 +152,7 @@ public class lb_move : MonoBehaviour
                 }
             }
             if (gm.StoryNumber == 0.04f) {
+                objectiveChanger.SetStoryNumber(4);
                 if (CalcDist6() > 1) {
                     lbTrans.transform.LookAt(g6.transform);
                     lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 2.5f);
@@ -161,32 +167,35 @@ public class lb_move : MonoBehaviour
             
 
             if (gm.StoryNumber == 0.08f) {
-                if(CalcDist10() > 1) {
+                objectiveChanger.SetStoryNumber(8);
+                if (CalcDist10() > 1) {
                     lbTrans.transform.LookAt(g10.transform);
                     lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 1.5f);
                     animator.SetBool(isWalkingHash, true);
                 }
                 if(CalcDist10() < 1 && !check8) {
                     animator.SetBool(isWalkingHash, false);
+                    objectiveChanger.SetStoryNumber(9);
                     gm.StoryNumber = 0.09f;
                     gm.CheckStory = true;
                     check8 = true;
                 }
             }
-
-
         }
         if (gm.StoryNumber == 0.07f) {
+            objectiveChanger.SetStoryNumber(7);
             if (interaction.getStartInteraction()) {
                 switchNow = true;
                 while (interaction.getStartInteraction()) yield return null;
             }
             if (switchNow) {
+                objectiveChanger.SetStoryNumber(8);
                 gm.StoryNumber = 0.08f;
                 gm.CheckStory = true;
             }
         }
         if (gm.StoryNumber == 0.06f && !check7) {
+            objectiveChanger.SetStoryNumber(6);
             interaction.setStartInteraction(true);
             check7 = true;
         }

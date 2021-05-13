@@ -15,6 +15,7 @@ public class Level_3_Loader : LevelChanger
     {
         if (interaction.getStartInteraction()) {
             StartCoroutine(ChangeLevel(0.1f));
+            ChangeStoryNumber(12);
         }
     }
 
