@@ -54,7 +54,7 @@ public class ObjectiveChanger : MonoBehaviour
         toys.Add(littleTeddy);
     }
 
-    //u´sed for the 5 toys
+    //used for the 5 toys
     private void CheckToyInInventory() {
         for(int i = 0; i < toys.Count; i++) {
             if (toys[i].isInInventory && !toysInInventory.Contains(toys[i])) {
@@ -69,7 +69,7 @@ public class ObjectiveChanger : MonoBehaviour
 
         NewObjective("- Press E to interact\n- Run to the grill.");
         NewObjective("- Talk to your brother.\n- Find some tall grass to hide in.\n\n-Tip: Press C to crouch.");
-        NewObjective("- Stay hidden.\n- Tip: Use your mouse to look around.");
+        NewObjective("- Stay hidden.\n\n- Tip: Use your mouse to look around.");
         NewObjective("- Spook your brother.");
         NewObjective("- Get the ball to your brother.");
         NewObjective("");
