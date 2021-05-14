@@ -11,7 +11,7 @@ public class Football_item : Item
     // Start is called before the first frame update
     void Start()
     {
-        initStart("Football", false, false, "The ball I yeeted over the hedge.");
+        initStart("Football", false, false, "Increased defence against the neighbor.");
     }
 
     // Update is called once per frame

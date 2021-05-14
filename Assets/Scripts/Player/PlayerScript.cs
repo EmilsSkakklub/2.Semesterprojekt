@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class PlayerScript : MonoBehaviour
-{
+public class PlayerScript : MonoBehaviour {
     //major components
     private CharacterController controller;
     private Animator animator;
@@ -37,6 +36,13 @@ public class PlayerScript : MonoBehaviour
     //inventory
     private Inventory inventory;
     private bool openInventory = false;
+    public Item waterGun;
+    public Item raceCar;
+    public Item racket;
+    public Item footballItem;
+    public Item littleTeddy;
+
+    public Enemy neighbor;
 
     //movement
     Vector3 velocity;
@@ -45,6 +51,8 @@ public class PlayerScript : MonoBehaviour
     private float jumpHeight = .75f;
     private float gravity = -9.81f;
     private float speed = 2f;
+    private float walkSpeed = 2f;
+    private float runSpeed = 4f;
     private float SmoothTurn = 0.1f;
     private float TurnSmoothVelocity;
     private bool crouchingToggle = false;
@@ -61,7 +69,8 @@ public class PlayerScript : MonoBehaviour
     private GameObject keybinds;
 
     //HP System
-    public int HP = 8;
+    public int MaxHp = 8;
+    public int HP;
     private GameObject[] FullHearts = new GameObject[4];
     private GameObject[] HalfHearts = new GameObject[4];
     private GameObject[] EmptyHearts = new GameObject[4];
@@ -77,6 +86,11 @@ public class PlayerScript : MonoBehaviour
     private GameObject H2F;
     private GameObject H3F;
     private GameObject H4F;
+    private GameObject HEE;
+    private GameObject HEH;
+    private GameObject HEF;
+
+
 
     //stamina System
     public float Stamina;
@@ -93,7 +107,8 @@ public class PlayerScript : MonoBehaviour
 
     //combat system
     public int attackDamage;
-    public int bonusAttackDamage;
+    public int bonusAttackDamage = 0;
+    public int buffAttackDamage = 0;
     private bool isEnegyBuff;
     private float energyBuffTimer = 60f;
     private Transform attackpoint;
@@ -157,7 +172,7 @@ public class PlayerScript : MonoBehaviour
     private void Awake() {
         Singleton();
     }
-   
+
     private void Start() {
         initiate();
 
@@ -165,13 +180,12 @@ public class PlayerScript : MonoBehaviour
     private void FixedUpdate() {
         groundCheck();
     }
-    void Update()
-    {
+    void Update() {
         movement();
         checkCurrentAnimationPlaying();
         animatePlayer();
         inputManager();
-        
+
         updateHealth();
         updateDamage();
         RestartGame();
@@ -188,6 +202,7 @@ public class PlayerScript : MonoBehaviour
         updateWeapon();
 
         toggleInventory();
+        BuffPlayer();
 
         StartCoroutine(StoryChanger());
 
@@ -204,6 +219,8 @@ public class PlayerScript : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
     }
+
+
 
     //for initialization 
     private void initiate() {
@@ -234,6 +251,14 @@ public class PlayerScript : MonoBehaviour
         teddy = GameObject.Find("teddyInBag_interact").GetComponent<Interaction>();
         colliderLegs = GameObject.Find("mixamorig:Hips").GetComponent<BoxCollider>();
 
+        waterGun = GameObject.Find("waterGun").GetComponent<Item>();
+        raceCar = GameObject.Find("ToyRacecar").GetComponent<Item>();
+        racket = GameObject.Find("BadmintonRacket").GetComponent<Item>();
+        footballItem = GameObject.Find("Football(Item)").GetComponent<Item>();
+        littleTeddy = GameObject.Find("littleTeddy").GetComponent<Item>();
+
+        neighbor = GameObject.Find("Neighbor").GetComponent<Enemy>();
+
         ListOfInteractables = new List<GameObject>();
 
         isWalkingHash = Animator.StringToHash("isWalking");
@@ -255,19 +280,20 @@ public class PlayerScript : MonoBehaviour
         setAttackDamage(1);
         setMaxStamina(10);
         setStamina(maxStamina);
+        HP = MaxHp;
 
         setSpawnPointName("L0S1");
         setSpawnPoint(GameObject.Find(getSpawnPointName()).GetComponent<Transform>());
 
         keybinds.SetActive(false);
     }
-   /*
-    void Spawnpoint() {
-        spawnpoint = GameObject.Find(CurrentSpawnpoint).GetComponent<Transform>();
-        transform.position = new Vector3(spawnpoint.position.x, spawnpoint.position.y, spawnpoint.position.z);
-        transform.transform.Rotate(spawnpoint.eulerAngles.x, spawnpoint.eulerAngles.y, spawnpoint.eulerAngles.z);
-    }
-   */
+    /*
+     void Spawnpoint() {
+         spawnpoint = GameObject.Find(CurrentSpawnpoint).GetComponent<Transform>();
+         transform.position = new Vector3(spawnpoint.position.x, spawnpoint.position.y, spawnpoint.position.z);
+         transform.transform.Rotate(spawnpoint.eulerAngles.x, spawnpoint.eulerAngles.y, spawnpoint.eulerAngles.z);
+     }
+    */
 
     //checks the current input of the player
     private void inputManager() {
@@ -293,7 +319,7 @@ public class PlayerScript : MonoBehaviour
         crouchWalkAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("CrouchWalk");
         deathAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Death");
         hitAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Hit");
-        
+
         attackAnimation1 = animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack1");
         attackAnimation2 = animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack2");
         attackAnimation3 = animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack3");
@@ -322,8 +348,8 @@ public class PlayerScript : MonoBehaviour
 
                 //move a little faster while rolling
                 if (rollAnimation) {
-                    
-                    controller.Move(moveDir.normalized * speed* 1.5f * Time.deltaTime);
+
+                    controller.Move(moveDir.normalized * speed * 1.5f * Time.deltaTime);
                 }
                 //move slower when attacking
                 else if (attackAnimation1 || attackAnimation2 || attackAnimation3 || attackAnimation4) {
@@ -345,7 +371,7 @@ public class PlayerScript : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
-        if(isGrounded && velocity.y < 0) {
+        if (isGrounded && velocity.y < 0) {
             velocity.y = -2f;
         }
     }
@@ -370,7 +396,7 @@ public class PlayerScript : MonoBehaviour
         setCrouchToggle(false);
     }
 
-    private void animatePlayer(){
+    private void animatePlayer() {
         if (inDialog) {
             animator.SetBool(isWalkingHash, false);
             animator.SetBool(isRunningHash, false);
@@ -388,10 +414,10 @@ public class PlayerScript : MonoBehaviour
             if ((forwardPressed || backwardPressed || leftPressed || rightPressed) && runPressed && getStamina() > 0) {
                 animator.SetBool(isRunningHash, true);
                 setCrouchToggle(false);
-                speed = 4;
+                speed = runSpeed;
             } else {
                 animator.SetBool(isRunningHash, false);
-                speed = 2;
+                speed = walkSpeed;
             }
 
             //crouching animation
@@ -481,37 +507,33 @@ public class PlayerScript : MonoBehaviour
 
     private void attack() {
         Collider[] hitEnemies = Physics.OverlapSphere(attackpoint.position, attackRange, enemyLayers);
-        
+
         if (attackAnimation1 && hit1) {
             foreach (Collider enemy in hitEnemies) {
                 hit1 = false;
-                enemy.GetComponent<Enemy>().takeDamage(attackDamage + bonusAttackDamage);
-                print("Damage dealt: " + (attackDamage + bonusAttackDamage));
+                enemy.GetComponent<Enemy>().takeDamage(attackDamage + bonusAttackDamage + buffAttackDamage);
 
             }
         }
         if (attackAnimation2 && hit2) {
             foreach (Collider enemy in hitEnemies) {
                 hit2 = false;
-                enemy.GetComponent<Enemy>().takeDamage(attackDamage + bonusAttackDamage);
-                print("Damage dealt: " + (attackDamage + bonusAttackDamage));
+                enemy.GetComponent<Enemy>().takeDamage(attackDamage + bonusAttackDamage + buffAttackDamage);
             }
         }
         if (attackAnimation3 && hit3) {
             foreach (Collider enemy in hitEnemies) {
                 hit3 = false;
-                enemy.GetComponent<Enemy>().takeDamage(attackDamage + bonusAttackDamage);
-                print("Damage dealt: " + (attackDamage + bonusAttackDamage + 1));
+                enemy.GetComponent<Enemy>().takeDamage(attackDamage + bonusAttackDamage + buffAttackDamage + 1);
             }
         }
         if (attackAnimation4 && hit4) {
             foreach (Collider enemy in hitEnemies) {
                 hit4 = false;
-                enemy.GetComponent<Enemy>().takeDamage(attackDamage + bonusAttackDamage);
-                print("Damage dealt: " + (attackDamage + bonusAttackDamage + 1));
+                enemy.GetComponent<Enemy>().takeDamage(attackDamage + bonusAttackDamage + buffAttackDamage + 1);
             }
         }
-        if(!attackAnimation1 && !attackAnimation2 && !attackAnimation3 && !attackAnimation4 && !hitAnimation) {
+        if (!attackAnimation1 && !attackAnimation2 && !attackAnimation3 && !attackAnimation4 && !hitAnimation) {
             hit1 = true;
             hit2 = true;
             hit3 = true;
@@ -520,9 +542,9 @@ public class PlayerScript : MonoBehaviour
 
 
         //hitting bush
-        Collider[] hitBush = Physics.OverlapSphere(attackpoint.position, attackRange, bushLayer); 
+        Collider[] hitBush = Physics.OverlapSphere(attackpoint.position, attackRange, bushLayer);
         if (attackAnimation1 && hit1 && equipedWeapon != null) {
-            if(equipedWeapon.name == "woodenSword_weapon") {
+            if (equipedWeapon.name == "woodenSword_weapon") {
                 foreach (Collider bush in hitBush) {
                     hit1 = false;
                     bush.GetComponent<GreatBush>().takeDamage();
@@ -537,7 +559,7 @@ public class PlayerScript : MonoBehaviour
                 }
             }
         }
-    
+
         if (attackAnimation3 && hit3 && equipedWeapon != null) {
             if (equipedWeapon.name == "woodenSword_weapon") {
                 foreach (Collider bush in hitBush) {
@@ -563,7 +585,7 @@ public class PlayerScript : MonoBehaviour
     }
 
     private void OnDrawGizmosSelected() {
-        if(attackpoint == null) {
+        if (attackpoint == null) {
             return;
         }
         Gizmos.DrawWireSphere(attackpoint.position, attackRange);
@@ -595,46 +617,46 @@ public class PlayerScript : MonoBehaviour
     }
 
 
-    
+
     void RestartGame() {
         if (Input.GetKey(KeyCode.R) && !isDead) {
             respawnTimer += Time.deltaTime;
             if (respawnTimer > 2f) {
                 respawner.respawnPlayer();
             }
-        }   
+        }
     }
 
     private void OnTriggerEnter(Collider other) {
-        if(other.tag == "Spikes") {
+        if (other.tag == "Spikes") {
             respawner.respawnPlayer();
         }
-        if(other.tag == "StoryChanger") {
+        if (other.tag == "StoryChanger") {
             switch (gm.StoryNumber) {
-            case float sn when gm.StoryNumber <= 0.09f:
-                gm.StoryNumber = 1.00f;
-                teddy.setStartInteraction(true);
-                Destroy(other.gameObject);
-                break;
-            case 1.00f:
-                gm.StoryNumber = 1.01f;
-                teddy.setStartInteraction(true);
-                Destroy(other.gameObject);
-                break;
-            case 1.01f:
-                gm.StoryNumber = 1.02f;
-                teddy.setStartInteraction(true);
-                Destroy(other.gameObject);
-                break;
+                case float sn when gm.StoryNumber <= 0.09f:
+                    gm.StoryNumber = 1.00f;
+                    teddy.setStartInteraction(true);
+                    Destroy(other.gameObject);
+                    break;
+                case 1.00f:
+                    gm.StoryNumber = 1.01f;
+                    teddy.setStartInteraction(true);
+                    Destroy(other.gameObject);
+                    break;
+                case 1.01f:
+                    gm.StoryNumber = 1.02f;
+                    teddy.setStartInteraction(true);
+                    Destroy(other.gameObject);
+                    break;
             }
-            
+
         }
     }
 
     private bool deathSound;
 
     public void Die() {
-        if(HP <= 0) {
+        if (HP <= 0) {
             if (!deathSound) {
                 audioManager.Play("PlayerDeathSound", false, 0.1f, 1);
                 deathSound = true;
@@ -642,15 +664,15 @@ public class PlayerScript : MonoBehaviour
             respawner.respawnPlayer();
         }
 
-        if(HP == 8) {
+        if (HP == 8) {
             deathSound = false;
         }
     }
 
     public void heal(int health) {
         HP += health;
-        if(HP >= 8) {
-            HP = 8;
+        if (HP >= MaxHp) {
+            HP = MaxHp;
         }
     }
 
@@ -665,10 +687,10 @@ public class PlayerScript : MonoBehaviour
 
     private void updateDamage() {
         if (!isEnegyBuff) {
-            attackDamage = 1;
+            buffAttackDamage = 0;
         }
         else if (isEnegyBuff) {
-            attackDamage = 3;
+            buffAttackDamage = 2;
             if (energyBuffTimer > 0 && isEnegyBuff) {
                 energyBuffTimer -= Time.deltaTime;
                 if (energyBuffTimer <= 0) {
@@ -679,12 +701,10 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-
+    
     private void updateHealth() {
-        //First [i] = 4. i.e. the array goes from 4 - 3 - 2 - 1 - 0.
-  
         //First
-        if(HP == 8) {
+        if (HP == 8) {
             FullHearts[3].gameObject.SetActive(true);
             FullHearts[2].gameObject.SetActive(true);
             FullHearts[1].gameObject.SetActive(true);
@@ -695,7 +715,7 @@ public class PlayerScript : MonoBehaviour
             HalfHearts[1].gameObject.SetActive(false);
             HalfHearts[0].gameObject.SetActive(false);
         }
-        if(HP == 7) {
+        if (HP == 7) {
             FullHearts[3].gameObject.SetActive(false);
             FullHearts[2].gameObject.SetActive(true);
             FullHearts[1].gameObject.SetActive(true);
@@ -706,7 +726,7 @@ public class PlayerScript : MonoBehaviour
             HalfHearts[1].gameObject.SetActive(false);
             HalfHearts[0].gameObject.SetActive(false);
         }
-        if(HP == 6) {
+        if (HP == 6) {
             FullHearts[3].gameObject.SetActive(false);
             FullHearts[2].gameObject.SetActive(true);
             FullHearts[1].gameObject.SetActive(true);
@@ -772,7 +792,7 @@ public class PlayerScript : MonoBehaviour
             HalfHearts[1].gameObject.SetActive(false);
             HalfHearts[0].gameObject.SetActive(true);
         }
-        if (HP == 0) {
+        if (HP <= 0) {
             FullHearts[3].gameObject.SetActive(false);
             FullHearts[2].gameObject.SetActive(false);
             FullHearts[1].gameObject.SetActive(false);
@@ -785,7 +805,7 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    
+
 
     private void FillHeartsArrays() {
         H1E = GameObject.Find("H1 empty");
@@ -801,6 +821,12 @@ public class PlayerScript : MonoBehaviour
         H3F = GameObject.Find("H3 full");
         H4F = GameObject.Find("H4 full");
 
+        //extra hearts
+        HEE = GameObject.Find("HE empty");
+        HEH = GameObject.Find("HE half");
+        HEF = GameObject.Find("HE full");
+
+
         EmptyHearts[0] = H1E;
         EmptyHearts[1] = H2E;
         EmptyHearts[2] = H3E;
@@ -815,17 +841,16 @@ public class PlayerScript : MonoBehaviour
         FullHearts[1] = H2F;
         FullHearts[2] = H3F;
         FullHearts[3] = H4F;
-
-
     }
 
-    
+
+
 
 
 
     //interaction
     private IEnumerator Interact() {
-        if(ListOfInteractables.Count != 0) {
+        if (ListOfInteractables.Count != 0) {
             ClosestTarget = GetClosestEnemy().GetComponent<Interaction>();
 
             if (DistanceToClosestTarget() <= 1.5f && !ClosestTarget.getStartInteraction() && ClosestTarget.isActiveAndEnabled) {
@@ -843,12 +868,12 @@ public class PlayerScript : MonoBehaviour
             InteractText.SetActive(false);
             textBubble.SetActive(false);
         }
-        if(ListOfInteractables.Count == 0) {
+        if (ListOfInteractables.Count == 0) {
             foreach (GameObject interactable in GameObject.FindGameObjectsWithTag("Interactable")) {
                 ListOfInteractables.Add(interactable);
             }
         }
-        
+
         yield return null;
     }
     //finds the distance to the closest interactable target
@@ -876,17 +901,17 @@ public class PlayerScript : MonoBehaviour
         }
 
 
-        if (gm.StoryNumber == 0 && Vector3.Distance(playerTrans.position,grill.position)<3f && Vector3.Distance(lb.position,grill.position) < 3f) {
+        if (gm.StoryNumber == 0 && Vector3.Distance(playerTrans.position, grill.position) < 3f && Vector3.Distance(lb.position, grill.position) < 3f) {
             objectiveChanger.SetStoryNumber(1);
             gm.StoryNumber = 0.01f;
             gm.CheckStory = true;
         }
-        if(gm.StoryNumber == 0.01f && isStealth) {
+        if (gm.StoryNumber == 0.01f && isStealth) {
             objectiveChanger.SetStoryNumber(2);
             gm.StoryNumber = 0.02f;
             gm.CheckStory = true;
         }
-        if(gm.StoryNumber == 0.03f && Vector3.Distance(playerTrans.position,football.position)<1) {
+        if (gm.StoryNumber == 0.03f && Vector3.Distance(playerTrans.position, football.position) < 1) {
             objectiveChanger.SetStoryNumber(4);
             gm.StoryNumber = 0.04f;
             gm.CheckStory = true;
@@ -896,7 +921,7 @@ public class PlayerScript : MonoBehaviour
             gm.StoryNumber = 0.05f;
             gm.CheckStory = true;
         }
-        if(gm.StoryNumber == 0.05f) {
+        if (gm.StoryNumber == 0.05f) {
             playerTrans.transform.LookAt(lb.transform);
             lb.transform.LookAt(playerTrans.transform);
             football.LookAt(g9.transform);
@@ -904,13 +929,13 @@ public class PlayerScript : MonoBehaviour
             if (Vector3.Distance(playerTrans.position, PlayerPosC1.position) > 1) {
 
                 transition.SetBool("Start", true);
-                
+
                 yield return new WaitForSeconds(1);
 
                 playerTrans.transform.position = new Vector3(PlayerPosC1.position.x, PlayerPosC1.position.y, PlayerPosC1.position.z);
                 football.transform.position = new Vector3(PlayerPosC1.position.x - 1, PlayerPosC1.position.y, PlayerPosC1.position.z);
 
-                
+
                 yield return new WaitForSeconds(1f);
                 transition.SetBool("Start", false);
                 yield return new WaitForSeconds(1.5f);
@@ -918,15 +943,15 @@ public class PlayerScript : MonoBehaviour
                 gm.StoryNumber = 0.06f;
                 gm.CheckStory = true;
             }
-            
+
         }
-        if(gm.StoryNumber == 0.06f) {
+        if (gm.StoryNumber == 0.06f) {
             playerTrans.transform.LookAt(lb.transform);
             lb.transform.LookAt(playerTrans.transform);
-            if(Vector3.Distance(football.position, g9.transform.position) > 1) {
+            if (Vector3.Distance(football.position, g9.transform.position) > 1) {
                 football.LookAt(g9.transform);
             }
-            
+
             if (Input.GetKeyDown(KeyCode.E) && !kickedBall) {
                 kickedBall = true;
                 football.gameObject.GetComponent<Rigidbody>().AddForce(football.transform.forward * 15);
@@ -940,7 +965,7 @@ public class PlayerScript : MonoBehaviour
             }
 
         }
-        if(gm.StoryNumber == 0.09f && !check1) {
+        if (gm.StoryNumber == 0.09f && !check1) {
             transition.SetBool("Start", true);
             yield return new WaitForSeconds(1);
             transition.SetBool("Start", false);
@@ -948,12 +973,12 @@ public class PlayerScript : MonoBehaviour
             interaction.setStartInteraction(true);
             check1 = true;
         }
-        
+
         if (gm.StoryNumber == 1f && !check2) {
             teddy.setStartInteraction(true);
             check2 = true;
             while (teddy.getStartInteraction()) yield return null;
-            
+
         }
         if (gm.StoryNumber == 1.01f) {
             setSpawnPointName("L1S2");
@@ -995,20 +1020,21 @@ public class PlayerScript : MonoBehaviour
 
 
     public void loseStaminaPeriodically() {
-        if(Stamina > 0) {
+        if (Stamina > 0) {
             Stamina -= staminaRate * 0.5f * Time.deltaTime;
         }
-        if(Stamina < 0) {
+        if (Stamina < 0) {
             setStamina(0);
         }
     }
 
+
     public void loseStaminaInstantly(float staminaCost) {
         float staminaLeft = Stamina - (staminaCost * staminaRate);
-        if(staminaLeft <= 0) {
+        if (staminaLeft <= 0) {
             setStamina(0);
         }
-        else if(staminaLeft > 0){
+        else if (staminaLeft > 0) {
             Stamina -= (staminaCost * staminaRate);
         }
     }
@@ -1018,36 +1044,40 @@ public class PlayerScript : MonoBehaviour
         if (runningAnimation || rollAnimation || jumpAnimation || attackAnimation1 || attackAnimation2 || attackAnimation3 || attackAnimation4) {
             recoveryTimer = 1f;
         }
-        if(recoveryTimer < 0) {
+        if (recoveryTimer < 0) {
             recoveryTimer = 0;
         }
-        if(!runningAnimation && Stamina < maxStamina) {
+        if (!runningAnimation && Stamina < maxStamina) {
             recoveryTimer -= Time.deltaTime;
-            if(recoveryTimer <= 0) {
+            if (recoveryTimer <= 0) {
                 Stamina += staminaRecoveryRate * Time.deltaTime;
             }
         }
-        if(Stamina > maxStamina) {
+        if (Stamina > maxStamina) {
             Stamina = maxStamina;
-        } 
+        }
     }
 
 
-    
+
     private void updateStamina() {
         //change stamina color
-        if (!isStaminaBuff) {
+        if (!isStaminaBuff && !waterGun.isInInventory) {
             staminaRate = 1f;
+            staminaSlider.fillRect.GetComponent<Image>().color = Color.Lerp(Color.red, Color.green, (staminaSlider.value / staminaSlider.maxValue));
+        }
+        else if (!isStaminaBuff && waterGun.isInInventory) {
+            staminaRate = 0.5f;
             staminaSlider.fillRect.GetComponent<Image>().color = Color.Lerp(Color.red, Color.green, (staminaSlider.value / staminaSlider.maxValue));
         }
         else if (isStaminaBuff) {
             staminaSlider.fillRect.GetComponent<Image>().color = Color.cyan;
             staminaRate = 0.3f;
-           
-            
-            if(staminabuffTimer > 0 && isStaminaBuff) {
+
+
+            if (staminabuffTimer > 0 && isStaminaBuff) {
                 staminabuffTimer -= Time.deltaTime;
-                if(staminabuffTimer <= 0) {
+                if (staminabuffTimer <= 0) {
                     isStaminaBuff = false;
                     staminabuffTimer = 60f;
                 }
@@ -1108,6 +1138,25 @@ public class PlayerScript : MonoBehaviour
             openInventory = !openInventory;
         }
     }
+
+    private void BuffPlayer() {
+        if (raceCar.isInInventory) {
+            runSpeed = 5.5f;
+        }
+        if (racket.isInInventory) {
+            attackDamage = 2;
+        }
+        if (waterGun.isInInventory) {
+            //see 'updateStamina()'
+        }
+        if (footballItem.isInInventory) {
+            neighbor.setAttackDamage(1);
+        }
+    }
+
+
+
+
 
     //bools for only playing sounds once
     public bool walkSound;

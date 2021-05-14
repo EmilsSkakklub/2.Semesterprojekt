@@ -32,9 +32,6 @@ public class ObjectiveChanger : MonoBehaviour
     void Update() {
         ShowObjectives(storyNumber);
         CheckToyInInventory();
-        ActivateNeighbor();
-
-
     }
 
     private void InitStart() {
@@ -89,7 +86,7 @@ public class ObjectiveChanger : MonoBehaviour
     }
 
 
-
+    /*
     private void ActivateNeighbor() {
         if (storyNumber == 17) {
             neighbor.gameObject.SetActive(true);
@@ -98,7 +95,7 @@ public class ObjectiveChanger : MonoBehaviour
             neighbor.gameObject.SetActive(false);
         }
     }
-
+    */
 
 
     private void ShowObjectives(int storyNumber) {

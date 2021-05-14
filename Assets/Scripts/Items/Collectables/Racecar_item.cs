@@ -11,7 +11,7 @@ public class Racecar_item : Item
     // Start is called before the first frame update
     void Start()
     {
-        initStart("Toy Car", false, false, "My brothers old toy racing car.");   
+        initStart("Toy Car", false, false, "Permanently increases movement speed while running.");   
     }
 
     // Update is called once per frame
