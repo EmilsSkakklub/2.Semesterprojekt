@@ -1,0 +1,1 @@
+{"rendererInfos":[{"renderer":{"instanceID":-32118},"lightmapIndex":0,"lightmapOffsetScale":{"x":0.899060070514679,"y":0.899060070514679,"z":-0.0029439672362059356,"w":-0.0029439672362059356}}],"lightmaps":[{"instanceID":431324}],"lightmapsDir":[{"instanceID":431328}],"lightmapsShadow":[{"instanceID":431332}],"lightmapsMode":1,"lightProbes":[]}

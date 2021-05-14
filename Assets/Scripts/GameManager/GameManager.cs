@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     private GameObject player;
     private AudioManager audioManager;
     private Animator transition;
+    LightMapSwitcher lms;
     
 
     public List<GameObject> enemies = new List<GameObject>();
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        lms = GetComponent<LightMapSwitcher>();
         player = GameObject.Find("Player");
         playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
         audioManager = GetComponent<AudioManager>();
@@ -77,6 +79,18 @@ public class GameManager : MonoBehaviour
         //ObjectiveChanger();
         ImmobilizePlayer();
         MusicManager();
+        LightChanger();
+    }
+    void LightChanger() {
+        if (Input.GetKeyDown(KeyCode.Alpha7)) {
+            lms.SetToDay();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8)) {
+            lms.SetToEvening();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8)) {
+            lms.SetToNight();
+        }
     }
     IEnumerator Cutscene1() {
         if (StoryNumber == 0.05f || StoryNumber == 0.06f) {
