@@ -32,4 +32,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/World.unity
     guid: 220d761de09f99349a2ff3949507a277
+  - enabled: 1
+    path: Assets/Scenes/DayLight.unity
+    guid: ed0286a82394fbe4a9843b38299dc596
+  - enabled: 1
+    path: Assets/Scenes/EveningLight.unity
+    guid: 5a20f621a9e105f42898e39e7a3d612d
+  - enabled: 1
+    path: Assets/Scenes/NightLight.unity
+    guid: a91841c2460ca3645a486fa17e3708e3
   m_configObjects: {}

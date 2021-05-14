@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 
 public class GameManager : MonoBehaviour
@@ -11,7 +12,7 @@ public class GameManager : MonoBehaviour
     private GameObject player;
     private AudioManager audioManager;
     private Animator transition;
-    LightMapSwitcher lms;
+    public LevelLightmapData llmd;
     
 
     public List<GameObject> enemies = new List<GameObject>();
@@ -51,7 +52,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        lms = GetComponent<LightMapSwitcher>();
+        llmd = GameObject.Find("LevelLightmapData").GetComponent<LevelLightmapData>();
         player = GameObject.Find("Player");
         playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
         audioManager = GetComponent<AudioManager>();
@@ -82,14 +83,17 @@ public class GameManager : MonoBehaviour
         LightChanger();
     }
     void LightChanger() {
-        if (Input.GetKeyDown(KeyCode.Alpha7)) {
-            lms.SetToDay();
+        if (Input.GetKeyDown(KeyCode.I)) {
+            llmd.LoadLightingScenario(0);
+            Debug.Log("Day");
         }
-        if (Input.GetKeyDown(KeyCode.Alpha8)) {
-            lms.SetToEvening();
+        if (Input.GetKeyDown(KeyCode.O)) {
+            llmd.LoadLightingScenario(1);
+            Debug.Log("Evening");
         }
-        if (Input.GetKeyDown(KeyCode.Alpha8)) {
-            lms.SetToNight();
+        if (Input.GetKeyDown(KeyCode.P)) {
+            llmd.LoadLightingScenario(2);
+            Debug.Log("Night");
         }
     }
     IEnumerator Cutscene1() {
