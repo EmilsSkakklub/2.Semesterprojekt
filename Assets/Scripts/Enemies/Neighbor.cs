@@ -13,7 +13,7 @@ public class Neighbor : Enemy
 
         initStart("Neighbor", 2, 200, 3f, 1.5f, 10f, "NeighborHit");
         audioManager.GetSound("NeighborHit").volume = 0.2f;
-        audioManager.GetSound("NeighborHit").pitch = Random.Range(0.5f, 1-5f);
+        audioManager.GetSound("NeighborHit").pitch = Random.Range(0.5f, 1.5f);
     }
 
     // Update is called once per frame
