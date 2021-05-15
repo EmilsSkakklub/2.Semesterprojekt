@@ -11,22 +11,29 @@ public class Neighbor : Enemy
     {
         objectiveChanger = GameObject.Find("GameManager").GetComponent<ObjectiveChanger>();
 
-        initStart("Neighbor", 2, 200, 3f, 1.5f, 20f, "HitWood");
+        initStart("Neighbor", 2, 200, 3f, 1.5f, 10f, "NeighborHit");
+        audioManager.GetSound("NeighborHit").volume = 0.2f;
+        audioManager.GetSound("NeighborHit").pitch = Random.Range(0.5f, 1-5f);
     }
 
     // Update is called once per frame
     void Update()
     {
         initUpdate();
+        CheckDeath();
+    }
 
-
+    private void CheckDeath() {
         if (isDead) {
-            Invoke("Objective18", 4);
+            Invoke("Objective13", 4);
+        }
+        if (player.getIsDead()) {
+            health = 200;
         }
     }
 
 
-    private void Objective18() {
-        objectiveChanger.SetStoryNumber(18);
+    private void Objective13() {
+        objectiveChanger.SetStoryNumber(13);
     }
 }

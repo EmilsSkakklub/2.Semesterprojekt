@@ -31,6 +31,9 @@ public class littleTeddy_Item : Item
             description = "Use to heal all heart (Has been used).";
             audioManager.Play("Squeak",false, 0.2f, 1f);
         }
+        else if (hasHealed) {
+            audioManager.Play("UIClick", false, 0.1f, 1);
+        }
     }
 
     

@@ -56,7 +56,6 @@ public class ObjectiveChanger : MonoBehaviour
         for(int i = 0; i < toys.Count; i++) {
             if (toys[i].isInInventory && !toysInInventory.Contains(toys[i])) {
                 toysInInventory.Add(toys[i]);
-                SetStoryNumber(storyNumber + 1);
             }
         }
     }
@@ -75,13 +74,8 @@ public class ObjectiveChanger : MonoBehaviour
         NewObjective("");
         NewObjective("- Go through the hole in the hedge.");
         NewObjective("- Go though the maze.\n\nTip: Press right Shift to run."); // 10
-        NewObjective("- Explore the backyard.");
-        NewObjective("- Find the 5 lost toys (0/5)");
-        NewObjective("- Find the 5 lost toys (1/5)");
-        NewObjective("- Find the 5 lost toys (2/5)");
-        NewObjective("- Find the 5 lost toys (3/5)");
-        NewObjective("- Find the 5 lost toys (4/5)");
-        NewObjective("- Defeat the neighbor!");
+        NewObjective("- Explore the backyard.\n\nTip: Click right mouse button to dodge enemy attacks.");
+        NewObjective("- Defeat the neighbor.\n\nTip: Find the 5 lost toys.");
         NewObjective("- Find your brother.");
     }
 

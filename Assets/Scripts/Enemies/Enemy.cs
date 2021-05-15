@@ -106,7 +106,6 @@ public abstract class Enemy : MonoBehaviour
         updateVisionCone();
         removeCanvas();
 
-        SoundManager();
     }
 
     private void setAnimationHashCodes() {
@@ -175,7 +174,6 @@ public abstract class Enemy : MonoBehaviour
         }
         hitSound = false;
 
-
         if (!isDead) {
             setDetectedPlayer(true);
             animator.SetBool(isHitHash, true);
@@ -241,7 +239,6 @@ public abstract class Enemy : MonoBehaviour
         if (attackAnimation && hit && attackTimer > attackStart && attackTimer < attackEnd) {
             foreach (Collider player in hitPlayer) {
                 player.GetComponent<PlayerScript>().takeDamage(attackDamage);
-                Debug.Log(player.name + " hit");
                 hit = false;
             }
         }
@@ -302,15 +299,6 @@ public abstract class Enemy : MonoBehaviour
     }
 
 
-
-
-
-    public bool walkingSound;
-    
-
-    protected void SoundManager() {
-
-    }
 
 
 

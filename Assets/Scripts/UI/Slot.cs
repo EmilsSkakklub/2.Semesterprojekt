@@ -37,8 +37,7 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler {
                 item.setItemUsed(true);
             }
             else if (!isOccupied) {
-                print(index + " is empty");
-                audioManager.Play("UIClick", false, 0.1f, 1f);
+                audioManager.Play("InteractSound", false, 0.1f, 1f);
             }
         }
     }

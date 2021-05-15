@@ -378,8 +378,9 @@ MonoBehaviour:
   newVisionRange: 0
   visionConeAngle: 30
   hasDetectedPlayer: 0
-  source: {fileID: 0}
+  theHitSound: 
   hitSound: 0
+  walkingSound: 0
 --- !u!82 &4374271169816004284
 AudioSource:
   m_ObjectHideFlags: 0

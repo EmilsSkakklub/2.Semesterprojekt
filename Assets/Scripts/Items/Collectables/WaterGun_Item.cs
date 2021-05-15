@@ -5,11 +5,6 @@ using UnityEngine;
 public class WaterGun_Item : Item
 {
 
-    
-    public override void useItem() {
-        
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -21,4 +16,10 @@ public class WaterGun_Item : Item
     {
         initUpdate();
     }
+
+    
+    public override void useItem() {
+        audioManager.Play("UIClick", false, 0.1f, 1);
+    }
+
 }

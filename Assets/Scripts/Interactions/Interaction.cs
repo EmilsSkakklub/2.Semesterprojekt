@@ -14,6 +14,7 @@ public class Interaction : MonoBehaviour
     public bool getStartInteraction() {
         return StartInteraction;
     }
+
     public void setStartInteraction(bool StartInteraction) {
         this.StartInteraction = StartInteraction;
     }

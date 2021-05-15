@@ -210,7 +210,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1321458650914964861}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0054, y: 0.007, z: 0.0032}
+  m_LocalPosition: {x: -0.0054, y: 0.007, z: 0.0037}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2508175586840418475}
@@ -336,7 +336,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1842968797677928562}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00224, y: 0.00702, z: 0.00321}
+  m_LocalPosition: {x: -0.0022, y: 0.007, z: 0.0036}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2508175586840418475}
@@ -1319,8 +1319,9 @@ MonoBehaviour:
   newVisionRange: 0
   visionConeAngle: 30
   hasDetectedPlayer: 0
-  source: {fileID: 0}
+  theHitSound: 
   hitSound: 0
+  walkingSound: 0
 --- !u!82 &1960962990311071231
 AudioSource:
   m_ObjectHideFlags: 0

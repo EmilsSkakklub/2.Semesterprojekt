@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class Racecar_item : Item
 {
-    public override void useItem() {
-        print("Toy Car");
-    }
+   
 
     // Start is called before the first frame update
     void Start()
@@ -18,5 +16,9 @@ public class Racecar_item : Item
     void Update()
     {
         initUpdate();
+    } 
+    
+    public override void useItem() {
+        audioManager.Play("UIClick", false, 0.1f, 1);
     }
 }

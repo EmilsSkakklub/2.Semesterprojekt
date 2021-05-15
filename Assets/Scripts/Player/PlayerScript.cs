@@ -505,6 +505,7 @@ public class PlayerScript : MonoBehaviour {
         }
     }
 
+
     private void attack() {
         Collider[] hitEnemies = Physics.OverlapSphere(attackpoint.position, attackRange, enemyLayers);
 
@@ -1166,6 +1167,7 @@ public class PlayerScript : MonoBehaviour {
     public bool punch2Sound;
     public bool punch3Sound;
     public bool punch4Sound;
+    public bool hitSound;
 
 
     private void SoundManager() {
@@ -1243,6 +1245,18 @@ public class PlayerScript : MonoBehaviour {
             audioManager.Stop("Punch4");
             punch4Sound = false;
         }
+
+
+        if (hitAnimation && !hitSound) {
+            audioManager.Play("PlayerHit", false, 0.1f, Random.Range(2, 3));
+            hitSound = true;
+        }
+        else if (!hitAnimation) {
+            audioManager.Stop("PlayerHit");
+            hitSound = false;
+        }
+
+
     }
 
 
