@@ -2,19 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoToLvl2 : LevelChanger
+public class SwitchIntensity04 : MonoBehaviour
 {
-
     // Start is called before the first frame update
-    void Start() {
+    void Start()
+    {
         
-        InitStart("L2S1");
     }
 
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(ChangeLevel(0));
-        ChangeStoryNumber(11);
+        
     }
 }

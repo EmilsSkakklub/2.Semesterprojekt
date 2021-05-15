@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I)) {
             llmd.LoadLightingScenario(0);
             Debug.Log("Day");
+
         }
         if (Input.GetKeyDown(KeyCode.O)) {
             llmd.LoadLightingScenario(1);
@@ -244,6 +245,7 @@ public class GameManager : MonoBehaviour
         string level = playerScript.getSpawnPointName();
         if (level.Contains("L0") && !music0Playing) {
             RenderSettings.skybox = SkyLvl0;
+            llmd.LoadLightingScenario(0);
             audioManager.Play("Level0Music", true, 0.01f, 1f);
             music0Playing = true;
         }
@@ -264,6 +266,7 @@ public class GameManager : MonoBehaviour
         if (level.Contains("L2") && !music2Playing) {
             audioManager.Play("Level2Music", true, 0.1f, 1f);
             RenderSettings.skybox = SkyLvl2;
+            llmd.LoadLightingScenario(1);
             music2Playing = true;
         }
         else if (!level.Contains("L2")) {
@@ -273,6 +276,7 @@ public class GameManager : MonoBehaviour
 
         if (level.Contains("L3") && !music3Playing) {
             RenderSettings.skybox = SkyLvl3;
+            llmd.LoadLightingScenario(2);
             audioManager.Play("Level3Music", true, 0.1f, 0.75f);
             music3Playing = true;
         }

@@ -13,7 +13,7 @@ public class Level_3_load : LevelChanger
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(ChangeLevel(0.1f));
+        StartCoroutine(ChangeLevel(0));
         ChangeStoryNumber(12);
     }
 

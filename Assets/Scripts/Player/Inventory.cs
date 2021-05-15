@@ -30,6 +30,22 @@ public class Inventory : MonoBehaviour
 
     // called second
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        /*player = GameObject.Find("Player").GetComponent<PlayerScript>();
+        inventoryUI = GameObject.Find("InventoryUI").GetComponent<Image>();
+        tooltip = GameObject.Find("Tooltip").GetComponent<Tooltip>();
+        weaponSlot = GameObject.Find("WeaponSlot").GetComponent<Slot>();
+
+        inventoryUI.gameObject.SetActive(false);
+
+        backpack = GameObject.Find("Backpack1");
+        teddybackpack = GameObject.Find("backpack2");
+
+        initializeSlots();
+        */
+    }
+
+    private void Start() {
+        waterGun = GameObject.Find("waterGun").GetComponent<Item>();
         player = GameObject.Find("Player").GetComponent<PlayerScript>();
         inventoryUI = GameObject.Find("InventoryUI").GetComponent<Image>();
         tooltip = GameObject.Find("Tooltip").GetComponent<Tooltip>();
@@ -41,10 +57,6 @@ public class Inventory : MonoBehaviour
         teddybackpack = GameObject.Find("backpack2");
 
         initializeSlots();
-    }
-
-    private void Start() {
-        waterGun = GameObject.Find("waterGun").GetComponent<Item>();
     }
 
     // Update is called once per frame

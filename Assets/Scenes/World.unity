@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: efd1c33efd2d58340b88804268e6833f, type: 2}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.029087009, g: 0.029898092, b: 0.029896148, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -524,6 +524,32 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7494567157059551908, guid: c5340da0bf3b7e64c864035d0df3248b, type: 3}
   m_PrefabInstance: {fileID: 2012396308}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8699500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2be71d7eb33e8e4691eccb42fe0a7e7, type: 3}
+  m_Name: EveningLight
+  m_EditorClassIdentifier: 
+  sceneName: EveningLight
+  rendererInfos:
+  - renderer: {fileID: 2007116943}
+    lightmapIndex: 0
+    lightmapOffsetScale: {x: 0.8990601, y: 0.8990601, z: -0.0029439672, w: -0.0029439672}
+  lightmaps:
+  - {fileID: 2800000, guid: 3710f4e37b829e744a1ed5e022ef3d88, type: 3}
+  lightmapsDir:
+  - {fileID: 2800000, guid: ba2bae622722ab445b8864a2f4431791, type: 3}
+  shadowMasks:
+  - {fileID: 2800000, guid: c1be629fb31af974cb369b94b08da16a, type: 3}
+  lightmapsMode: 1
+  lightProbes: []
+  hasRealtimeLights: 1
 --- !u!1001 &8765754
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4664,6 +4690,11 @@ MonoBehaviour:
     source: {fileID: 0}
     loop: 0
   soundPlayer: 0
+--- !u!4 &83580171 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1271367438477412475, guid: 6203946845ce9a140a1e65de3535f7b3, type: 3}
+  m_PrefabInstance: {fileID: 1636992894}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &83580172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8993,6 +9024,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 123ef4029abdba34ebff320adb54a833, type: 3}
+--- !u!114 &189051315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2be71d7eb33e8e4691eccb42fe0a7e7, type: 3}
+  m_Name: DayLight
+  m_EditorClassIdentifier: 
+  sceneName: DayLight
+  rendererInfos:
+  - renderer: {fileID: 2007116943}
+    lightmapIndex: 0
+    lightmapOffsetScale: {x: 0.8990601, y: 0.8990601, z: -0.0029439672, w: -0.0029439672}
+  lightmaps:
+  - {fileID: 2800000, guid: bad8fde644e04d243929d0a05138a2b8, type: 3}
+  lightmapsDir:
+  - {fileID: 2800000, guid: 45e2f845171c9b34e85f94bb990cc229, type: 3}
+  shadowMasks:
+  - {fileID: 2800000, guid: 191bd2550be50ce4b98321efb54ee950, type: 3}
+  lightmapsMode: 1
+  lightProbes: []
+  hasRealtimeLights: 1
 --- !u!1001 &189483667
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14904,11 +14961,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 123ef4029abdba34ebff320adb54a833, type: 3}
---- !u!23 &309819129 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 8703186541984373162, guid: bca63ea0ef89ff742971ea3aeb4c7f16, type: 3}
-  m_PrefabInstance: {fileID: 2007116939}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &311339677
 GameObject:
   m_ObjectHideFlags: 0
@@ -46972,6 +47024,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0356f94efb9114419f281d14e215a07, type: 3}
+--- !u!114 &1082574215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2be71d7eb33e8e4691eccb42fe0a7e7, type: 3}
+  m_Name: NightLight
+  m_EditorClassIdentifier: 
+  sceneName: NightLight
+  rendererInfos:
+  - renderer: {fileID: 2007116943}
+    lightmapIndex: 0
+    lightmapOffsetScale: {x: 0.8990601, y: 0.8990601, z: -0.0029439672, w: -0.0029439672}
+  lightmaps:
+  - {fileID: 2800000, guid: adb4a90ca67e5164ba4b782a3adaa2cf, type: 3}
+  lightmapsDir:
+  - {fileID: 2800000, guid: 6e9f9f328d4e5bc4c9b1e367ee99de9e, type: 3}
+  shadowMasks:
+  - {fileID: 2800000, guid: 49d18118962d74f4d91092b3b4d98bc0, type: 3}
+  lightmapsMode: 1
+  lightProbes: []
+  hasRealtimeLights: 1
 --- !u!1001 &1083142857
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55607,32 +55685,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0356f94efb9114419f281d14e215a07, type: 3}
---- !u!114 &1256023507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2be71d7eb33e8e4691eccb42fe0a7e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneName: 
-  rendererInfos:
-  - renderer: {fileID: 309819129}
-    lightmapIndex: 0
-    lightmapOffsetScale: {x: 0.8990601, y: 0.8990601, z: -0.0029439672, w: -0.0029439672}
-  lightmaps:
-  - {fileID: 2800000, guid: 3710f4e37b829e744a1ed5e022ef3d88, type: 3}
-  lightmapsDir:
-  - {fileID: 2800000, guid: ba2bae622722ab445b8864a2f4431791, type: 3}
-  shadowMasks:
-  - {fileID: 2800000, guid: c1be629fb31af974cb369b94b08da16a, type: 3}
-  lightmapsMode: 1
-  lightProbes: []
-  hasRealtimeLights: 1
 --- !u!1001 &1256782867
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63092,32 +63144,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 123ef4029abdba34ebff320adb54a833, type: 3}
---- !u!114 &1444673273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2be71d7eb33e8e4691eccb42fe0a7e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneName: 
-  rendererInfos:
-  - renderer: {fileID: 309819129}
-    lightmapIndex: 0
-    lightmapOffsetScale: {x: 0.8990601, y: 0.8990601, z: -0.0029439672, w: -0.0029439672}
-  lightmaps:
-  - {fileID: 2800000, guid: bad8fde644e04d243929d0a05138a2b8, type: 3}
-  lightmapsDir:
-  - {fileID: 2800000, guid: 45e2f845171c9b34e85f94bb990cc229, type: 3}
-  shadowMasks:
-  - {fileID: 2800000, guid: 191bd2550be50ce4b98321efb54ee950, type: 3}
-  lightmapsMode: 1
-  lightProbes: []
-  hasRealtimeLights: 1
 --- !u!4 &1445154018 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4291471185652902136, guid: 123ef4029abdba34ebff320adb54a833, type: 3}
@@ -72431,17 +72457,17 @@ MonoBehaviour:
   allowLoadingLightingScenes: 1
   applyLightmapScaleAndOffset: 1
   lightingScenariosData:
-  - {fileID: 1444673273}
-  - {fileID: 1256023507}
-  - {fileID: 2063085380}
+  - {fileID: 189051315}
+  - {fileID: 8699500}
+  - {fileID: 1082574215}
   lightingScenariosScenes:
   - {fileID: 102900000, guid: ed0286a82394fbe4a9843b38299dc596, type: 3}
   - {fileID: 102900000, guid: 5a20f621a9e105f42898e39e7a3d612d, type: 3}
   - {fileID: 102900000, guid: a91841c2460ca3645a486fa17e3708e3, type: 3}
   lightingScenesNames:
-  - 
-  - 
-  - 
+  - DayLight
+  - EveningLight
+  - NightLight
   currentLightingScenario: -1
   previousLightingScenario: -1
   lightingScenariosCount: 3
@@ -72453,12 +72479,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1671714132}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -333.641, y: -3.8775992, z: 45.873203}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -337.1234, y: -3.392482, z: 42.713085}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_Father: {fileID: 83580171}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1674312411
 PrefabInstance:
@@ -80850,11 +80876,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8280714084855022254, guid: 0663a52ecfc7f6248ab585afdc6e3a9a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000004053927
+      value: 0.00000004257469
       objectReference: {fileID: 0}
     - target: {fileID: 8280714084855022254, guid: 0663a52ecfc7f6248ab585afdc6e3a9a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000046800284
+      value: -0.000000004915006
       objectReference: {fileID: 0}
     - target: {fileID: 8280714084870778432, guid: 0663a52ecfc7f6248ab585afdc6e3a9a, type: 3}
       propertyPath: m_Lens.FarClipPlane
@@ -80866,27 +80892,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8280714084870778433, guid: 0663a52ecfc7f6248ab585afdc6e3a9a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8280714084870778433, guid: 0663a52ecfc7f6248ab585afdc6e3a9a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8280714084870778433, guid: 0663a52ecfc7f6248ab585afdc6e3a9a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9911518
       objectReference: {fileID: 0}
     - target: {fileID: 8280714084870778433, guid: 0663a52ecfc7f6248ab585afdc6e3a9a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.000000014769313
+      value: 0.13273315
       objectReference: {fileID: 0}
     - target: {fileID: 8280714084870778433, guid: 0663a52ecfc7f6248ab585afdc6e3a9a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -1e-45
+      value: 5.971599e-16
       objectReference: {fileID: 0}
     - target: {fileID: 8280714084870778433, guid: 0663a52ecfc7f6248ab585afdc6e3a9a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -1.1100768e-16
       objectReference: {fileID: 0}
     - target: {fileID: 8280714085067043781, guid: 0663a52ecfc7f6248ab585afdc6e3a9a, type: 3}
       propertyPath: m_Name
@@ -80958,11 +80984,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8280714085171661902, guid: 0663a52ecfc7f6248ab585afdc6e3a9a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000001655009
+      value: 0.000000021049397
       objectReference: {fileID: 0}
     - target: {fileID: 8280714085171661902, guid: 0663a52ecfc7f6248ab585afdc6e3a9a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000001910614
+      value: -0.0000000024300335
       objectReference: {fileID: 0}
     - target: {fileID: 8280714085674492513, guid: 0663a52ecfc7f6248ab585afdc6e3a9a, type: 3}
       propertyPath: m_Lens.FarClipPlane
@@ -80986,11 +81012,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8280714085674492518, guid: 0663a52ecfc7f6248ab585afdc6e3a9a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 5.1100482e-17
+      value: -4.9771106e-38
       objectReference: {fileID: 0}
     - target: {fileID: 8280714085674492518, guid: 0663a52ecfc7f6248ab585afdc6e3a9a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -2.9197203e-17
+      value: 3.553159e-39
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8280714084855022248, guid: 0663a52ecfc7f6248ab585afdc6e3a9a, type: 3}
@@ -87897,6 +87923,11 @@ MonoBehaviour:
   transition: {fileID: 0}
   directLight: {fileID: 0}
   soundPlayer: 0
+--- !u!23 &2007116943 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8703186541984373162, guid: bca63ea0ef89ff742971ea3aeb4c7f16, type: 3}
+  m_PrefabInstance: {fileID: 2007116939}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2008973370
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -90510,32 +90541,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 266398232276667096, guid: d0356f94efb9114419f281d14e215a07, type: 3}
   m_PrefabInstance: {fileID: 197041590}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2063085380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2be71d7eb33e8e4691eccb42fe0a7e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneName: 
-  rendererInfos:
-  - renderer: {fileID: 309819129}
-    lightmapIndex: 0
-    lightmapOffsetScale: {x: 0.8990601, y: 0.8990601, z: -0.0029439672, w: -0.0029439672}
-  lightmaps:
-  - {fileID: 2800000, guid: adb4a90ca67e5164ba4b782a3adaa2cf, type: 3}
-  lightmapsDir:
-  - {fileID: 2800000, guid: 6e9f9f328d4e5bc4c9b1e367ee99de9e, type: 3}
-  shadowMasks:
-  - {fileID: 2800000, guid: 49d18118962d74f4d91092b3b4d98bc0, type: 3}
-  lightmapsMode: 1
-  lightProbes: []
-  hasRealtimeLights: 1
 --- !u!1001 &2064291871
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -92136,6 +92141,10 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 8512650846742186641, guid: 7cce39884c54cff47947efcc5ae35c5a, type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: -0.00000001295161
+      objectReference: {fileID: 0}
     - target: {fileID: 8512650846897343524, guid: 7cce39884c54cff47947efcc5ae35c5a, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -92163,6 +92172,22 @@ PrefabInstance:
     - target: {fileID: 8512650846897343524, guid: 7cce39884c54cff47947efcc5ae35c5a, type: 3}
       propertyPath: m_Shadows.m_Type
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512650846897343524, guid: 7cce39884c54cff47947efcc5ae35c5a, type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: -0.000000059591997
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512650846897343524, guid: 7cce39884c54cff47947efcc5ae35c5a, type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 1.7e-44
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512650846897343524, guid: 7cce39884c54cff47947efcc5ae35c5a, type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 0.6464872
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512650846897343524, guid: 7cce39884c54cff47947efcc5ae35c5a, type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 0.3535128
       objectReference: {fileID: 0}
     - target: {fileID: 8512650846897343547, guid: 7cce39884c54cff47947efcc5ae35c5a, type: 3}
       propertyPath: m_IsActive

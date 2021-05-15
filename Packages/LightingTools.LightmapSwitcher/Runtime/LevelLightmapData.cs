@@ -81,7 +81,7 @@ public class LevelLightmapData : MonoBehaviour
 
     public void OnEnteredPlayMode_EditorOnly()
     {
-        cachedBakedProbeData = LightmapSettings.lightProbes.bakedProbes;
+        //cachedBakedProbeData = LightmapSettings.lightProbes.bakedProbes;
         Debug.Log("Lightmap swtching tool - Caching editor lightProbes");
     }
 
