@@ -8,7 +8,7 @@ public class lvl1HoleInteract : Dialog
     void Awake()
     {
         initStart(false);
-        newDialogLine("I can't go back now. I must find my brother", 0);
+        newDialogLine("I can't go back now. I must find Max", 0);
     }
 
     // Update is called once per frame

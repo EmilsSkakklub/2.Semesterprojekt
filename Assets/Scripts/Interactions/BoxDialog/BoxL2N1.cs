@@ -9,7 +9,7 @@ public class BoxL2N1 : BoxDialog
     {
         initStart(false);
         newDialogLine("What is this place?", 2);
-        newDialogLine("Is this really the neighbor's backyard?", 2);
+        newDialogLine("Is this really Mr. Dargons backyard?", 2);
         newDialogLine("We can't stop now, we need to keep on going!", 3);
     }
 

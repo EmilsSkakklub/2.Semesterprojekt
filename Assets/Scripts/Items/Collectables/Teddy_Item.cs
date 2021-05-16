@@ -20,5 +20,6 @@ public class Teddy_Item : Item
     
     public override void useItem() {
         print("Hello there, I am Teddy!");
+        audioManager.Play("Squeak", false, 0.2f, 1f);
     }
 }

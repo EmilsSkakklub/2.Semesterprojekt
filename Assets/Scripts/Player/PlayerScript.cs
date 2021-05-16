@@ -1135,7 +1135,7 @@ public class PlayerScript : MonoBehaviour {
 
 
     public void toggleInventory() {
-        if (inventoryPressed /*&& inventory.getGotBackPack()*/) {
+        if (inventoryPressed && inventory.getGotBackPack()) {
             openInventory = !openInventory;
         }
     }
