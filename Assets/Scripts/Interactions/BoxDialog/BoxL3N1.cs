@@ -9,7 +9,7 @@ public class BoxL3N1 : BoxDialog
     {
         initStart(false);
         newDialogLine("This place really creeps me out.", 1);
-        newDialogLine("He must be around here somewhere!", 3);
+        newDialogLine("Max has to be around here somewhere!", 3);
         newDialogLine("Arthur, I sense that this place is filled with some of our old toys.", 3);
         newDialogLine("We should find them, as they might help us!", 3);
         newDialogLine("But we need to hurry up!", 0);

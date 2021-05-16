@@ -16,7 +16,7 @@ public class Gargoyle_dialog : Dialog
         newDialogLine("Who are you?", 4);
         newDialogLine("M- my name is Arthur.", 1);
         newDialogLine("Tell me, what do you want?", 4);
-        newDialogLine("I'm looking for my brother.", 0);
+        newDialogLine("I'm looking for my brother Max.", 0);
         newDialogLine("He's a bit shorter than me and has brown hair.", 0);
         newDialogLine("Have you seen him?", 0);
         newDialogLine("I have not seen anyone with that description", 4);

@@ -24,11 +24,12 @@ public class key_item : Item
     }
 
     public override void useItem() {
-        print("KEY USED");
+        audioManager.Play("InteractSound", false, 0.1f, 1f);
         if (useKey.isIntheBox) {
             print("it worked!");
             bigDoor.SetActive(false);
             setIsConsumable(true);
+            audioManager.Play("UIClick", false, 0.1f, 1f);
         }
     }
 }
