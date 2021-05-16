@@ -72,10 +72,10 @@ public class ObjectiveChanger : MonoBehaviour
         NewObjective("");
         NewObjective("- Go check on your brother.");
         NewObjective("");
-        NewObjective("- Go through the hole in the hedge.");
+        NewObjective("- Adventure into the hole in the hedge.");
         NewObjective("- Go though the maze.\n\nTip: Press right Shift to run."); // 10
         NewObjective("- Explore the backyard.\n\nTip: Click right mouse button to dodge enemy attacks.");
-        NewObjective("- Defeat the neighbor.\n\nTip: Find the 5 lost toys.");
+        NewObjective("- Defeat the neighbor.\n\n- Optional: Find the 5 lost toys.");
         NewObjective("- Find your brother.");
     }
 

@@ -10,6 +10,7 @@ public class BoxChest : BoxDialog
     {
         initStart(false);
         newDialogLine("Cool, a sword!", 0);
+        newDialogLine("It looks pointy, be careful with it", 1);
     }
 
     // Update is called once per frame

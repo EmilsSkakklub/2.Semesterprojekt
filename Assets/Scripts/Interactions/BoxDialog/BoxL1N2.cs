@@ -8,6 +8,7 @@ public class BoxL1N2 : BoxDialog
     void Start()
     {
         initStart(false);
+        newDialogLine("So far so good.", 0);
         newDialogLine("Impressive jumping!", 3);
     }
 
