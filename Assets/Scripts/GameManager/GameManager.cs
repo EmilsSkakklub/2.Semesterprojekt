@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     Text obText;
 
     //singelton pattern
-    private void Awake() {
+    /*private void Awake() {
         if (instance == null) {
             instance = this;
         }
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
-    }
+    }*/
 
 
     // Start is called before the first frame update
