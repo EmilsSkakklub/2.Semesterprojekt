@@ -23,7 +23,10 @@ public class LittleBroScript : Dialog
     void Start()
     {
         initStart(true);
-        newDialogLine("You found me brother!", 3);
+        newDialogLine("You found me Arthur!", 3);
+        newDialogLine("Are you hurt?", 1);
+        newDialogLine("I'm fine, but I did not find the ball.", 4);
+        newDialogLine("It's okay, let's just get home now, before Mr. Dargon wakes up!", 0);
 
         brotherTransform = GameObject.Find("LittleBro2").GetComponent<Transform>();
         playerTransform = GameObject.Find("Player").GetComponent<Transform>();

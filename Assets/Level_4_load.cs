@@ -15,7 +15,7 @@ public class Level_4_load : LevelChanger
 
     // Update is called once per frame
     void Update() {
-        StartCoroutine(ChangeLevel(0.1f));
+        StartCoroutine(ChangeLevel(0));
 
         if (neighbor.isDead && !doOnce) {
             Invoke("LoadNextScene", 3);

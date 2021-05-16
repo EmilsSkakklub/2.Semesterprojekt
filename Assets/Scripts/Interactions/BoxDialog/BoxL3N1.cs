@@ -13,7 +13,7 @@ public class BoxL3N1 : BoxDialog
         newDialogLine("Arthur, I sense that this place is filled with some of our old toys.", 3);
         newDialogLine("We should find them, as they might help us!", 3);
         newDialogLine("But we need to hurry up!", 0);
-        newDialogLine("That is true Arthur. It's your choice.", 3);
+        newDialogLine("That is true Arthur. It's your choice.   ", 3);
     }
 
     // Update is called once per frame
