@@ -1211,7 +1211,7 @@ public class PlayerScript : MonoBehaviour {
 
 
         if((attackAnimation1) && !punch1Sound) {
-            audioManager.Play("Punch1", true, 0.05f, 0.75f);
+            audioManager.Play("Punch1", true, 0.02f, 0.75f);
             punch1Sound = true;
         }
         else if (!attackAnimation1) {
@@ -1220,7 +1220,7 @@ public class PlayerScript : MonoBehaviour {
         }
 
         if(attackAnimation2 && !punch2Sound) {
-            audioManager.Play("Punch2", true, 0.05f, 0.9f);
+            audioManager.Play("Punch2", true, 0.02f, 0.9f);
             punch2Sound = true;
         }
         else if (!attackAnimation2) {
@@ -1229,7 +1229,7 @@ public class PlayerScript : MonoBehaviour {
         }
 
         if (attackAnimation3 && !punch3Sound) {
-            audioManager.Play("Punch3", true, 0.05f, 0.65f);
+            audioManager.Play("Punch3", true, 0.02f, 0.65f);
             punch3Sound = true;
         }
         else if (!attackAnimation3) {
@@ -1238,7 +1238,7 @@ public class PlayerScript : MonoBehaviour {
         }
 
         if (attackAnimation4 && !punch4Sound) {
-            audioManager.Play("Punch4", true, 0.05f, 0.6f);
+            audioManager.Play("Punch4", true, 0.02f, 0.6f);
             punch4Sound = true;
         }
         else if (!attackAnimation4) {
