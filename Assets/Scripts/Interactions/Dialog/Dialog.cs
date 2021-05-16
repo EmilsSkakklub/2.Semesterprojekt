@@ -85,7 +85,7 @@ public abstract class Dialog : MonoBehaviour {
         moodSprites.Add(mood);
     }
 
-    private void lookAtTarget(Transform target) {
+    protected void lookAtTarget(Transform target) {
         Vector3 lookPos = target.position - transform.position;
         lookPos.y = 0;
         Quaternion rotate = Quaternion.LookRotation(lookPos);
