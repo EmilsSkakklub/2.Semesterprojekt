@@ -77,19 +77,10 @@ public class ObjectiveChanger : MonoBehaviour
         NewObjective("- Explore the backyard.\n\nTip: Click right mouse button to dodge enemy attacks.");
         NewObjective("- Defeat the neighbor.\n\nOptional: Find the 5 lost toys.");
         NewObjective("- Find your brother.");
+        NewObjective("- You are Home.");
     }
 
 
-    /*
-    private void ActivateNeighbor() {
-        if (storyNumber == 17) {
-            neighbor.gameObject.SetActive(true);
-        }
-        else {
-            neighbor.gameObject.SetActive(false);
-        }
-    }
-    */
 
 
     private void ShowObjectives(int storyNumber) {

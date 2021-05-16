@@ -15,6 +15,7 @@ public class LittleBroScript : Dialog
     private int isWalkingHash;
     private int isRunningHash;
 
+    public bool talkOnce = false;
     public bool followPlayer = false;
     private float moveSpeed = 1.5f;
 
@@ -35,7 +36,13 @@ public class LittleBroScript : Dialog
     // Update is called once per frame
     void Update()
     {
-        dialog();
+
+        
+
+        if (!followPlayer){
+            dialog();
+        }
+        
         FollowPlayer();
 
         walkingAnimation = animator.GetCurrentAnimatorStateInfo(0).IsTag("Walking");
@@ -43,19 +50,32 @@ public class LittleBroScript : Dialog
     }
 
     private void FollowPlayer() {
-        if (interaction.getStartInteraction() && !followPlayer) {
+        if (interaction.getStartInteraction() && !talkOnce) {
+            talkOnce = true;
+        }
+
+        if(!interaction.getStartInteraction() && talkOnce && !followPlayer) {
             followPlayer = true;
         }
+
+
 
         if (followPlayer) {
             brotherTransform.LookAt(playerTransform);
 
-            if (Vector3.Distance(brotherTransform.position, playerTransform.position) >= 1f) {
+            if (Vector3.Distance(brotherTransform.position, playerTransform.position) >= 1f && Vector3.Distance(brotherTransform.position, playerTransform.position) < 3f) {
                 animator.SetBool(isWalkingHash, true);
+                animator.SetBool(isRunningHash, false);
                 brotherTransform.position += brotherTransform.forward * moveSpeed * Time.deltaTime;
+            }
+            else if (Vector3.Distance(brotherTransform.position, playerTransform.position) > 3f) {
+                animator.SetBool(isRunningHash, true);
+                animator.SetBool(isWalkingHash, false);
+                brotherTransform.position += brotherTransform.forward * moveSpeed * 2 * Time.deltaTime;
             }
             else {
                 animator.SetBool(isWalkingHash, false);
+                animator.SetBool(isRunningHash, false);
             }
         }
     }
