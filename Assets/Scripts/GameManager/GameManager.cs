@@ -239,6 +239,7 @@ public class GameManager : MonoBehaviour
     public bool music1Playing;
     public bool music2Playing;
     public bool music3Playing;
+    public bool music4Playing;
 
 
     public void MusicManager() {
@@ -283,6 +284,17 @@ public class GameManager : MonoBehaviour
         else if (!level.Contains("L3")) {
             audioManager.Stop("Level3Music");
             music3Playing = false;
+        }
+
+        if (level.Contains("L4") && !music4Playing) {
+            RenderSettings.skybox = SkyLvl3;
+            llmd.LoadLightingScenario(2);
+            audioManager.Play("Level4Music", true, 0.1f, 0.75f);
+            music4Playing = true;
+        }
+        else if (!level.Contains("L4")) {
+            audioManager.Stop("Level4Music");
+            music4Playing = false;
         }
     }
 
