@@ -63,7 +63,7 @@ public class ObjectiveChanger : MonoBehaviour
     public void InitNewObjectives() {
         SetStoryNumber(0);
 
-        NewObjective("- Press E to interact\n- Run to the grill.");
+        NewObjective("- Press E to interact\n- Run to the grill.\n\nTip: Use WASD keys to run. Hold Left Shift to sprint");
         NewObjective("- Talk to your brother.\n- Find some tall grass to hide in.\n\n-Tip: Press C to crouch.");
         NewObjective("- Stay hidden.\n\n- Tip: Use your mouse to look around.");
         NewObjective("- Spook your brother.");
@@ -73,9 +73,9 @@ public class ObjectiveChanger : MonoBehaviour
         NewObjective("- Go check on your brother.");
         NewObjective("");
         NewObjective("- Adventure into the hole in the hedge.");
-        NewObjective("- Go though the maze.\n\nTip: Press right Shift to run."); // 10
+        NewObjective("- Go though the maze.\n\nTip: Press Left Shift to run."); // 10
         NewObjective("- Explore the backyard.\n\nTip: Click right mouse button to dodge enemy attacks.");
-        NewObjective("- Defeat the neighbor.\n\n- Optional: Find the 5 lost toys.");
+        NewObjective("- Defeat the neighbor.\n\nOptional: Find the 5 lost toys.");
         NewObjective("- Find your brother.");
     }
 
