@@ -31,7 +31,7 @@ public class PlayerScript : MonoBehaviour {
 
 
     //singleton
-    private static PlayerScript instance = null;
+    //private static PlayerScript instance = null;
 
     //inventory
     private Inventory inventory;
@@ -169,9 +169,9 @@ public class PlayerScript : MonoBehaviour {
 
     public AudioManager audioManager;
 
-    private void Awake() {
+    /*private void Awake() {
         Singleton();
-    }
+    }*/
 
     private void Start() {
         initiate();
@@ -210,7 +210,7 @@ public class PlayerScript : MonoBehaviour {
 
     }
 
-    //Singleton pattern
+    /*//Singleton pattern
     private void Singleton() {
         if (instance == null) {
             instance = this;
@@ -218,7 +218,7 @@ public class PlayerScript : MonoBehaviour {
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
-    }
+    }*/
 
 
 
