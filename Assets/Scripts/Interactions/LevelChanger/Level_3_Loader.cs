@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Level_3_Loader : LevelChanger
 {
+
+    public bool doOnce = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +24,13 @@ public class Level_3_Loader : LevelChanger
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.CompareTag("Player")) {
-            interaction.setStartInteraction(true);
+
+            if (!doOnce) {
+                interaction.setStartInteraction(true);
+            }
+            if(doOnce && interaction.getStartInteraction()) {
+                interaction.setStartInteraction(false);
+            }
         }
     }
 }
