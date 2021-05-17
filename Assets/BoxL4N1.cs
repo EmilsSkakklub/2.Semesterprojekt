@@ -32,6 +32,5 @@ public class BoxL4N1 : BoxDialog {
         if (interaction.getStartInteraction()) {
             player.LookAt(lb);
         }
-
     }
 }
