@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public LevelLightmapData llmd;
 
     public Enemy neighbor;
+    public Enemy treeSpiritBoss;
     
 
     public List<GameObject> enemies = new List<GameObject>();
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
         stamina = GameObject.Find("Stamina");
         objective = GameObject.Find("Objective");
         neighbor = GameObject.Find("Neighbor").GetComponent<Enemy>();
+        treeSpiritBoss = GameObject.Find("TreeSpiritBoss").GetComponent<Enemy>();
         //obText = GameObject.Find("ObjectiveText").GetComponent<Text>();
 
 
@@ -244,6 +246,7 @@ public class GameManager : MonoBehaviour
     public bool music3Playing;
     public bool music4Playing;
 
+    public bool music2Boss;
     public bool music3Boss;
 
     
@@ -270,7 +273,8 @@ public class GameManager : MonoBehaviour
             music1Playing = false;
         }
 
-        if (level.Contains("L2") && !music2Playing) {
+
+        if (level.Contains("L2") && !music2Playing && !music2Boss) {
             audioManager.Play("Level2Music", true, 0.1f, 1f);
             RenderSettings.skybox = SkyLvl2;
             llmd.LoadLightingScenario(1);
@@ -280,6 +284,21 @@ public class GameManager : MonoBehaviour
             audioManager.Stop("Level2Music");
             music2Playing = false;
         }
+
+
+        //boss battle lvl2
+        if (level.Contains("L2") && treeSpiritBoss.hasDetectedPlayer && music2Playing && !music2Boss && !treeSpiritBoss.isDead) {
+            audioManager.Stop("Level2Music");
+            audioManager.Play("Level2Boss", true, 0.1f, 1f);
+            music2Playing = false;
+            music2Boss = true;
+        }
+        else if (!treeSpiritBoss.hasDetectedPlayer || treeSpiritBoss.isDead) {
+            audioManager.Stop("Level2Boss");
+            music2Boss = false;
+        }
+
+
 
         if (level.Contains("L3") && !neighbor.hasDetectedPlayer && !music3Playing) {
             RenderSettings.skybox = SkyLvl3;
