@@ -17,8 +17,8 @@ public class BoxL4N1 : BoxDialog {
         newDialogLine("Yes?", 0);
         newDialogLine("I was really scared.", 4);
         newDialogLine("Me too Max.", 1);
-        newDialogLine("Let's get inside before the tree men gets us.", 1);
-        newDialogLine("Tree men?", 3);
+        newDialogLine("Let's get inside before the tree spirits gets us.", 1);
+        newDialogLine("Tree spirits?", 3);
         newDialogLine("Let's just go.", 0);
 
         player = GameObject.Find("Player").GetComponent<Transform>();

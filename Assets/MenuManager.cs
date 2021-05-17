@@ -22,6 +22,9 @@ public class MenuManager : MonoBehaviour
 
         MainStart = GameObject.Find("Main_start");
         MainResume = GameObject.Find("Main_resume");
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
     void Start()
     {
