@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     private AudioManager audioManager;
     private Animator transition;
     public LevelLightmapData llmd;
+
+    public Enemy neighbor;
     
 
     public List<GameObject> enemies = new List<GameObject>();
@@ -64,6 +66,7 @@ public class GameManager : MonoBehaviour
         hp = GameObject.Find("HP");
         stamina = GameObject.Find("Stamina");
         objective = GameObject.Find("Objective");
+        neighbor = GameObject.Find("Neighbor").GetComponent<Enemy>();
         //obText = GameObject.Find("ObjectiveText").GetComponent<Text>();
 
 
@@ -241,6 +244,9 @@ public class GameManager : MonoBehaviour
     public bool music3Playing;
     public bool music4Playing;
 
+    public bool music3Boss;
+
+    
 
     public void MusicManager() {
         string level = playerScript.getSpawnPointName();
@@ -275,7 +281,7 @@ public class GameManager : MonoBehaviour
             music2Playing = false;
         }
 
-        if (level.Contains("L3") && !music3Playing) {
+        if (level.Contains("L3") && !neighbor.hasDetectedPlayer && !music3Playing) {
             RenderSettings.skybox = SkyLvl3;
             llmd.LoadLightingScenario(2);
             audioManager.Play("Level3Music", true, 0.1f, 0.75f);
@@ -285,6 +291,19 @@ public class GameManager : MonoBehaviour
             audioManager.Stop("Level3Music");
             music3Playing = false;
         }
+
+        //Boss battle neighbor lvl3
+        if (level.Contains("L3") && neighbor.hasDetectedPlayer && music3Playing && !music3Boss) {
+            audioManager.Stop("Level3Music");
+            audioManager.Play("Level3Boss", true, 0.1f, 0.75f);
+            music3Playing = false;
+            music3Boss = true;
+        }
+        else if (!neighbor.hasDetectedPlayer) {
+            audioManager.Stop("Level3Boss");
+            music3Boss = false;
+        }
+
 
         if (level.Contains("L4") && !music4Playing) {
             RenderSettings.skybox = SkyLvl3;
@@ -296,6 +315,10 @@ public class GameManager : MonoBehaviour
             audioManager.Stop("Level4Music");
             music4Playing = false;
         }
+
+
+
+        
     }
 
 }
