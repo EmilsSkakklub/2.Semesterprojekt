@@ -7,6 +7,7 @@ public class lb_dialog : Dialog {
     void Awake() {
 
         initStart(true);
+        newDialogLine("Come on bro!", 3);
     }
 
     // Update is called once per frame
@@ -51,6 +52,9 @@ public class lb_dialog : Dialog {
                 newDialogLine("Are you scared little brother?", 0);
                 newDialogLine("No!?", 4);
                 newDialogLine("I'll go get it now!", 5);
+                break;
+            default:
+                newDialogLine("...", 3);
                 break;
             }
             gm.CheckStory = false;

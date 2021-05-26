@@ -28,6 +28,7 @@ public class PlayerScript : MonoBehaviour {
     private Interaction interaction;
     private bool check1 = false;
     private bool check2 = false;
+    private bool check3 = false;
     private Interaction teddy;
 
 
@@ -942,8 +943,9 @@ public class PlayerScript : MonoBehaviour {
             gm.CheckStory = true;
         }
         if (gm.StoryNumber == 0.03f && Vector3.Distance(playerTrans.position, football.position) < 1) {
-            objectiveChanger.SetStoryNumber(4);
             gm.StoryNumber = 0.04f;
+            objectiveChanger.SetStoryNumber(4);
+            Debug.Log("Look at me");
             gm.CheckStory = true;
         }
         if (gm.StoryNumber == 0.04f && Vector3.Distance(playerTrans.position, g7.position) < 10 && Vector3.Distance(football.position, g7.position) < 10) {
@@ -996,12 +998,17 @@ public class PlayerScript : MonoBehaviour {
 
         }
         if (gm.StoryNumber == 0.09f && !check1) {
+            check1 = true;
             transition.SetBool("Start", true);
             yield return new WaitForSeconds(1);
             transition.SetBool("Start", false);
             yield return new WaitForSeconds(1);
-            interaction.setStartInteraction(true);
-            check1 = true;
+            if (!check3) {
+                check3 = true;
+                interaction.setStartInteraction(true);
+            }
+            
+            
         }
 
         if (gm.StoryNumber == 1f && !check2) {

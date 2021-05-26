@@ -8,8 +8,7 @@ public class Sink_dialog : Dialog
     void Awake()
     {
         initStart(false);
-        newDialogLine("My dad always told me to remember to wash my hands,", 0);
-        newDialogLine(" whenever i have been outside.", 0);
+        newDialogLine("My dad always told me to wash my hands whenever I have been outside.", 0);
     }
 
     // Update is called once per frame

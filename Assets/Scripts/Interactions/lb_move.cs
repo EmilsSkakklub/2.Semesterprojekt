@@ -115,8 +115,8 @@ public class lb_move : MonoBehaviour
             if (gm.StoryNumber == 0.02f) {
                 objectiveChanger.SetStoryNumber(2);
                 if (!check5) {
-                    interaction.setStartInteraction(true);
                     check5 = true;
+                    interaction.setStartInteraction(true);
                 }
 
 
@@ -125,9 +125,10 @@ public class lb_move : MonoBehaviour
                     lbTrans.transform.Translate(Vector3.forward * Time.deltaTime * 1.5f);
                     animator.SetBool(isWalkingHash, true);
                     if (CalcDist3() <= 1) {
+                        check2 = true;
                         animator.SetBool(isWalkingHash, false);
                         yield return new WaitForSeconds(1.5f);
-                        check2 = true;
+                        
                     }
                 } else if (check2 && !check3 && CalcDist4() > 1) {
                     lbTrans.transform.LookAt(g4.transform);
