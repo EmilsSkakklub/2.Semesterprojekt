@@ -305,6 +305,7 @@ public class PlayerScript : MonoBehaviour {
     private void ToggleInvincibility() {
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
             if (Input.GetKeyDown(KeyCode.U)) {
+                audioManager.Play("InteractSound", false, 0.1f, 1);
                 invincibility = !invincibility;
             }
         }
