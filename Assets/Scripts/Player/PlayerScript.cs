@@ -14,6 +14,7 @@ public class PlayerScript : MonoBehaviour {
     private Transform playerTrans;
     private LayerMask groundMask;
     private BoxCollider colliderLegs;
+    
 
     //story elements
     private Transform grill;
@@ -71,6 +72,7 @@ public class PlayerScript : MonoBehaviour {
     //HP System
     public int MaxHp = 8;
     public int HP;
+    public bool invincibility;
     private GameObject[] FullHearts = new GameObject[4];
     private GameObject[] HalfHearts = new GameObject[4];
     private GameObject[] EmptyHearts = new GameObject[4];
@@ -89,6 +91,7 @@ public class PlayerScript : MonoBehaviour {
     private GameObject HEE;
     private GameObject HEH;
     private GameObject HEF;
+    private GameObject ghearts;
 
 
 
@@ -208,6 +211,8 @@ public class PlayerScript : MonoBehaviour {
 
         SoundManager();
 
+        ToggleInvincibility();
+
     }
 
     /*//Singleton pattern
@@ -250,6 +255,7 @@ public class PlayerScript : MonoBehaviour {
         keybinds = GameObject.Find("KeybindsImg");
         teddy = GameObject.Find("teddyInBag_interact").GetComponent<Interaction>();
         colliderLegs = GameObject.Find("mixamorig:Hips").GetComponent<BoxCollider>();
+        ghearts = GameObject.Find("InvincibilityHearts");
 
         waterGun = GameObject.Find("waterGun").GetComponent<Item>();
         raceCar = GameObject.Find("ToyRacecar").GetComponent<Item>();
@@ -296,6 +302,28 @@ public class PlayerScript : MonoBehaviour {
     */
 
     //checks the current input of the player
+    private void ToggleInvincibility() {
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
+            if (Input.GetKeyDown(KeyCode.U)) {
+                invincibility = !invincibility;
+            }
+        }
+        if (invincibility) {
+            ghearts.SetActive(true);
+            for(int i = 0; i< FullHearts.Length; i++) {
+                FullHearts[i].GetComponent<Image>().enabled = false;
+                HalfHearts[i].GetComponent<Image>().enabled = false;
+                EmptyHearts[i].GetComponent<Image>().enabled = false;
+            }
+        } else {
+            ghearts.SetActive(false);
+            for (int i = 0; i < FullHearts.Length; i++) {
+                FullHearts[i].GetComponent<Image>().enabled = true;
+                HalfHearts[i].GetComponent<Image>().enabled = true;
+                EmptyHearts[i].GetComponent<Image>().enabled = true;
+            }
+        }
+    }
     private void inputManager() {
         if (!IsImmobile) {
             forwardPressed = Input.GetKey(KeyCode.W);

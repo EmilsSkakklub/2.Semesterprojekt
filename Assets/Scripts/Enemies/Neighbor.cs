@@ -27,7 +27,7 @@ public class Neighbor : Enemy
         if (isDead) {
             Invoke("Objective13", 4);
         }
-        if (player.getIsDead()) {
+        if (ps.getIsDead()) {
             health = 200;
         }
     }

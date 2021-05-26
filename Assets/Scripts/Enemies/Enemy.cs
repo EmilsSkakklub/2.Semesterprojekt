@@ -9,7 +9,7 @@ public abstract class Enemy : MonoBehaviour
     public bool isDead;
     public float removeTimer;
 
-    public PlayerScript player;
+    public PlayerScript ps;
 
     private Animator animator;
     private Transform playerTransform;
@@ -82,7 +82,7 @@ public abstract class Enemy : MonoBehaviour
         setRemoveTimer(3);
         setTheHitSound(theHitSound);
 
-        player = GameObject.Find("Player").GetComponent<PlayerScript>();
+        ps = GameObject.Find("Player").GetComponent<PlayerScript>();
         animator = GetComponent<Animator>();
         playerTransform = GameObject.Find("Player").GetComponent<Transform>();
         cameraTransform = GameObject.Find("Main Camera").GetComponent<Transform>();
@@ -117,7 +117,7 @@ public abstract class Enemy : MonoBehaviour
     }
 
     private void removeCanvas() {
-        if (health <= 0 || Vector3.Distance(transform.position, player.transform.position) > 10) {
+        if (health <= 0 || Vector3.Distance(transform.position, ps.transform.position) > 10) {
             GetComponentInChildren<Canvas>().enabled = false;
         } else {
             GetComponentInChildren<Canvas>().enabled = true;
@@ -238,7 +238,9 @@ public abstract class Enemy : MonoBehaviour
 
         if (attackAnimation && hit && attackTimer > attackStart && attackTimer < attackEnd) {
             foreach (Collider player in hitPlayer) {
-                player.GetComponent<PlayerScript>().takeDamage(attackDamage);
+                if (!ps.invincibility) {
+                    player.GetComponent<PlayerScript>().takeDamage(attackDamage);
+                }           
                 hit = false;
             }
         }
@@ -268,7 +270,7 @@ public abstract class Enemy : MonoBehaviour
         }
 
         //surrounding vision
-        if (Vector3.Distance(transform.position, playerTransform.position) <= surroundVisionRange && !player.getCrouchToggle()) {
+        if (Vector3.Distance(transform.position, playerTransform.position) <= surroundVisionRange && !ps.getCrouchToggle()) {
             if (Vector3.Angle(transform.forward, vectorToPlayer) <= surroundVisionConeAngle) {
                 setDetectedPlayer(true);
             }
@@ -277,7 +279,7 @@ public abstract class Enemy : MonoBehaviour
             }
         }
         //forward vision
-        else if (Vector3.Distance(transform.position, playerTransform.position) <= newVisionRange && !player.getIsStealth()) {
+        else if (Vector3.Distance(transform.position, playerTransform.position) <= newVisionRange && !ps.getIsStealth()) {
             if (Vector3.Angle(transform.forward, vectorToPlayer) <= visionConeAngle) {
                 setDetectedPlayer(true);
             }
