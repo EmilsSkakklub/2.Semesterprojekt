@@ -23,8 +23,8 @@ public class EndCredits : MonoBehaviour
     }
     void Scroll() {
         check = true;
-        if(transform.position.y <= 76.5f) {
-            transform.Translate(Vector3.up * Time.deltaTime*1.4f);
+        if(transform.position.y <= 21f) {
+            transform.Translate(Vector3.up * Time.deltaTime*0.4f);
         }
     }
     void ChangeToMainMenu() {
