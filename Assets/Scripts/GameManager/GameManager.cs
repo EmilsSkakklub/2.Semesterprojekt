@@ -85,23 +85,8 @@ public class GameManager : MonoBehaviour
         //ObjectiveChanger();
         ImmobilizePlayer();
         MusicManager();
-        LightChanger();
     }
-    void LightChanger() {
-        if (Input.GetKeyDown(KeyCode.I)) {
-            llmd.LoadLightingScenario(0);
-            Debug.Log("Day");
-
-        }
-        if (Input.GetKeyDown(KeyCode.O)) {
-            llmd.LoadLightingScenario(1);
-            Debug.Log("Evening");
-        }
-        if (Input.GetKeyDown(KeyCode.P)) {
-            llmd.LoadLightingScenario(2);
-            Debug.Log("Night");
-        }
-    }
+ 
     IEnumerator Cutscene1() {
         if (StoryNumber == 0.05f || StoryNumber == 0.06f) {
             if (transition.GetBool("Start")) {          
@@ -256,7 +241,7 @@ public class GameManager : MonoBehaviour
         if (level.Contains("L0") && !music0Playing) {
             RenderSettings.skybox = SkyLvl0;
             llmd.LoadLightingScenario(0);
-            audioManager.Play("Level0Music", true, 0.01f, 1f);
+            audioManager.Play("Level0Music", true, 0.035f, 1f);
             music0Playing = true;
         }
         else if (!level.Contains("L0")) {
@@ -265,7 +250,7 @@ public class GameManager : MonoBehaviour
         }
 
         if (level.Contains("L1") && !music1Playing) {
-            audioManager.Play("Level1Music", true, 0.1f, 1f);
+            audioManager.Play("Level1Music", true, 0.035f, 1f);
             music1Playing = true;
         }
         else if (!level.Contains("L1")) {
@@ -275,7 +260,7 @@ public class GameManager : MonoBehaviour
 
 
         if (level.Contains("L2") && !music2Playing && !music2Boss) {
-            audioManager.Play("Level2Music", true, 0.1f, 1f);
+            audioManager.Play("Level2Music", true, 0.035f, 1f);
             RenderSettings.skybox = SkyLvl2;
             llmd.LoadLightingScenario(1);
             music2Playing = true;
@@ -289,7 +274,7 @@ public class GameManager : MonoBehaviour
         //boss battle lvl2
         if (level.Contains("L2") && treeSpiritBoss.hasDetectedPlayer && music2Playing && !music2Boss && !treeSpiritBoss.isDead) {
             audioManager.Stop("Level2Music");
-            audioManager.Play("Level2Boss", true, 0.1f, 1f);
+            audioManager.Play("Level2Boss", true, 0.035f, 1f);
             music2Playing = false;
             music2Boss = true;
         }
@@ -314,7 +299,7 @@ public class GameManager : MonoBehaviour
         //Boss battle neighbor lvl3
         if (level.Contains("L3") && neighbor.hasDetectedPlayer && music3Playing && !music3Boss) {
             audioManager.Stop("Level3Music");
-            audioManager.Play("Level3Boss", true, 0.1f, 0.75f);
+            audioManager.Play("Level3Boss", true, 0.2f, 0.75f);
             music3Playing = false;
             music3Boss = true;
         }
@@ -327,7 +312,8 @@ public class GameManager : MonoBehaviour
         if (level.Contains("L4") && !music4Playing) {
             RenderSettings.skybox = SkyLvl3;
             llmd.LoadLightingScenario(2);
-            audioManager.Play("Level4Music", true, 0.1f, 0.75f);
+            audioManager.Stop("Level3Boss");
+            audioManager.Play("Level4Music", true, 0.035f, 1f);
             music4Playing = true;
         }
         else if (!level.Contains("L4")) {
